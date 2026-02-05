@@ -2,20 +2,20 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="bg-[#094234] h-[53px] w-full shadow-[0px_2px_4px_rgba(0,0,0,0.79)] grid grid-cols-3 items-center justify-between px-[10px] sticky top-0 z-50">
-      <button className="flex flex-col gap-[5px] items-center justify-center w-[30px] h-[30px] p-[4px]">
+    <header className="bg-[#094234] h-[53px] sm:h-[60px] md:h-[64px] w-full shadow-[0px_2px_4px_rgba(0,0,0,0.79)] grid grid-cols-3 items-center justify-between px-2.5 sm:px-4 md:px-6 lg:px-10 sticky top-0 z-50">
+      <button className="flex flex-col gap-[5px] items-center justify-center w-[30px] h-[30px] sm:w-[36px] sm:h-[36px] p-1">
         <div className="w-[25px] h-[3px] bg-[#d9d9d9] rounded-[50px]" />
         <div className="w-[25px] h-[3px] bg-[#d9d9d9] rounded-[50px]" />
         <div className="w-[25px] h-[3px] bg-[#d9d9d9] rounded-[50px]" />
       </button>
 
-      <div className="relative justify-center w-[120px] h-[55px]">
+      <div className="relative justify-self-center w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
         <Image
           src="/images/logo-topbar.png"
           alt="Elaine's Easecipes"
           className="object-contain"
-          width={110}
-          height={46}
+          fill
+          sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
         />
       </div>
 
@@ -26,7 +26,7 @@ export default function Header() {
             <line x1="10" y1="10" x2="14" y2="14" stroke="#d9d9d9" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button> */}
-        <button className="w-[30px] h-[30px]">
+        <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
             src="/images/bookmark-filled.svg"
             alt="Saved Recipes"
@@ -34,7 +34,7 @@ export default function Header() {
             height={21}
           />
         </button>
-        <button className="w-[30px] h-[30px]">
+        <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
             src="/images/cart.svg"
             alt="Cart"

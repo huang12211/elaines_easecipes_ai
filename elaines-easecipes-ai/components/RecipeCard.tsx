@@ -19,14 +19,14 @@ export default function RecipeCard({
   bookmarked = false,
 }: RecipeCardProps) {
   return (
-    <div className="w-[175px] h-[176px] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] relative shrink-0">
+    <div className="w-full aspect-square min-w-[160px] max-w-[280px] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] relative shrink-0">
       <div className="absolute inset-0">
         <Image
           src={image}
           alt={title}
           fill
           className="object-cover"
-          sizes="175px"
+          sizes="(max-width: 640px) 46vw, (max-width: 768px) 30vw, (max-width: 1024px) 23vw, 280px"
         />
       </div>
       <div className="absolute top-[5px] left-[8px] bg-[#ff1768] rounded-[30px] px-[8px] py-[2px]">
@@ -34,9 +34,9 @@ export default function RecipeCard({
           {category}
         </span>
       </div>
-      <div className="absolute bottom-0 left-0 w-[150px] h-[50px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden p-[6px] flex flex-col justify-between">
+      <div className="absolute bottom-0 left-0 w-[85%] h-auto min-h-[50px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden p-1.5 flex flex-col justify-between">
         <div className="flex items-center justify-between w-full">
-          <p className="font-abeezee text-[10px] text-black tracking-[0.25px] leading-normal w-[114px] line-clamp-2">
+          <p className="font-abeezee text-[10px] sm:text-[11px] md:text-xs text-black tracking-[0.25px] leading-normal flex-1 min-w-0 line-clamp-2">
             {title}
           </p>
           <button className="flex items-center h-[14px] pr-[2px]">

@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${abeezee.variable} ${inter.variable} antialiased`}>
+      <body className={`${abeezee.variable} ${inter.variable} h-auto w-full antialiased`}>
         {children}
       </body>
     </html>
