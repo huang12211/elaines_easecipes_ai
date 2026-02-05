@@ -106,24 +106,29 @@ export default function Home() {
         }}
       >
         {/* Hero Section */}
-        <section className="relative w-full h-[200px] sm:h-[280px] md:h-[360px] lg:h-[420px]">
+        <section className="relative w-full h-[280px] sm:h-[360px] md:h-[360px] lg:h-[420px]">
           <div className="absolute inset-0 blur-[2px] overflow-hidden">
             <Image
               src="/images/hero-bg.png"
               alt="Hero background"
-              fill
+              width = {0}
+              height = {0}
               className="object-cover"
               sizes="100vw"
+              style={{ width: '100%', height: '100%' }}
               priority
             />
           </div>
-          <div className="absolute top-[26px] left-1/2 -translate-x-1/2 w-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
             <Image
               src="/images/apple-frangipane-tart.png"
               alt="Apple Frangipane Tart"
-              fill
+              // fill
+              width = {0}
+              height = {0}
               className="object-cover"
               sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
+              style={{ width: '100%', height: '100%' }}
             />
             <div className="absolute bottom-0 left-0 w-[177px] h-[47px] sm:w-[220px] sm:h-[56px] md:w-[260px] md:h-[64px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
               <div className="absolute top-[6px] left-[6px] flex items-start gap-[20px]">
