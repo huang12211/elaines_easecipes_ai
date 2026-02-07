@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elaine's Easecipes
+
+A recipe discovery application built with Next.js 16, featuring a SQLite database backend.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Database**: SQLite with Drizzle ORM
+- **Styling**: Tailwind CSS 4
+- **Language**: TypeScript 5
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Initialize the database
+
+Push the database schema and seed with initial data:
+
+```bash
+npm run db:push
+npm run db:seed
+```
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run db:push` | Push schema changes to the database |
+| `npm run db:seed` | Seed the database with initial recipe data |
+| `npm run db:studio` | Open Drizzle Studio to browse/edit data |
 
-## Learn More
+## API Routes
 
-To learn more about Next.js, take a look at the following resources:
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/recipes` | Get all recipes (supports `?category=` and `?limit=` params) |
+| `GET /api/recipes/newest` | Get newest recipes sorted by creation date |
+| `GET /api/recipes/popular` | Get most popular recipes sorted by views |
+| `GET /api/recipes/featured` | Get the featured recipe for the hero section |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+elaines-easecipes-ai/
+├── app/
+│   ├── api/recipes/       # API routes
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+├── lib/db/                # Database layer
+│   ├── index.ts           # Database connection
+│   ├── schema.ts          # Drizzle schema
+│   └── seed.ts            # Seed script
+├── data/                  # SQLite database files
+└── public/images/         # Static assets
+```

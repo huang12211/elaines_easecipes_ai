@@ -28,7 +28,7 @@ export default function Header() {
         </button> */}
         <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
-            src="/images/bookmark-filled.svg"
+            src="/images/bookmark-book.svg"
             alt="Saved Recipes"
             width={21}
             height={21}

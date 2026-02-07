@@ -2,98 +2,33 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
 import DragonFruitRating from "@/components/DragonFruitRating";
+import { db } from "@/lib/db";
+import { recipes } from "@/lib/db/schema";
+import { desc, eq } from "drizzle-orm";
 
-const newestRecipes = [
-  {
-    title: "Raspberry Chocolate Mousse",
-    category: "Desserts",
-    image: "/images/raspberry-chocolate-mousse.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Raspberry Chocolate Mousse",
-    category: "Desserts",
-    image: "/images/raspberry-chocolate-mousse.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Blueberry Muffins",
-    category: "Breakfast",
-    image: "/images/blueberry-muffins.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Blueberry Muffins",
-    category: "Breakfast",
-    image: "/images/blueberry-muffins.png",
-    rating: 4,
-    views: 43381,
-  },
-];
+export default async function Home() {
+  // Fetch recipes from database
+  const newestRecipes = db
+    .select()
+    .from(recipes)
+    .orderBy(desc(recipes.createdAt))
+    .limit(6)
+    .all();
 
-const popularRecipes = [
-  {
-    title: "Blueberry Muffins",
-    category: "Breakfast",
-    image: "/images/blueberry-muffins.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-  {
-    title: "Onion Pancakes",
-    category: "Breakfast",
-    image: "/images/onion-pancakes.png",
-    rating: 4,
-    views: 43381,
-  },
-];
+  const popularRecipes = db
+    .select()
+    .from(recipes)
+    .orderBy(desc(recipes.views))
+    .limit(6)
+    .all();
 
-export default function Home() {
+  const featuredRecipe = db
+    .select()
+    .from(recipes)
+    .where(eq(recipes.featured, true))
+    .limit(1)
+    .get();
+
   return (
     <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
       <Header />
@@ -119,44 +54,45 @@ export default function Home() {
               priority
             />
           </div>
-          <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
-            <Image
-              src="/images/apple-frangipane-tart.png"
-              alt="Apple Frangipane Tart"
-              // fill
-              width = {0}
-              height = {0}
-              className="object-cover"
-              sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
-              style={{ width: '100%', height: '100%' }}
-            />
-            <div className="absolute bottom-0 left-0 w-[177px] h-[47px] sm:w-[220px] sm:h-[56px] md:w-[260px] md:h-[64px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
-              <div className="absolute top-[6px] left-[6px] flex items-start gap-[20px]">
-                <span className="font-abeezee text-[12px] sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal whitespace-nowrap">
-                  Apple Frangipane Tart
-                </span>
-                <button className="flex items-center h-[14px] w-[11px]">
-                  <Image
-                    src="/images/bookmark.svg"
-                    alt="bookmark"
-                    width={11}
-                    height={14}
-                  />
-                </button>
-              </div>
-              <div className="absolute top-[26px] sm:top-[30px] md:top-[36px] left-[6px] flex items-center">
-                <DragonFruitRating rating={4} />
-                <div className="flex items-center gap-[6px] ml-auto">
-                  <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z" fill="rgba(0,0,0,0.6)"/>
-                  </svg>
-                  <span className="text-[8px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
-                    43,381
+          {featuredRecipe && (
+            <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
+              <Image
+                src={featuredRecipe.image}
+                alt={featuredRecipe.title}
+                width = {0}
+                height = {0}
+                className="object-cover"
+                sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
+                style={{ width: '100%', height: '100%' }}
+              />
+              <div className="absolute bottom-0 left-0 w-[230px] h-[54px] sm:w-[360px] sm:h-[56px] md:w-[420px] md:h-[64px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
+                <div className="py-1 px-2 w-full flex justify-between items-center">
+                  <span className="font-abeezee text-sm sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal whitespace-nowrap">
+                    {featuredRecipe.title}
                   </span>
+                  <button>
+                    <Image
+                      src="/images/bookmark.svg"
+                      alt="bookmark"
+                      width={13}
+                      height={16}
+                    />
+                  </button>
+                </div>
+                <div className="px-2 flex items-center">
+                  <DragonFruitRating rating={featuredRecipe.rating} iconWidth={16} iconHeight={18}/>
+                  <div className="flex items-center gap-1 ml-auto">
+                    <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
+                    </svg>
+                    <span className="text-[10px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
+                      {featuredRecipe.views.toLocaleString()}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </section>
 
         {/* Newest Recipes Section */}
@@ -176,8 +112,17 @@ export default function Home() {
           </div>
 
           <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5 justify-items-center">
-            {newestRecipes.map((recipe, i) => (
-              <RecipeCard key={i} {...recipe} />
+            {newestRecipes.map((recipe) => (
+              <RecipeCard
+                key={recipe.id}
+                title={recipe.title}
+                slug={recipe.slug}
+                categories={JSON.parse(recipe.categories)}
+                image={recipe.image}
+                rating={recipe.rating}
+                views={recipe.views}
+                bookmarked={recipe.bookmarked ?? false}
+              />
             ))}
           </div>
         </section>
@@ -199,9 +144,17 @@ export default function Home() {
           </div>
 
           <div className="flex gap-2 overflow-x-auto px-2 pb-2 sm:gap-3 sm:px-4 md:gap-4 md:px-6 lg:px-8 scrollbar-hide">
-            {popularRecipes.map((recipe, i) => (
-              <div key={i} className="w-[175px] sm:w-[200px] md:w-[220px] shrink-0">
-                <RecipeCard {...recipe} />
+            {popularRecipes.map((recipe) => (
+              <div key={recipe.id} className="w-[175px] sm:w-[200px] md:w-[220px] shrink-0">
+                <RecipeCard
+                  title={recipe.title}
+                  slug={recipe.slug}
+                  categories={JSON.parse(recipe.categories)}
+                  image={recipe.image}
+                  rating={recipe.rating}
+                  views={recipe.views}
+                  bookmarked={recipe.bookmarked ?? false}
+                />
               </div>
             ))}
           </div>
