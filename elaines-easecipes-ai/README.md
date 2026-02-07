@@ -50,6 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | `GET /api/recipes/newest` | Get newest recipes sorted by creation date |
 | `GET /api/recipes/popular` | Get most popular recipes sorted by views |
 | `GET /api/recipes/featured` | Get the featured recipe for the hero section |
+| `GET /api/recipes/{slug}` | Get the recipe |
 
 ## Project Structure
 
