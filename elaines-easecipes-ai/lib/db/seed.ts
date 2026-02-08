@@ -13,6 +13,7 @@ const seedRecipes = [
     featured: false,
     cookTime: 45,
     servings: 6,
+    minServings: 2,
     ingredients: JSON.stringify([
       "200g dark chocolate",
       "3 large eggs",
@@ -45,6 +46,7 @@ const seedRecipes = [
     featured: false,
     cookTime: 25,
     servings: 4,
+    minServings: 2,
     ingredients: JSON.stringify([
       "2 cups all-purpose flour",
       "3/4 cup boiling water",
@@ -76,6 +78,7 @@ const seedRecipes = [
     featured: false,
     cookTime: 35,
     servings: 12,
+    minServings: 6,
     ingredients: JSON.stringify([
       "2 cups all-purpose flour",
       "3/4 cup sugar",
@@ -110,6 +113,7 @@ const seedRecipes = [
     featured: true,
     cookTime: 60,
     servings: 8,
+    minServings: 2,
     ingredients: JSON.stringify([
       "1 sheet puff pastry",
       "1 cup almond flour",

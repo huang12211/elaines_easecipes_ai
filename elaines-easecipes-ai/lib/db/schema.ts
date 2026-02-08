@@ -12,6 +12,7 @@ export const recipes = sqliteTable('recipes', {
   featured: integer('featured', { mode: 'boolean' }).default(false),
   cookTime: integer('cook_time').notNull().default(30),
   servings: integer('servings').notNull().default(4),
+  minServings: integer('min_servings').notNull().default(1),
   ingredients: text('ingredients').notNull().default('[]'),
   directions: text('directions').notNull().default('[]'),
   createdAt: integer('created_at', { mode: 'timestamp' })

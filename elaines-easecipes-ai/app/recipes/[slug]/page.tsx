@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import DragonFruitRating from "@/components/DragonFruitRating";
+import ServingSizeAdjuster from "@/components/ServingSizeAdjuster";
+import { parseIngredient, scaleIngredient } from "@/lib/ingredients";
 
 interface Recipe {
   id: number;
@@ -17,6 +19,7 @@ interface Recipe {
   bookmarked: boolean;
   cookTime: number;
   servings: number;
+  minServings: number;
   ingredients: string;
   directions: string;
 }
@@ -48,6 +51,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
   const [loading, setLoading] = useState(true);
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [currentServings, setCurrentServings] = useState<number | null>(null);
   const [slug, setSlug] = useState<string>("");
 
   useEffect(() => {
@@ -64,6 +68,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
           const data = await response.json();
           setRecipe(data);
           setIsBookmarked(data.bookmarked);
+          setCurrentServings(data.servings);
         }
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
@@ -205,27 +210,30 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-[10px] pl-[10px] mt-[8px]">
-                <span className="font-abeezee text-[16px] text-black tracking-[0.25px]">
-                  for {recipe.servings} servings
-                </span>
-                <button className="w-[21px] h-[21px] rounded-full border border-gray-300 flex items-center justify-center">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.5 1.5L10.5 3.5M1 11L1.5 8.5L9.5 0.5L11.5 2.5L3.5 10.5L1 11Z" stroke="black" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
+              <div className="pl-[10px] mt-[8px]">
+                <ServingSizeAdjuster
+                  baseServings={recipe.servings}
+                  minServings={recipe.minServings}
+                  currentServings={currentServings ?? recipe.servings}
+                  onServingsChange={setCurrentServings}
+                />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[20px] gap-y-[5px] px-[10px]">
-              {ingredients.map((ingredient, index) => (
-                <IngredientCheckbox
-                  key={index}
-                  ingredient={ingredient}
-                  checked={checkedIngredients.has(index)}
-                  onChange={() => toggleIngredient(index)}
-                />
-              ))}
+              {ingredients.map((ingredient, index) => {
+                const multiplier = (currentServings ?? recipe.servings) / recipe.servings;
+                const parsed = parseIngredient(ingredient);
+                const scaledIngredient = scaleIngredient(parsed, multiplier);
+                return (
+                  <IngredientCheckbox
+                    key={index}
+                    ingredient={scaledIngredient}
+                    checked={checkedIngredients.has(index)}
+                    onChange={() => toggleIngredient(index)}
+                  />
+                );
+              })}
             </div>
           </div>
         </section>

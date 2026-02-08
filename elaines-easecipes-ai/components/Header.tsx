@@ -120,6 +120,7 @@ export default function Header() {
 
       <Link href="/" className="relative justify-self-center w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
         <Image
+          // src="/images/logo-topbar.png"
           src="/images/Elaine'sEasecipes_TopBar_whiteoutline.png"
           alt="Elaine's Easecipes"
           className="object-contain"
