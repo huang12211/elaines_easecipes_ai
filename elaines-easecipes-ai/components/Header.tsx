@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -9,23 +10,17 @@ export default function Header() {
         <div className="w-[25px] h-[3px] bg-[#d9d9d9] rounded-[50px]" />
       </button>
 
-      <div className="relative justify-self-center w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
+      <Link href="/" className="relative justify-self-center w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
         <Image
-          src="/images/logo-topbar.png"
+          src="/images/Elaine'sEasecipes_TopBar_whiteoutline.png"
           alt="Elaine's Easecipes"
           className="object-contain"
           fill
           sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
         />
-      </div>
+      </Link>
 
       <div className="flex justify-self-end justify-items-center items-end gap-[2px]">
-        {/* <button className="w-[30px] h-[30px] flex items-center justify-center">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="6" cy="6" r="5" stroke="#d9d9d9" strokeWidth="1.5" fill="none" />
-            <line x1="10" y1="10" x2="14" y2="14" stroke="#d9d9d9" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button> */}
         <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
             src="/images/bookmark-book.svg"

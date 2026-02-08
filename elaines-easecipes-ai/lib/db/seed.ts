@@ -5,7 +5,7 @@ const seedRecipes = [
   {
     title: "Raspberry Chocolate Mousse",
     slug: "raspberry-chocolate-mousse",
-    categories: JSON.stringify(["Desserts"]),
+    tags: JSON.stringify(["Desserts"]),
     image: "/images/raspberry-chocolate-mousse.png",
     rating: 4,
     views: 43381,
@@ -37,7 +37,7 @@ const seedRecipes = [
   {
     title: "Onion Pancakes",
     slug: "onion-pancakes",
-    categories: JSON.stringify(["Breakfast", "Quick & Easy"]),
+    tags: JSON.stringify(["Breakfast", "Quick & Easy"]),
     image: "/images/onion-pancakes.png",
     rating: 4,
     views: 38500,
@@ -68,7 +68,7 @@ const seedRecipes = [
   {
     title: "Blueberry Muffins",
     slug: "blueberry-muffins",
-    categories: JSON.stringify(["Breakfast", "Desserts"]),
+    tags: JSON.stringify(["Breakfast", "Desserts"]),
     image: "/images/blueberry-muffins.png",
     rating: 4,
     views: 52000,
@@ -102,7 +102,7 @@ const seedRecipes = [
   {
     title: "Apple Frangipane Tart",
     slug: "apple-frangipane-tart",
-    categories: JSON.stringify(["Desserts"]),
+    tags: JSON.stringify(["Desserts"]),
     image: "/images/apple-frangipane-tart.png",
     rating: 4,
     views: 43381,

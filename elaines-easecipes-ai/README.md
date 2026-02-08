@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 | Endpoint | Description |
 |----------|-------------|
-| `GET /api/recipes` | Get all recipes (supports `?category=` and `?limit=` params) |
+| `GET /api/recipes` | Get all recipes (supports `?tag=` and `?limit=` params) |
 | `GET /api/recipes/newest` | Get newest recipes sorted by creation date |
 | `GET /api/recipes/popular` | Get most popular recipes sorted by views |
 | `GET /api/recipes/featured` | Get the featured recipe for the hero section |

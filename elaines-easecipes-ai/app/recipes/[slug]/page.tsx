@@ -10,7 +10,7 @@ interface Recipe {
   id: number;
   title: string;
   slug: string;
-  categories: string;
+  tags: string;
   image: string;
   rating: number;
   views: number;

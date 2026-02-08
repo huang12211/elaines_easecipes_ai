@@ -4,7 +4,7 @@ export const recipes = sqliteTable('recipes', {
   id: integer('id').primaryKey({ autoIncrement: true }).notNull().unique(),
   title: text('title').notNull(),
   slug: text('slug').notNull().unique(),
-  categories: text('categories').notNull(),
+  tags: text('tags').notNull(),
   image: text('image').notNull(),
   rating: real('rating').notNull().default(0),
   views: integer('views').notNull().default(0),

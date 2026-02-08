@@ -5,7 +5,7 @@ import { like, eq } from 'drizzle-orm';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const category = searchParams.get('category');
+  const tag = searchParams.get('tag');
   const slug = searchParams.get('slug');
   const limit = parseInt(searchParams.get('limit') || '10');
 
@@ -25,11 +25,11 @@ export async function GET(request: Request) {
   }
 
   let result;
-  if (category) {
+  if (tag) {
     result = db
       .select()
       .from(recipes)
-      .where(like(recipes.categories, `%"${category}"%`))
+      .where(like(recipes.tags, `%"${tag}"%`))
       .limit(limit)
       .all();
   } else {

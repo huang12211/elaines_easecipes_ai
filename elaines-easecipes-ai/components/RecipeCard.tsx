@@ -5,7 +5,7 @@ import DragonFruitRating from "./DragonFruitRating";
 interface RecipeCardProps {
   title: string;
   slug: string;
-  categories: string[];
+  tags: string[];
   image: string;
   rating: number;
   views: number;
@@ -15,7 +15,7 @@ interface RecipeCardProps {
 export default function RecipeCard({
   title,
   slug,
-  categories,
+  tags,
   image,
   rating,
   views,
@@ -33,7 +33,7 @@ export default function RecipeCard({
         />
       </div>
       <div className="absolute top-[5px] left-[8px] flex flex-wrap gap-1">
-        {categories.map((cat, index) => (
+        {tags.map((cat, index) => (
           <div key={index} className="bg-[#ff1768] rounded-[30px] px-[12px] pt-[1px] pb-[3px]">
             <span className="font-abeezee text-[14px] text-white leading-normal tracking-[0.25px]">
               {cat}
