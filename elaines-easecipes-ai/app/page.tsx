@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
 import DragonFruitRating from "@/components/DragonFruitRating";
@@ -56,45 +55,43 @@ export default async function Home() {
             />
           </div>
           {featuredRecipe && (
-            <Link href={`/recipes/${featuredRecipe.slug}`}>
-              <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
-                <Image
-                  src={featuredRecipe.image}
-                  alt={featuredRecipe.title}
-                  width = {0}
-                  height = {0}
-                  className="object-cover"
-                  sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
-                  style={{ width: '100%', height: '100%' }}
-                />
-                <div className="absolute bottom-0 left-0 w-[230px] h-[54px] sm:w-[360px] sm:h-[56px] md:w-[420px] md:h-[64px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
-                  <div className="py-1 px-2 w-full flex justify-between items-center">
-                    <span className="font-abeezee text-sm sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal whitespace-nowrap">
-                      {featuredRecipe.title}
+            <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)]">
+              <Image
+                src={featuredRecipe.image}
+                alt={featuredRecipe.title}
+                width = {0}
+                height = {0}
+                className="object-cover"
+                sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
+                style={{ width: '100%', height: '100%' }}
+              />
+              <div className="absolute bottom-0 left-0 w-[230px] h-[54px] sm:w-[360px] sm:h-[56px] md:w-[420px] md:h-[64px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
+                <div className="py-1 px-2 w-full flex justify-between items-center">
+                  <span className="font-abeezee text-sm sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal whitespace-nowrap">
+                    {featuredRecipe.title}
+                  </span>
+                  <button>
+                    <Image
+                      src="/images/bookmark.svg"
+                      alt="bookmark"
+                      width={13}
+                      height={16}
+                    />
+                  </button>
+                </div>
+                <div className="px-2 flex items-center">
+                  <DragonFruitRating rating={featuredRecipe.rating} iconWidth={16} iconHeight={18}/>
+                  <div className="flex items-center gap-1 ml-auto">
+                    <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
+                    </svg>
+                    <span className="text-[10px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
+                      {featuredRecipe.views.toLocaleString()}
                     </span>
-                    <button>
-                      <Image
-                        src="/images/bookmark.svg"
-                        alt="bookmark"
-                        width={13}
-                        height={16}
-                      />
-                    </button>
-                  </div>
-                  <div className="px-2 flex items-center">
-                    <DragonFruitRating rating={featuredRecipe.rating} iconWidth={16} iconHeight={18}/>
-                    <div className="flex items-center gap-1 ml-auto">
-                      <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
-                      </svg>
-                      <span className="text-[10px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
-                        {featuredRecipe.views.toLocaleString()}
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           )}
         </section>
 
