@@ -18,19 +18,31 @@ interface Recipe {
   views: number;
   bookmarked: boolean;
   cookTime: number;
-  servings: number;
+  baseServings: number;
   minServings: number;
-  ingredients: string;
+  servingIncrement: number;
   directions: string;
 }
 
+interface IngredientsList{
+  id: number;
+  recipe_id: string;
+  component: string;
+  amount: string;
+  measUnit_id: string;
+  ingredient_id: string;
+  min_amount: string;
+}
+
 interface IngredientCheckboxProps {
+  amount: string;
+  measUnit: string;
   ingredient: string;
   checked: boolean;
   onChange: () => void;
 }
 
-function IngredientCheckbox({ ingredient, checked, onChange }: IngredientCheckboxProps) {
+function IngredientCheckbox({ amount, measUnit, ingredient, checked, onChange }: IngredientCheckboxProps) {
   return (
     <label className="flex gap-[7px] items-center px-[5px] py-[2px] cursor-pointer">
       <input
@@ -40,7 +52,7 @@ function IngredientCheckbox({ ingredient, checked, onChange }: IngredientCheckbo
         className="w-[14px] h-[14px] border border-black appearance-none cursor-pointer checked:bg-[#094234] checked:border-[#094234] relative checked:after:content-['✓'] checked:after:text-white checked:after:text-[10px] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2"
       />
       <span className={`font-abeezee text-[14px] tracking-[0.25px] leading-normal ${checked ? 'line-through text-gray-400' : 'text-black'}`}>
-        {ingredient}
+        {amount} {measUnit} {ingredient}
       </span>
     </label>
   );
@@ -48,6 +60,7 @@ function IngredientCheckbox({ ingredient, checked, onChange }: IngredientCheckbo
 
 export default function RecipePage({ params }: { params: Promise<{ slug: string }> }) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [ingredientsData, setIngredientsData] = useState<string>("[]");
   const [loading, setLoading] = useState(true);
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -73,7 +86,18 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
       } finally {
-        setLoading(false);
+        try{
+          const response = await fetch(`/api/recipes/ingredients?slug=${slug}`);
+            if (response.ok) {
+              const data = await response.json();
+              setIngredientsData(JSON.stringify(data));
+              console.log("Ingredients fetched:", data);
+            }
+          } catch (error) {
+            console.error("Failed to fetch ingredients:", error);
+          } finally{
+            setLoading(false);
+          }
       }
     }
 
@@ -117,8 +141,11 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
     );
   }
 
-  const ingredients: string[] = JSON.parse(recipe.ingredients);
+  // const ingredients: string[] = JSON.parse(ingredientsData);
+  const ingredients: IngredientsList[] = JSON.parse(ingredientsData);
+  // console.log(`Parsed ingredients: ${ingredients.map((ing) => ing.ingredient_id).join(", ")}`);
   const directions: string[] = JSON.parse(recipe.directions);
+  // let directionsArray = recipe.directions.split("\n")
 
   return (
     <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
@@ -212,23 +239,29 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               </div>
               <div className="pl-[10px] mt-[8px]">
                 <ServingSizeAdjuster
-                  baseServings={recipe.servings}
+                  baseServings={recipe.baseServings}
                   minServings={recipe.minServings}
-                  currentServings={currentServings ?? recipe.servings}
+                  servingIncrement={recipe.servingIncrement}
+                  currentServings={currentServings ?? recipe.baseServings}
                   onServingsChange={setCurrentServings}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[20px] gap-y-[5px] px-[10px]">
-              {ingredients.map((ingredient, index) => {
-                const multiplier = (currentServings ?? recipe.servings) / recipe.servings;
-                const parsed = parseIngredient(ingredient);
-                const scaledIngredient = scaleIngredient(parsed, multiplier);
+              {ingredients.map((ingr, index) => {
+                const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
+                console.log(`Scaling ingredient ${ingr.ingredient_id} with multiplier ${multiplier}`);
+                const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
+                console.log(`Parsed ingredient ${parsed.quantity} ${parsed.unit} ${parsed.item}`);
+                const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
+                console.log(`Scaled ingredient: ${scaledIngredient}`);
                 return (
                   <IngredientCheckbox
                     key={index}
-                    ingredient={scaledIngredient}
+                    amount={scaledIngredient}
+                    measUnit={ingr.measUnit_id}
+                    ingredient={ingr.ingredient_id}
                     checked={checkedIngredients.has(index)}
                     onChange={() => toggleIngredient(index)}
                   />
@@ -259,14 +292,47 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 />
               </div>
             </div>
-
-            <ol className="list-decimal pl-[30px] space-y-[8px]">
-              {directions.map((step, index) => (
-                <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px]">
-                  {step}
-                </li>
-              ))}
+            
+            {/* <div> */}
+            <ol className="list-decimal pl-[0px] space-y-[8px]">
+              {directions.map((step, index) => {
+                if (step.includes("title:")){
+                  return(
+                    <p key={index} className="font-abeezee text-[16px] text-[#094234] pt-4">
+                      {step.replace("title:", "")}
+                    </p>
+                  );
+                }
+                else{
+                  return (
+                    
+                      <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
+                        {step}
+                      </li>
+                  );
+                }
+              })}
+              
+              {/* {directionsArray.map((step, index) => {
+                if (step.includes("title:")){
+                  return(
+                    <p key={index} className="font-abeezee text-[16px] text-[#094234] ">
+                      {step.replace("title:", "")}
+                    </p>
+                  );
+                }
+                else{
+                  return (
+                    <ol className="list-decimal pl-[0px] space-y-[8px]">
+                      <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
+                        {step}
+                      </li>
+                    </ol>
+                  );
+                }
+              })} */}
             </ol>
+            {/* </div> */}
           </div>
         </section>
       </main>

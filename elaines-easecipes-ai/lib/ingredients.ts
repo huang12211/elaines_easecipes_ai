@@ -34,13 +34,13 @@ const NON_SCALABLE_PATTERNS = [
 ];
 
 const UNITS = [
-  'cups?', 'tbsp', 'tsp', 'oz', 'lb', 'lbs', 'g', 'kg', 'ml', 'l',
+  'cup(s)', 'tbsp(s)', 'tsp(s)', 'oz', 'lb(s)', 'g', 'kg', 'ml', 'l',
   'large', 'medium', 'small', 'sheets?', 'cloves?', 'slices?',
 ];
 
-const UNIT_PATTERN = new RegExp(`^(${UNITS.join('|')})\\b\\s*`, 'i');
+const UNIT_PATTERN = new RegExp(`^(${UNITS.map(u => u.replace(/\(s\)/g, '(?:s)?')).join('|')})\\b\\s*`, 'i');
 
-function parseFraction(str: string): number | null {
+function parseFraction(str: string) {
   // Check if it's a simple fraction like "1/4"
   if (FRACTION_MAP[str]) {
     return FRACTION_MAP[str];
@@ -68,7 +68,7 @@ function parseFraction(str: string): number | null {
     return parseFloat(numMatch[1]);
   }
 
-  return null;
+  return parseFloat(str);
 }
 
 export function parseIngredient(ingredient: string): ParsedIngredient {
@@ -89,6 +89,7 @@ export function parseIngredient(ingredient: string): ParsedIngredient {
 
   let remaining = ingredient.trim();
   let quantity: number | null = null;
+  // let remaining = quantity;
   let unit: string | null = null;
 
   // Try to match mixed number first (e.g., "1 1/2")
@@ -182,23 +183,27 @@ export function formatQuantity(num: number): string {
   return num.toFixed(1).replace(/\.0$/, '');
 }
 
-export function scaleIngredient(parsed: ParsedIngredient, multiplier: number): string {
+export function scaleIngredient(parsed: ParsedIngredient, multiplier: number, minAmount: string): string {
   if (!parsed.isScalable || parsed.quantity === null) {
     return parsed.original;
   }
 
-  const scaledQuantity = parsed.quantity * multiplier;
+
+  let minAmountNum = parseFraction(minAmount);
+
+  const scaledQuantity = minAmountNum * multiplier;
+  console.log(`minAmountNum: ${minAmountNum} by multiplier ${multiplier} gives ${scaledQuantity}`);
   const formattedQuantity = formatQuantity(scaledQuantity);
 
-  // Reconstruct the ingredient string
-  if (parsed.unit) {
-    // Handle attached units (like "200g")
-    if (['g', 'kg', 'ml', 'l'].includes(parsed.unit)) {
-      return `${formattedQuantity}${parsed.unit} ${parsed.item}`;
-    }
-    // Handle units with space
-    return `${formattedQuantity} ${parsed.unit} ${parsed.item}`;
-  }
+  // // Reconstruct the ingredient string
+  // if (parsed.unit) {
+  //   // Handle attached units (like "200g")
+  //   if (['g', 'kg', 'ml', 'l'].includes(parsed.unit)) {
+  //     return `${formattedQuantity}${parsed.unit} ${parsed.item}`;
+  //   }
+  //   // Handle units with space
+  //   return `${formattedQuantity} ${parsed.unit} ${parsed.item}`;
+  // }
 
-  return `${formattedQuantity} ${parsed.item}`;
+  return `${formattedQuantity}`;
 }

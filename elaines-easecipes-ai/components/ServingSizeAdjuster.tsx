@@ -1,6 +1,7 @@
 interface ServingSizeAdjusterProps {
   baseServings: number;
   minServings: number;
+  servingIncrement: number;
   currentServings: number;
   onServingsChange: (newServings: number) => void;
   maxMultiplier?: number;
@@ -9,6 +10,7 @@ interface ServingSizeAdjusterProps {
 export default function ServingSizeAdjuster({
   baseServings,
   minServings,
+  servingIncrement,
   currentServings,
   onServingsChange,
   maxMultiplier = 4,
@@ -19,13 +21,13 @@ export default function ServingSizeAdjuster({
 
   const handleDecrement = () => {
     if (canDecrement) {
-      onServingsChange(currentServings - minServings);
+      onServingsChange(currentServings - servingIncrement);
     }
   };
 
   const handleIncrement = () => {
     if (canIncrement) {
-      onServingsChange(currentServings + minServings);
+      onServingsChange(currentServings + servingIncrement);
     }
   };
 
