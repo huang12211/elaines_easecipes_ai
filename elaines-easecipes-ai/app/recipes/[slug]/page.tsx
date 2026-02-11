@@ -293,7 +293,6 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               </div>
             </div>
             
-            {/* <div> */}
             <ol className="list-decimal pl-[0px] space-y-[8px]">
               {directions.map((step, index) => {
                 if (step.includes("title:")){
@@ -305,34 +304,13 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 }
                 else{
                   return (
-                    
                       <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
                         {step}
                       </li>
                   );
                 }
               })}
-              
-              {/* {directionsArray.map((step, index) => {
-                if (step.includes("title:")){
-                  return(
-                    <p key={index} className="font-abeezee text-[16px] text-[#094234] ">
-                      {step.replace("title:", "")}
-                    </p>
-                  );
-                }
-                else{
-                  return (
-                    <ol className="list-decimal pl-[0px] space-y-[8px]">
-                      <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
-                        {step}
-                      </li>
-                    </ol>
-                  );
-                }
-              })} */}
             </ol>
-            {/* </div> */}
           </div>
         </section>
       </main>

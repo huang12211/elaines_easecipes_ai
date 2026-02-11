@@ -57,11 +57,11 @@ export default function Header() {
         </button>
 
         {isMenuOpen && (
-          <div className="absolute top-[42px] sm:top-[50px] -left-2 w-[150px] bg-[#094234] rounded-[10px] py-[2px] z-50">
+          <div className="absolute top-[42px] sm:top-[50px] -left-2 w-[150px] rounded-[10px] z-50 bg-[#094234]">
             <Link
               href="/search"
               onClick={closeMenu}
-              className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px]  hover:bg-white/10 hover:rounded-t-[10px]"
+              className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-t-[10px]"
             >
               Search Recipes
             </Link>
@@ -76,17 +76,45 @@ export default function Header() {
               </button>
 
               {isCategoriesOpen && (
-                <div className="absolute -top-0.5 left-[152px] w-[150px] bg-[#094234] rounded-[10px] py-[2px]">
-                  {categories.map((category) => (
-                    <Link
-                      key={category}
-                      href={`/categories/${category.toLowerCase()}`}
-                      onClick={closeMenu}
-                      className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10"
-                    >
-                      {category}
-                    </Link>
-                  ))}
+                <div className="absolute -top-0.5 left-[152px] w-[150px] bg-[#094234] rounded-[10px]">
+                  {categories.map((category, index) => {
+                    if (index === 0) {
+                      return (
+                        <Link
+                          key={index}
+                          href={`/categories/${category.toLowerCase()}`}
+                          onClick={closeMenu}
+                          className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-t-[10px]"
+                        >
+                          {category}
+                        </Link>
+                      );
+                    }
+                    else if (index === categories.length - 1) {
+                      return (
+                        <Link
+                          key={index}
+                          href={`/categories/${category.toLowerCase()}`}
+                          onClick={closeMenu}
+                          className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-b-[10px]"
+                        >
+                          {category}
+                        </Link>
+                      );
+                    }
+                    else{
+                      return (
+                        <Link
+                          key={index}
+                          href={`/categories/${category.toLowerCase()}`}
+                          onClick={closeMenu}
+                          className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10"
+                        >
+                          {category}
+                        </Link>
+                      );
+                    }
+                  })}
                 </div>
               )}
             </div>
@@ -110,7 +138,7 @@ export default function Header() {
             <Link
               href="/contact"
               onClick={closeMenu}
-              className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10"
+              className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-b-[10px]"
             >
               Contact
             </Link>
