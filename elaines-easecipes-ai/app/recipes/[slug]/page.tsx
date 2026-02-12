@@ -143,6 +143,8 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
 
   // const ingredients: string[] = JSON.parse(ingredientsData);
   const ingredients: IngredientsList[] = JSON.parse(ingredientsData);
+  const rowNumb: string = Math.ceil(ingredients.length / 2).toString();
+  console.log(`Number of ingredient rows: ${rowNumb}`);
   // console.log(`Parsed ingredients: ${ingredients.map((ing) => ing.ingredient_id).join(", ")}`);
   const directions: string[] = JSON.parse(recipe.directions);
   // let directionsArray = recipe.directions.split("\n")
@@ -237,7 +239,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                   />
                 </div>
               </div>
-              <div className="pl-[10px] mt-[8px]">
+              <div className="px-2 mt-[8px]">
                 <ServingSizeAdjuster
                   baseServings={recipe.baseServings}
                   minServings={recipe.minServings}
@@ -247,24 +249,29 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 />
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[20px] gap-y-[5px] px-[10px]">
+            
+            <div className="flex flex-col gap-[5px] px-4">
               {ingredients.map((ingr, index) => {
                 const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
-                console.log(`Scaling ingredient ${ingr.ingredient_id} with multiplier ${multiplier}`);
                 const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
-                console.log(`Parsed ingredient ${parsed.quantity} ${parsed.unit} ${parsed.item}`);
                 const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
-                console.log(`Scaled ingredient: ${scaledIngredient}`);
+                const isNewComponent = ingr.component !== ingredients[index - 1]?.component;
+
                 return (
-                  <IngredientCheckbox
-                    key={index}
-                    amount={scaledIngredient}
-                    measUnit={ingr.measUnit_id}
-                    ingredient={ingr.ingredient_id}
-                    checked={checkedIngredients.has(index)}
-                    onChange={() => toggleIngredient(index)}
-                  />
+                    <div key={index}>
+                      {isNewComponent && ingr.component && (
+                        <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
+                          {ingr.component}
+                        </h3>
+                      )}
+                      <IngredientCheckbox
+                        amount={scaledIngredient}
+                        measUnit={ingr.measUnit_id}
+                        ingredient={ingr.ingredient_id}
+                        checked={checkedIngredients.has(index)}
+                        onChange={() => toggleIngredient(index)}
+                      />
+                    </div>
                 );
               })}
             </div>
@@ -297,7 +304,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               {directions.map((step, index) => {
                 if (step.includes("title:")){
                   return(
-                    <p key={index} className="font-abeezee text-[16px] text-[#094234] pt-4">
+                    <p key={index} className="font-abeezee text-[16px] text-[#094234] font-bold pt-4 pb-1">
                       {step.replace("title:", "")}
                     </p>
                   );

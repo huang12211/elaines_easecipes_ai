@@ -68,7 +68,7 @@ export default function Header() {
 
             <div className="relative">
               <button
-                onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                onMouseEnter={() => setIsCategoriesOpen(!isCategoriesOpen)}
                 className="flex items-center justify-between w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10"
               >
                 <span>Categories</span>
@@ -76,7 +76,10 @@ export default function Header() {
               </button>
 
               {isCategoriesOpen && (
-                <div className="absolute -top-0.5 left-[152px] w-[150px] bg-[#094234] rounded-[10px]">
+                <div 
+                onMouseLeave={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                className="absolute -top-0.5 left-[152px] w-[150px] bg-[#094234] rounded-[10px]"
+                >
                   {categories.map((category, index) => {
                     if (index === 0) {
                       return (
