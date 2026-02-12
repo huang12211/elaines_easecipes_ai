@@ -250,30 +250,47 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               </div>
             </div>
             
-            <div className="flex flex-col gap-[5px] px-4">
-              {ingredients.map((ingr, index) => {
-                const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
-                const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
-                const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
-                const isNewComponent = ingr.component !== ingredients[index - 1]?.component;
+            <div className="columns-1 sm:columns-2 gap-x-8 px-4">
+              {(() => {
+                // Group ingredients by component
+                const groups: { component: string; items: { ingr: IngredientsList; index: number }[] }[] = [];
+                ingredients.forEach((ingr, index) => {
+                  const lastGroup = groups[groups.length - 1];
+                  if (!lastGroup || lastGroup.component !== ingr.component) {
+                    groups.push({ component: ingr.component, items: [{ ingr, index }] });
+                  } else {
+                    lastGroup.items.push({ ingr, index });
+                  }
+                });
 
-                return (
-                    <div key={index}>
-                      {isNewComponent && ingr.component && (
-                        <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
-                          {ingr.component}
-                        </h3>
-                      )}
-                      <IngredientCheckbox
-                        amount={scaledIngredient}
-                        measUnit={ingr.measUnit_id}
-                        ingredient={ingr.ingredient_id}
-                        checked={checkedIngredients.has(index)}
-                        onChange={() => toggleIngredient(index)}
-                      />
+                return groups.map((group, groupIndex) => (
+                  <div key={groupIndex} className="break-inside-avoid mb-2">
+                    {group.component && (
+                      <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
+                        {group.component}
+                      </h3>
+                    )}
+                    <div className="flex flex-col gap-[5px]">
+                      {group.items.map(({ ingr, index }) => {
+                        const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
+                        const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
+                        const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
+
+                        return (
+                          <IngredientCheckbox
+                            key={index}
+                            amount={scaledIngredient}
+                            measUnit={ingr.measUnit_id}
+                            ingredient={ingr.ingredient_id}
+                            checked={checkedIngredients.has(index)}
+                            onChange={() => toggleIngredient(index)}
+                          />
+                        );
+                      })}
                     </div>
-                );
-              })}
+                  </div>
+                ));
+              })()}
             </div>
           </div>
         </section>
