@@ -155,55 +155,57 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
 
       <main className="flex flex-col">
         {/* Recipe Title Section */}
-        <section className="flex flex-col gap-[5px] pt-[16px] pb-[10px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
-          <div className="flex items-center justify-between gap-[20px]">
-            <h1 className="font-abeezee text-[24px] sm:text-[28px] md:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
-              {recipe.title}
-            </h1>
-            <div className="flex gap-[6px] items-center">
-              <button
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className="flex items-center h-[20px] pr-[2px]"
-              >
-                <Image
-                  src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
-                  alt="bookmark"
-                  width={16}
-                  height={18}
-                />
-              </button>
-              <button className="w-[20px] h-[20px]">
-                <Image
-                  src="/images/cart.svg"
-                  alt="Add to basket"
-                  width={20}
-                  height={20}
-                />
-              </button>
+        <section className="pt-[30px] pb-[20px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
+          <div className="max-w-[700px] mx-auto">
+            <div className="flex items-center gap-[30px] pb-2">
+              <h1 className="font-abeezee text-[24px] sm:text-[28px] md:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
+                {recipe.title}
+              </h1>
+              <div className="flex gap-[6px] items-center">
+                <button
+                  onClick={() => setIsBookmarked(!isBookmarked)}
+                  className="flex items-center h-[20px] pr-[2px]"
+                >
+                  <Image
+                    src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
+                    alt="bookmark"
+                    width={16}
+                    height={18}
+                  />
+                </button>
+                <button className="w-[20px] h-[20px]">
+                  <Image
+                    src="/images/cart.svg"
+                    alt="Add to basket"
+                    width={20}
+                    height={20}
+                  />
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Rating, Views, Time */}
-          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-            <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
-            <span className="text-black text-[14px]">|</span>
-            <div className="flex items-center gap-[6px]">
-              <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
-              </svg>
-              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
-                {recipe.views.toLocaleString()} views
-              </span>
-            </div>
-            <span className="text-black text-[14px]">|</span>
-            <div className="flex items-center gap-[4px]">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="8" cy="8" r="6.5" stroke="#E0165C" strokeWidth="1.5"/>
-                <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
-                {recipe.cookTime} min
-              </span>
+            {/* Rating, Views, Time */}
+            <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+              <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
+              <span className="text-black text-[14px]">|</span>
+              <div className="flex items-center gap-[6px]">
+                <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
+                </svg>
+                <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+                  {recipe.views.toLocaleString()} views
+                </span>
+              </div>
+              <span className="text-black text-[14px]">|</span>
+              <div className="flex items-center gap-[4px]">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="8" cy="8" r="6.5" stroke="#E0165C" strokeWidth="1.5"/>
+                  <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+                  {recipe.cookTime} min
+                </span>
+              </div>
             </div>
           </div>
         </section>

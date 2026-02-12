@@ -23,7 +23,7 @@ const seedIngredients = [
     {ingr: 'Salt' }, { ingr: 'Salted Butter' }, {ingr: 'Semisweet Chocolate Chips'}, {ingr: 'Sweet Red Pepper, diced'},
     {ingr: 'Unsalted Butter' }, 
     {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, 
-    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'},
+    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'},
     {ingr: 'Yeast'},
 ];
 
@@ -217,6 +217,7 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'onion-pancakes', component: 'Dough:', amount: '1/2', measUnit_id: 'cup(s)', ingredient_id: 'Hot Water', min_amount: '1/2'},
   {recipe_id: 'onion-pancakes', component: 'Dough:', amount: '3', measUnit_id: ' ', ingredient_id: "Tips of Green Onions", min_amount: '3'},
   {recipe_id: 'onion-pancakes', component: 'Spread:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Salted Butter', min_amount: '1/4'},
+  {recipe_id: 'onion-pancakes', component: 'Spread:', amount: '3', measUnit_id: ' ', ingredient_id: 'Whites of Green Onions', min_amount: '3'},
 ];
 
 async function seed() {

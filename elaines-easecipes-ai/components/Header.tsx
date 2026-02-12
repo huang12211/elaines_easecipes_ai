@@ -42,8 +42,20 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#094234] h-[53px] sm:h-[60px] md:h-[64px] w-full shadow-[0px_2px_4px_rgba(0,0,0,0.79)] grid grid-cols-3 items-center justify-between px-2.5 sm:px-4 md:px-6 lg:px-10 sticky top-0 z-50">
-      <div ref={menuRef} className="relative">
+    <header className="bg-[#094234] h-[53px] sm:h-[60px] md:h-[64px] w-full shadow-[0px_2px_4px_rgba(0,0,0,0.79)] flex items-center justify-between px-2.5 sm:px-4 md:px-6 lg:px-10 sticky top-0 z-50">
+      {/* Logo - left on desktop, center on mobile */}
+      <Link href="/" className="relative w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] order-2 md:hidden">
+        <Image
+          src="/images/Elaine'sEasecipes_TopBar_whiteoutline.png"
+          alt="Elaine's Easecipes"
+          className="object-contain"
+          fill
+          sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
+        />
+      </Link>
+
+      {/* Mobile hamburger menu - visible only on mobile */}
+      <div ref={menuRef} className="relative md:hidden order-1">
         <button
           onClick={() => {
             setIsMenuOpen(!isMenuOpen);
@@ -76,7 +88,7 @@ export default function Header() {
               </button>
 
               {isCategoriesOpen && (
-                <div 
+                <div
                 onMouseLeave={() => setIsCategoriesOpen(!isCategoriesOpen)}
                 className="absolute -top-0.5 left-[152px] w-[150px] bg-[#094234] rounded-[10px]"
                 >
@@ -149,18 +161,82 @@ export default function Header() {
         )}
       </div>
 
-      <Link href="/" className="relative justify-self-center w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
-        <Image
-          // src="/images/logo-topbar.png"
-          src="/images/Elaine'sEasecipes_TopBar_whiteoutline.png"
-          alt="Elaine's Easecipes"
-          className="object-contain"
-          fill
-          sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
-        />
-      </Link>
+      {/* Desktop navigation - visible only on desktop */}
+      <nav className="hidden md:flex flex-row flex-nowrap items-end gap-6 order-1 lg:gap-8 order-1">
+        <Link href="/" className="relative w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]">
+          <Image
+            src="/images/Elaine'sEasecipes_TopBar_whiteoutline.png"
+            alt="Elaine's Easecipes"
+            className="object-contain"
+            fill
+            sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, 160px"
+          />
+        </Link>
+        <Link
+          href="/search"
+          className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+        >
+          Search Recipes
+        </Link>
 
-      <div className="flex justify-self-end justify-items-center items-end gap-[2px]">
+        <div className="relative group">
+          <button
+            onMouseEnter={() => setIsCategoriesOpen(true)}
+            className="flex flex-row items-center px-2 gap-3 text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+          >
+            <span>Categories</span>
+            <span className="text-xs">▼</span>
+          </button>
+
+          {isCategoriesOpen && (
+            <div
+              onMouseLeave={() => setIsCategoriesOpen(false)}
+              className="absolute top-full left-0 bg-[#094234] rounded-[10px] shadow-lg"
+            >
+              {categories.map((category, index) => (
+                <Link
+                  key={index}
+                  href={`/categories/${category.toLowerCase()}`}
+                  onClick={() => setIsCategoriesOpen(false)}
+                  className={`block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 ${
+                    index === 0 ? 'hover:rounded-t-[10px]' : ''
+                  } ${index === categories.length - 1 ? 'hover:rounded-b-[10px]' : ''}`}
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <Link
+          href="/blog"
+          className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+        >
+          Blog
+        </Link>
+
+        {/* <Link
+          href="/store"
+          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+        >
+          Store
+        </Link>
+
+        <Link
+          href="/contact"
+          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+        >
+          Contact
+        </Link> */}
+      </nav>
+      
+      {/* <div className="hidden text-[#094234] md:flex flex-row flex-nowrap items-end gap-6 order-3 lg:gap-8 w-1/5 order-3 ">
+        <p>hidden</p>
+      </div> */}
+
+      {/* Icons - right side on both mobile and desktop */}
+      <div className="flex items-center gap-[2px] order-3 md:order-4">
         <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
             src="/images/bookmark-book.svg"
