@@ -142,7 +142,7 @@ export default function Header() {
               Blog
             </Link>
 
-            <Link
+            {/* <Link
               href="/store"
               onClick={closeMenu}
               className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px]  hover:bg-white/10"
@@ -156,7 +156,7 @@ export default function Header() {
               className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-b-[10px]"
             >
               Contact
-            </Link>
+            </Link> */}
           </div>
         )}
       </div>
