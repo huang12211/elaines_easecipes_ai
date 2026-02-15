@@ -10,8 +10,8 @@ const categories = [
   "Sides",
   "Desserts",
   "Drinks",
-  "Breakfast",
-  "Celebrations",
+  "Easecipes",
+  "Potluck",
 ];
 
 export default function Header() {

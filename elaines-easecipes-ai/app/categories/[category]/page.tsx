@@ -12,8 +12,8 @@ const validCategories = [
   "sides",
   "desserts",
   "drinks",
-  "breakfast",
-  "celebrations",
+  "easecipes",
+  "potluck",
 ];
 
 const categoryDisplayNames: Record<string, string> = {
@@ -22,8 +22,8 @@ const categoryDisplayNames: Record<string, string> = {
   sides: "Sides",
   desserts: "Desserts",
   drinks: "Drinks",
-  breakfast: "Breakfast",
-  celebrations: "Celebrations",
+  easecipes: "Easecipes",
+  potluck: "Potluck",
 };
 
 export async function generateStaticParams() {

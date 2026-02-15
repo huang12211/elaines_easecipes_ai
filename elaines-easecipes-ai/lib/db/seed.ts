@@ -29,7 +29,7 @@ const seedIngredients = [
     {ingr: 'Salt' }, { ingr: 'Salted Butter' }, {ingr: 'Semisweet Chocolate Chips'}, {ingr: 'Sriracha'}, {ingr: 'Soy Sauce'}, {ingr: 'Sweet Red Pepper, diced'}, 
     {ingr: 'Unsalted Butter' }, 
     {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, {ingr: 'Vermicelli Noodles'},
-    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'},
+    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'}, {ingr: 'Whole Milk'},
     {ingr: 'Yeast'}, 
     {ingr: 'Zucchini'},
 ];
@@ -76,6 +76,27 @@ const seedRecipes = [
     createdAt: new Date(2023, 5, 1),
   },
   {
+    title: "Black Sesame Paste",
+    slug: "black-sesame-paste",
+    tags: JSON.stringify(["Easecipes"]),
+    image: "/images/black-sesame-paste.png",
+    rating: 5,
+    views: 43381,
+    bookmarked: false,
+    featured: true,
+    cookTime: "10 min",
+    baseServings: 1,
+    minServings: 1,
+    servingIncrement: 1,
+    directions: JSON.stringify([
+      "Toast the black sesame seeds in a dry pan over medium heat until fragrant, around 3-5 mins. Be careful not to burn them.",
+      "Add the toasted black sesame seeds and water to a blender or food processor and blend until smooth. You may need to stop and scrape down the sides of the blender a few times to get everything blended well.",
+      "Add honey or maple syrup to taste if you want a sweeter paste. Blend again until well-combined.",
+      "Use the paste immediately, or store in an airtight container in the fridge for up to 2 weeks."
+    ]),
+    createdAt: new Date(2025, 12, 28),
+  },
+  {
     title: "Black Sesame Swirl Buns",
     slug: "black-sesame-swirl-buns",
     tags: JSON.stringify(["Breakfast", "Desserts"]),
@@ -101,7 +122,7 @@ const seedRecipes = [
       "Once blended, add honey. Add more to taste if required.",
       "title: Assemble:",
       "Once the dough has doubled in size, roll out the dough into a 9x11 inch rectangle.",
-      "Spread room-temperature button onto the dough, leaving a 1/4 inch lip on the far side. Then spread the black sesame paste on top of the buttered surface.",
+      "Spread room-temperature butter onto the dough, leaving a 1/4 inch lip on the far side. Then spread the black sesame paste on top of the buttered surface.",
       "Roll the dough into a log shape, starting from the close side. Cut your rolled log of dough into 12 portions. <br><i><b>Tip:</b> Use unflavoured floss to cut the dough so that it stays round.</i>",
       "Grease a 9x11 inch pan and place the rolls in the pan. Cover and place in a warm spot to let rise for 30-45 mins.",
       "Preheat the oven to 350\u00B0F. Bake the rolls for 20-25 mins.",
@@ -111,7 +132,7 @@ const seedRecipes = [
   {
     title: "Chocolate Chip Cookies",
     slug: "chocolate-chip-cookies",
-    tags: JSON.stringify(["Desserts", "Quick & Easy"]),
+    tags: JSON.stringify(["Desserts", "Easecipes"]),
     image: "/images/chocolate-chip-cookies.png",
     rating: 4,
     views: 38500,
@@ -182,7 +203,7 @@ const seedRecipes = [
   {
     title: "Fluffy Blueberry Muffins",
     slug: "fluffy-blueberry-muffins",
-    tags: JSON.stringify(["Breakfast", "Desserts", "Quick & Easy"]),
+    tags: JSON.stringify(["Breakfast", "Desserts", "Easecipes"]),
     image: "/images/fluffy-blueberry-muffins.png",
     rating: 4,
     views: 52000,
@@ -208,7 +229,7 @@ const seedRecipes = [
   {
     title: "Grammy Vint's Good Bean Salad",
     slug: "grammy-vints-good-bean-salad",
-    tags: JSON.stringify(["Salads", "Quick & Easy", "Potluck"]),
+    tags: JSON.stringify(["Salads", "Easecipes", "Potluck"]),
     image: "/images/bean-salad.png",
     rating: 5,
     views: 38500,
@@ -254,7 +275,7 @@ const seedRecipes = [
   {
     title: "Onion Pancakes",
     slug: "onion-pancakes",
-    tags: JSON.stringify(["Breakfast", "Quick & Easy"]),
+    tags: JSON.stringify(["Breakfast"]),
     image: "/images/onion-pancakes.png",
     rating: 4,
     views: 38500,
@@ -279,7 +300,7 @@ const seedRecipes = [
   {
     title: "Thai Chicken Peanut Noodles",
     slug: "thai-chicken-peanut-noodles",
-    tags: JSON.stringify(["Main", "Thai", "Fusion"]),
+    tags: JSON.stringify(["Mains", "Thai", "Fusion"]),
     image: "/images/thai-chicken-peanut-noodles.jpg",
     rating: 4,
     views: 38500,
@@ -326,8 +347,12 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'apple-frangipane-tart', component: 'Filling:', amount: '1', measUnit_id: ' ', ingredient_id: 'Egg(s)', min_amount: '1'},
   {recipe_id: 'apple-frangipane-tart', component: 'Filling:', amount: '1', measUnit_id: 'tsp(s)', ingredient_id: 'Vanilla Extract', min_amount: '1'},
   {recipe_id: 'apple-frangipane-tart', component: 'Toppings:', amount: '2', measUnit_id: ' ', ingredient_id: 'Apples', min_amount: '2'},
+  //Black Sesame Paste
+  {recipe_id: 'black-sesame-paste', amount: '1/2', measUnit_id: 'cup(s)', ingredient_id: 'Black Sesame Seeds', min_amount: '1/2'},
+  {recipe_id: 'black-sesame-paste', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Water', min_amount: '2'},
+  {recipe_id: 'black-sesame-paste', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Honey / Maple Syrup', min_amount: '1/4'},
   //Black Sesame Swirl Buns
-  {recipe_id: 'black-sesame-swirl-buns', component: 'Dough:', amount: '3/4', measUnit_id: 'cup(s)', ingredient_id: 'Milk', min_amount: '3/4'},
+  {recipe_id: 'black-sesame-swirl-buns', component: 'Dough:', amount: '3/4', measUnit_id: 'cup(s)', ingredient_id: 'Whole Milk', min_amount: '3/4'},
   {recipe_id: 'black-sesame-swirl-buns', component: 'Dough:', amount: '2 1/4', measUnit_id: 'tsp(s)', ingredient_id: 'Yeast', min_amount: '2 1/4'},
   {recipe_id: 'black-sesame-swirl-buns', component: 'Dough:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Granulated Sugar', min_amount: '1/4'},
   {recipe_id: 'black-sesame-swirl-buns', component: 'Dough:', amount: '1', measUnit_id: ' ', ingredient_id: 'Egg(s)', min_amount: '1'},
