@@ -75,7 +75,7 @@ export default async function CategoryPage({
       <Header />
 
       <div
-        className="relative min-h-[calc(100vh-53px)]"
+        className="relative min-h-[calc(82vh)] sm:min-h-[calc(79vh)] md:min-h-[calc(76vh)]"
         style={{
           background:
             "radial-gradient(ellipse at center, rgba(191,221,165,0.2) 0%, rgba(142,173,116,0.2) 50%, rgba(118,149,92,0.2) 75%, rgba(93,125,67,0.2) 100%)",

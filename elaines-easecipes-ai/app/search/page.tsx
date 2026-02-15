@@ -4,17 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
+import { categories as cat} from "@/lib/categories";
 
-const categories = [
-  "",
-  "Appetizers",
-  "Mains",
-  "Sides",
-  "Desserts",
-  "Drinks",
-  "Easecipes",
-  "Potluck",
-];
+const categories = ["", ...cat]; // Add an empty string for "All Categories"
 
 interface Recipe {
   id: number;
@@ -114,7 +106,7 @@ export default function SearchPage() {
                 <label className="font-abeezee text-[15px] sm:text-[17px] text-black tracking-[-0.408px] leading-[22px] w-[90px] sm:w-[100px] shrink-0">
                   Category:
                 </label>
-                <div className="flex-1 bg-white rounded-[20px] shadow-sm">
+                <div className="flex-1 bg-white rounded-sm shadow-sm">
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -136,7 +128,7 @@ export default function SearchPage() {
                 </div>
               </div>
 
-              {/* Recipe Number */}
+              {/* Recipe Number
               <div className="flex items-center gap-3 mb-2 sm:gap-4">
                 <label className="font-abeezee text-[15px] sm:text-[17px] text-black tracking-[-0.408px] leading-[22px] w-[90px] sm:w-[100px] shrink-0">
                   Recipe #:
@@ -151,7 +143,7 @@ export default function SearchPage() {
                     className="w-full px-4 py-2.5 font-abeezee text-[15px] sm:text-[17px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none"
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Ingredients */}
               <div className="flex items-center gap-3 mb-4 sm:gap-4">
@@ -185,7 +177,7 @@ export default function SearchPage() {
         </section>
 
         {/* Search Results Section */}
-        <section className="relative px-2 py-6 sm:px-4 md:px-6 lg:px-8 min-h-[300px]">
+        <section className="relative px-2 py-6 sm:px-4 md:px-6 lg:px-8 min-h-[calc(51vh)] sm:min-h-[calc(48vh)] md:min-h-[calc(45vh)]">
           {hasSearched && (
             <>
               <div className="relative mb-[12px] pl-[2px]">
