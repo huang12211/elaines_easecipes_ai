@@ -42,6 +42,75 @@ interface IngredientCheckboxProps {
   onChange: () => void;
 }
 
+// Parse styled text with <b>, <i>, <u>, <br> tags (supports nesting)
+function parseStyledText(text: string, keyPrefix: string = ''): React.ReactNode[] {
+  const result: React.ReactNode[] = [];
+  let remaining = text;
+  let keyIndex = 0;
+
+  const tagPattern = /<(b|i|u)>([\s\S]*?)<\/\1>/;
+  const brPattern = /<br\s*\/?>/;
+
+  while (remaining) {
+    const styledMatch = remaining.match(tagPattern);
+    const brMatch = remaining.match(brPattern);
+
+    // Find which match comes first
+    const styledIndex = styledMatch?.index ?? Infinity;
+    const brIndex = brMatch?.index ?? Infinity;
+
+    // No more tags found
+    if (styledIndex === Infinity && brIndex === Infinity) {
+      if (remaining) {
+        result.push(remaining);
+      }
+      break;
+    }
+
+    // Handle <br> tag if it comes first
+    if (brIndex < styledIndex) {
+      // Add text before the <br>
+      if (brIndex > 0) {
+        result.push(remaining.slice(0, brIndex));
+      }
+      result.push(<br key={`${keyPrefix}${keyIndex}`} />);
+      remaining = remaining.slice(brIndex + brMatch![0].length);
+      keyIndex++;
+      continue;
+    }
+
+    // Handle styled tag
+    const [fullMatch, tag, content] = styledMatch!;
+    const matchIndex = styledMatch!.index!;
+
+    // Add text before the match
+    if (matchIndex > 0) {
+      result.push(remaining.slice(0, matchIndex));
+    }
+
+    // Recursively parse content and wrap in styled element
+    const parsedContent = parseStyledText(content, `${keyPrefix}${keyIndex}-`);
+    const key = `${keyPrefix}${keyIndex}`;
+
+    switch (tag) {
+      case 'b':
+        result.push(<strong key={key} className="font-bold">{parsedContent}</strong>);
+        break;
+      case 'i':
+        result.push(<em key={key} className="italic">{parsedContent}</em>);
+        break;
+      case 'u':
+        result.push(<span key={key} className="underline">{parsedContent}</span>);
+        break;
+    }
+
+    remaining = remaining.slice(matchIndex + fullMatch.length);
+    keyIndex++;
+  }
+
+  return result;
+}
+
 function IngredientCheckbox({ amount, measUnit, ingredient, checked, onChange }: IngredientCheckboxProps) {
   return (
     <label className="flex gap-[7px] items-center px-[5px] py-[2px] cursor-pointer">
@@ -203,7 +272,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                   <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
                 <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
-                  {recipe.cookTime} min
+                  {recipe.cookTime}
                 </span>
               </div>
             </div>
@@ -331,7 +400,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 else{
                   return (
                       <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
-                        {step}
+                        {parseStyledText(step, `step-${index}-`)}
                       </li>
                   );
                 }

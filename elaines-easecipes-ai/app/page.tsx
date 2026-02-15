@@ -13,7 +13,7 @@ export default async function Home() {
     .select()
     .from(recipes)
     .orderBy(desc(recipes.createdAt))
-    .limit(6)
+    .limit(8)
     .all();
 
   const popularRecipes = db
@@ -114,7 +114,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5 justify-items-center">
+          <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5 justify-items-center">
             {newestRecipes.map((recipe) => (
               <RecipeCard
                 key={recipe.id}

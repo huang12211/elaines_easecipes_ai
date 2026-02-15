@@ -11,7 +11,7 @@ export const recipes = sqliteTable('recipes', {
   views: integer('views').notNull().default(0),
   bookmarked: integer('bookmarked', { mode: 'boolean' }).default(false),
   featured: integer('featured', { mode: 'boolean' }).default(false),
-  cookTime: integer('cook_time').notNull().default(30),
+  cookTime: text('cook_time').notNull().default("30 mins"),
   baseServings: integer('base_servings').notNull().default(4),
   minServings: integer('min_servings').notNull().default(1),
   servingIncrement: integer('serving_increment').notNull().default(1),

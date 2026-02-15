@@ -42,7 +42,7 @@ export default function RecipeCard({
         ))}
       </div>
       <div className="absolute bottom-0 left-0 w-[85%] h-auto min-h-[50px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden p-1.5 flex flex-col justify-between">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex gap-2 items-start justify-between w-full">
           <p className="font-abeezee text-[10px] sm:text-[11px] md:text-xs text-black tracking-[0.25px] leading-normal flex-1 min-w-0 line-clamp-2">
             {title}
           </p>
