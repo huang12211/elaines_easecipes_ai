@@ -301,7 +301,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
                   Ingredients
                 </h2>
-                <div className="absolute -bottom-[2px] -left-[6px] w-[128px] h-[11px]">
+                <div className="absolute -bottom-[6px] -left-[6px] w-[128px] h-[11px]">
                   <Image
                     src="/images/underline.svg"
                     alt=""
@@ -378,7 +378,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
                 Directions
               </h2>
-              <div className="absolute -bottom-[2px] -left-[8px] w-[128px] h-[11px]">
+              <div className="absolute -bottom-[6px] -left-[8px] w-[128px] h-[11px]">
                 <Image
                   src="/images/underline.svg"
                   alt=""

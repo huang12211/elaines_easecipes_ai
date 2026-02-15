@@ -5,6 +5,7 @@ import { basename } from 'path';
 import { title } from 'process';
 import { max } from 'drizzle-orm';
 import { SlowBuffer } from 'buffer';
+import { create } from 'domain';
 
 //------------------------------------------------//
 // Seed Ingredients in Alphabetical Order         //
@@ -12,24 +13,25 @@ import { SlowBuffer } from 'buffer';
 const seedIngredients = [
     {ingr: 'Almond Flour'}, {ingr: 'Apples'},
     {ingr: 'Baking Powder'}, { ingr: 'Baking Soda'}, {ingr: 'Basil'}, {ingr: 'Black Beans'}, {ingr: 'Black Pepper'}, {ingr: 'Black Sesame Paste'}, {ingr: 'Black Sesame Seeds'}, { ingr: 'Blueberries'}, { ingr: 'Brown Sugar'}, 
-    {ingr: 'Canola Oil'}, {ingr: 'Chickpeas'}, {ingr: 'Cocoa Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'},
+    {ingr: 'Canola Oil'}, {ingr: "Carrot(s)"}, {ingr: 'Chicken Thighs, boneless'}, {ingr: 'Chickpeas'}, {ingr: 'Cocoa Powder'}, {ingr: 'Coriander'}, {ingr: 'Coriander Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'},
     {ingr: 'Dark Chocolate, chopped'}, {ingr: 'Dijon Mustard'},
     {ingr: 'Egg(s)'}, {ingr: 'Egg White(s)'}, {ingr: 'Egg Yolk(s)'},
     {ingr: 'Flour' }, {ingr: 'Fresh Fruit'}, {ingr: 'Fresh Parsley'},
-    {ingr: 'Garlic'}, {ingr: 'Gelatin Powder'}, {ingr: 'Granulated Sugar'}, { ingr: 'Tips of Green Onions' }, { ingr: 'Ground Cinnamon'},
+    {ingr: 'Garlic, minced'}, {ingr: 'Gelatin Powder'}, {ingr: 'Ginger Powder'}, {ingr: 'Granulated Sugar'}, { ingr: 'Tips of Green Onions' }, { ingr: 'Ground Cinnamon'},
     {ingr: 'Heavy Cream'}, {ingr: 'Honey / Maple Syrup'}, { ingr: 'Hot Water' }, {ingr: 'Hot Sauce'},
     {ingr: 'Kidney Beans'},
-    {ingr: 'Lemon Juice'},
+    {ingr: 'Lemon Juice'}, {ingr: 'Lime'},
     {ingr: 'Margarine' }, { ingr: 'Milk' }, 
-    {ingr: 'Olive Oil'},
-    {ingr: 'Peaches'}, {ingr: 'Premade 9 inch Pie Crust'},
+    {ingr: 'Olive Oil'}, {ingr: 'Onion(s)'},
+    {ingr: 'Peaches'}, {ingr: 'Peanut Butter'}, {ingr: 'Premade 9 inch Pie Crust'},
     {ingr: 'Quick Oats'},
     {ingr: 'Raspberries'}, {ingr: 'Red Onion, diced'}, {ingr: 'Red Wine Vinegar / Apple Cider Vinegar'}, {ingr: 'Rhubarb, chopped'},
-    {ingr: 'Salt' }, { ingr: 'Salted Butter' }, {ingr: 'Semisweet Chocolate Chips'}, {ingr: 'Sweet Red Pepper, diced'},
+    {ingr: 'Salt' }, { ingr: 'Salted Butter' }, {ingr: 'Semisweet Chocolate Chips'}, {ingr: 'Sriracha'}, {ingr: 'Soy Sauce'}, {ingr: 'Sweet Red Pepper, diced'}, 
     {ingr: 'Unsalted Butter' }, 
-    {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, 
+    {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, {ingr: 'Vermicelli Noodles'},
     {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'},
-    {ingr: 'Yeast'},
+    {ingr: 'Yeast'}, 
+    {ingr: 'Zucchini'},
 ];
 
 //------------------------------------------------//
@@ -37,7 +39,11 @@ const seedIngredients = [
 //------------------------------------------------//
 const seedMeasurementUnits =[
     {meas_unit: ' '}, {meas_unit: '12 oz can'}, {meas_unit: '15 oz can'}, {meas_unit: '19 oz can'}, 
-    {meas_unit: 'clove(s) of'}, { meas_unit: 'cup(s)'}, {meas_unit: 'g'}, { meas_unit: 'tbsp(s)'}, {meas_unit: 'tsp(s)'},
+    {meas_unit: 'clove(s) of'}, { meas_unit: 'cup(s)'}, 
+    {meas_unit: 'g'}, 
+    {meas_unit: 'oz(s)'}, 
+    {meas_unit: 'sprigs of'},
+    { meas_unit: 'tbsp(s)'}, {meas_unit: 'tsp(s)'},
 ];
 
 //------------------------------------------------//
@@ -177,7 +183,7 @@ const seedRecipes = [
     title: "Fluffy Blueberry Muffins",
     slug: "fluffy-blueberry-muffins",
     tags: JSON.stringify(["Breakfast", "Desserts", "Quick & Easy"]),
-    image: "/images/blueberry-muffins.png",
+    image: "/images/fluffy-blueberry-muffins.png",
     rating: 4,
     views: 52000,
     bookmarked: false,
@@ -226,7 +232,7 @@ const seedRecipes = [
     title: "Grammy Vint's Rhubarb Cream Crisp",
     slug: "grammy-vints-rhubarb-cream-crisp",
     tags: JSON.stringify(["Desserts"]),
-    image: "/images/rhubarb-cream-crisp.png",
+    image: "/images/rhubarb-cream-crisp.jpg",
     rating: 4,
     views: 38500,
     bookmarked: false,
@@ -268,6 +274,44 @@ const seedRecipes = [
       "When you are ready to eat, fry-up the pancakes (no need to defrost if cooking from frozen) in a skillet with a little oil. Serve whilst hot."
     ]),
     createdAt: new Date(2022, 1, 20),
+  },
+  //Thai Chicken Peanut Noodles
+  {
+    title: "Thai Chicken Peanut Noodles",
+    slug: "thai-chicken-peanut-noodles",
+    tags: JSON.stringify(["Main", "Thai", "Fusion"]),
+    image: "/images/thai-chicken-peanut-noodles.jpg",
+    rating: 4,
+    views: 38500,
+    bookmarked: false,
+    featured: false,
+    cookTime: "45 min",
+    baseServings: 4, 
+    minServings: 4,
+    servingIncrement: 4,
+    directions: JSON.stringify([
+      "title: Marinade:",
+      "In a bowl, mix together the salt, oil, minced garlic, ginger powder, lime juice and chopped coriander",
+      "Add the chicken to the marinade and let it sit for at least 30 mins.",
+      "title: Peanut Sauce:",
+      "In a small saucepan, add water, sugar, peanut butter, soy sauce, and garlic.",
+      "Take the saucepan off the heat and stir in sriracha to taste.",
+      "title: Noodles:",
+      "Cook the noodles according to package instructions. Drain and set aside.",
+      "title: Stir Fry:",
+      "Slice up the onions and the carrots into long strips, and chop up the zucchini into half-moons.",
+      "In a large pan (preferrably a wok), heat some oil and cook the chicken through (around 4 minutes on each side).",
+      "Chop up the chicken into bite-sized pieces and set aside.",
+      "Whisk eggs and salt together in a bowl.",
+      "In the same pan, add a little more oil and pour in the egg mixture. Scramble the eggs until they are fully cooked. Set the scrambled eggs aside with the chicken.",
+      "In the same pan, add the onions and carrots and stir fry for 3 mins.", 
+      "Add in the zucchini and stir fry until they are cooked but still crisp. (About 2 mins).",
+      "title: Assemble:",
+      "In the same pan, add the chicken, eggs, noodles and peanut sauce.",
+      "Toss everything together until well-combined and heated through.",
+      "Serve with chopped cilantro on top.",
+    ]),
+    createdAt: new Date(2026, 2, 10),
   },
 ];
 
@@ -352,7 +396,7 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Basil', min_amount: '2'},
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '1/3', measUnit_id: 'cup(s)', ingredient_id: 'Olive Oil', min_amount: '1/3'},
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '1', measUnit_id: 'tbsp(s)', ingredient_id: 'Dijon Mustard', min_amount: '1'},
-  {recipe_id: 'grammy-vints-good-bean-salad', amount: '1', measUnit_id: 'clove(s) of', ingredient_id: 'Garlic', min_amount: '1'},
+  {recipe_id: 'grammy-vints-good-bean-salad', amount: '1', measUnit_id: 'clove(s) of', ingredient_id: 'Garlic, minced', min_amount: '1'},
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '1', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1'},
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Hot Sauce', min_amount: '1/2'},
   {recipe_id: 'grammy-vints-good-bean-salad', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Black Pepper', min_amount: '1/2'},
@@ -377,6 +421,27 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'onion-pancakes', component: 'Dough:', amount: '3', measUnit_id: ' ', ingredient_id: "Tips of Green Onions", min_amount: '3'},
   {recipe_id: 'onion-pancakes', component: 'Spread:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Salted Butter', min_amount: '1/4'},
   {recipe_id: 'onion-pancakes', component: 'Spread:', amount: '3', measUnit_id: ' ', ingredient_id: 'Whites of Green Onions', min_amount: '3'},
+  //Thai Chicken Peanut Noodles
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Vegetable Oil', min_amount: '2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '4', measUnit_id: 'clove(s) of', ingredient_id: 'Garlic, minced', min_amount: '4'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '1', measUnit_id: 'tsp(s)', ingredient_id: 'Ginger Powder', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '1', measUnit_id: ' ', ingredient_id: 'Lime', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Coriander', min_amount: '1/4'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Marinade:', amount: '4', measUnit_id: ' ', ingredient_id: 'Chicken Thighs, boneless', min_amount: '4'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Water', min_amount: '1/4'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Granulated Sugar', min_amount: '2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Peanut Butter', min_amount: '1/4'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Soy Sauce', min_amount: '2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '1', measUnit_id: 'clove(s) of', ingredient_id: 'Garlic, minced', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Peanut Sauce:', amount: '2', measUnit_id: 'tsp(s)', ingredient_id: 'Sriracha', min_amount: '2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Noodles:', amount: '12', measUnit_id: 'oz(s)', ingredient_id: 'Vermicelli Noodles', min_amount: '12'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '2', measUnit_id: ' ', ingredient_id: 'Egg(s)', min_amount: '2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: 'tbsp(s)', ingredient_id: 'Vegetable Oil', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Onion(s)', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Carrot(s)', min_amount: '1'},
+  {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Zucchini', min_amount: '1'},
 ];
 
 async function seed() {
