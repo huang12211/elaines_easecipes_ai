@@ -5,16 +5,9 @@ import { db } from "@/lib/db";
 import { recipes } from "@/lib/db/schema";
 import { like } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { categories } from "@/lib/categories";
 
-const validCategories = [
-  "appetizers",
-  "mains",
-  "sides",
-  "desserts",
-  "drinks",
-  "easecipes",
-  "potluck",
-];
+const validCategories: string[] = categories.map(category => category.toLowerCase()); 
 
 const categoryDisplayNames: Record<string, string> = {
   appetizers: "Appetizers",
@@ -25,6 +18,11 @@ const categoryDisplayNames: Record<string, string> = {
   easecipes: "Easecipes",
   potluck: "Potluck",
 };
+
+const categoryDisplayNamesLower: Record<string, string> = {};
+categories.forEach(category => {
+  categoryDisplayNamesLower[category.toLowerCase()] = category;
+});
 
 export async function generateStaticParams() {
   return validCategories.map((category) => ({
@@ -62,6 +60,7 @@ export default async function CategoryPage({
   }
 
   const displayName = categoryDisplayNames[category];
+  console.log("imported categories from Header:", categories[0]);
 
   // Fetch recipes that have this category in their tags
   // Tags are stored as JSON array like '["Desserts", "Quick & Easy"]'

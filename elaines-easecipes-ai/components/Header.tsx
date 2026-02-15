@@ -3,16 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-
-const categories = [
-  "Appetizers",
-  "Mains",
-  "Sides",
-  "Desserts",
-  "Drinks",
-  "Easecipes",
-  "Potluck",
-];
+import { categories } from "@/lib/categories";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
