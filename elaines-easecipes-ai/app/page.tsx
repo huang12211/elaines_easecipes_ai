@@ -13,14 +13,14 @@ export default async function Home() {
     .select()
     .from(recipes)
     .orderBy(desc(recipes.createdAt))
-    .limit(8)
+    .limit(10)
     .all();
 
   const popularRecipes = db
     .select()
     .from(recipes)
     .orderBy(desc(recipes.views))
-    .limit(6)
+    .limit(8)
     .all();
 
   const featuredRecipe = db
@@ -115,17 +115,27 @@ export default async function Home() {
           </div>
 
           <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5 justify-items-center">
-            {newestRecipes.map((recipe) => (
-              <RecipeCard
+            {newestRecipes.map((recipe, index) => (
+              <div
                 key={recipe.id}
-                title={recipe.title}
-                slug={recipe.slug}
-                tags={JSON.parse(recipe.tags)}
-                image={recipe.image}
-                rating={recipe.rating}
-                views={recipe.views}
-                bookmarked={recipe.bookmarked ?? false}
-              />
+                className={
+                  index >= 9
+                    ? "hidden w-full xl:block"
+                    : index === 8
+                      ? "hidden w-full md:block lg:hidden xl:block"
+                      : "w-full"
+                }
+              >
+                <RecipeCard
+                  title={recipe.title}
+                  slug={recipe.slug}
+                  tags={JSON.parse(recipe.tags)}
+                  image={recipe.image}
+                  rating={recipe.rating}
+                  views={recipe.views}
+                  bookmarked={recipe.bookmarked ?? false}
+                />
+              </div>
             ))}
           </div>
         </section>
@@ -146,9 +156,9 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto px-2 pb-2 sm:gap-3 sm:px-4 md:gap-4 md:px-6 lg:px-8 scrollbar-hide">
+          <div className="flex gap-3 overflow-x-auto px-2 pb-2 sm:gap-4 sm:px-4 md:px-6 lg:px-8 scrollbar-hide">
             {popularRecipes.map((recipe) => (
-              <div key={recipe.id} className="w-[175px] sm:w-[200px] md:w-[220px] shrink-0">
+              <div key={recipe.id} className="w-[200px] sm:w-[220px] md:w-[240px] shrink-0">
                 <RecipeCard
                   title={recipe.title}
                   slug={recipe.slug}

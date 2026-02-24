@@ -185,6 +185,29 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
     });
   };
 
+  const toggleBookmark = async () => {
+    const newBookmarked = !isBookmarked;
+    setIsBookmarked(newBookmarked);
+
+    try {
+      const response = await fetch('/api/recipes', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, bookmarked: newBookmarked }),
+      });
+
+      if (!response.ok) {
+        // Revert on failure
+        setIsBookmarked(!newBookmarked);
+        console.error('Failed to update bookmark');
+      }
+    } catch (error) {
+      // Revert on error
+      setIsBookmarked(!newBookmarked);
+      console.error('Failed to update bookmark:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
@@ -232,7 +255,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               </h1>
               <div className="flex gap-[6px] items-center">
                 <button
-                  onClick={() => setIsBookmarked(!isBookmarked)}
+                  onClick={toggleBookmark}
                   className="flex items-center h-[20px] pr-[2px]"
                 >
                   <Image

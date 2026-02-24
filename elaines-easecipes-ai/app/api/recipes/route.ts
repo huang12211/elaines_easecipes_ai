@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { recipes } from '@/lib/db/schema';
 import { like, eq } from 'drizzle-orm';
@@ -37,4 +37,29 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.json(result);
+}
+
+export async function PATCH(request: NextRequest) {
+  const body = await request.json();
+  const { slug, bookmarked } = body;
+
+  if (!slug || typeof bookmarked !== 'boolean') {
+    return NextResponse.json(
+      { error: 'Missing required fields: slug and bookmarked' },
+      { status: 400 }
+    );
+  }
+
+  const updated = db
+    .update(recipes)
+    .set({ bookmarked, updatedAt: new Date() })
+    .where(eq(recipes.slug, slug))
+    .returning()
+    .get();
+
+  if (!updated) {
+    return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
+  }
+
+  return NextResponse.json(updated);
 }
