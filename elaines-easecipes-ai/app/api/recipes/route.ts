@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { recipes } from '@/lib/db/schema';
-import { like, eq } from 'drizzle-orm';
+import { like, eq, sql } from 'drizzle-orm';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -12,9 +12,10 @@ export async function GET(request: Request) {
   // Fetch single recipe by slug
   if (slug) {
     const recipe = db
-      .select()
-      .from(recipes)
+      .update(recipes)
+      .set({ views: sql`${recipes.views} + 1` })
       .where(eq(recipes.slug, slug))
+      .returning()
       .get();
 
     if (!recipe) {
