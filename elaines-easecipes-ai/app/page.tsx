@@ -76,7 +76,7 @@ export default async function Home() {
                     </span>
                     <button>
                       <Image
-                        src="/images/bookmark.svg"
+                        src={featuredRecipe.bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
                         alt="bookmark"
                         width={13}
                         height={16}
