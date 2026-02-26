@@ -59,7 +59,7 @@ export default async function Home() {
           </div>
           {featuredRecipe && (
             <Link href={`/recipes/${featuredRecipe.slug}`}>
-              <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-[1.02]">
+              <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[360px] sm:max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-[1.02]">
                 <Image
                   src={featuredRecipe.image}
                   alt={featuredRecipe.title}
