@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import DragonFruitRating from "@/components/DragonFruitRating";
 import ServingSizeAdjuster from "@/components/ServingSizeAdjuster";
@@ -128,6 +129,7 @@ function IngredientCheckbox({ amount, measUnit, ingredient, checked, onChange }:
 }
 
 export default function RecipePage({ params }: { params: Promise<{ slug: string }> }) {
+  const router = useRouter();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [ingredientsData, setIngredientsData] = useState<string>("[]");
   const [loading, setLoading] = useState(true);
@@ -196,13 +198,17 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
         body: JSON.stringify({ slug, bookmarked: newBookmarked }),
       });
 
+      if (response.status === 401) {
+        setIsBookmarked(!newBookmarked);
+        router.push('/login');
+        return;
+      }
+
       if (!response.ok) {
-        // Revert on failure
         setIsBookmarked(!newBookmarked);
         console.error('Failed to update bookmark');
       }
     } catch (error) {
-      // Revert on error
       setIsBookmarked(!newBookmarked);
       console.error('Failed to update bookmark:', error);
     }
