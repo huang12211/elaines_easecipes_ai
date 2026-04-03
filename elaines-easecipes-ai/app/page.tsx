@@ -5,32 +5,56 @@ import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
 import DragonFruitRating from "@/components/DragonFruitRating";
 import { db } from "@/lib/db";
-import { recipes } from "@/lib/db/schema";
+import { recipes, userBookmarks } from "@/lib/db/schema";
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { verifySessionToken, COOKIE_NAME } from "@/lib/auth/session";
 
 export default async function Home() {
+  // Determine logged-in user from session cookie
+  const cookieStore = await cookies();
+  const token = cookieStore.get(COOKIE_NAME)?.value ?? null;
+  const payload = token ? await verifySessionToken(token) : null;
+  const userId = payload?.userId ?? null;
+
+  const bookmarkedSlugs: Set<string> = userId
+    ? new Set(
+        db.select().from(userBookmarks).where(eq(userBookmarks.userId, userId)).all()
+          .map(b => b.recipeSlug)
+      )
+    : new Set();
+
+  const withBookmark = <T extends { slug: string }>(r: T) => ({
+    ...r,
+    bookmarked: bookmarkedSlugs.has(r.slug),
+  });
+
   // Fetch recipes from database
   const newestRecipes = db
     .select()
     .from(recipes)
     .orderBy(desc(recipes.createdAt))
     .limit(10)
-    .all();
+    .all()
+    .map(withBookmark);
 
   const popularRecipes = db
     .select()
     .from(recipes)
     .orderBy(desc(recipes.views))
     .limit(8)
-    .all();
+    .all()
+    .map(withBookmark);
 
-  const featuredRecipe = db
+  const featuredRecipeRaw = db
     .select()
     .from(recipes)
     .where(eq(recipes.featured, true))
     .limit(1)
     .get();
+
+  const featuredRecipe = featuredRecipeRaw ? withBookmark(featuredRecipeRaw) : undefined;
 
   return (
     <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
@@ -135,7 +159,7 @@ export default async function Home() {
                   image={recipe.image}
                   rating={recipe.rating}
                   views={recipe.views}
-                  bookmarked={recipe.bookmarked ?? false}
+                  bookmarked={recipe.bookmarked}
                 />
               </div>
             ))}
@@ -168,7 +192,7 @@ export default async function Home() {
                   image={recipe.image}
                   rating={recipe.rating}
                   views={recipe.views}
-                  bookmarked={recipe.bookmarked ?? false}
+                  bookmarked={recipe.bookmarked}
                 />
               </div>
             ))}

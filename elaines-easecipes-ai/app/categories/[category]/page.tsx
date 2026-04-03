@@ -4,10 +4,12 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
 import { db } from "@/lib/db";
-import { recipes } from "@/lib/db/schema";
-import { like } from "drizzle-orm";
+import { recipes, userBookmarks } from "@/lib/db/schema";
+import { like, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { categories } from "@/lib/categories";
+import { cookies } from "next/headers";
+import { verifySessionToken, COOKIE_NAME } from "@/lib/auth/session";
 
 const validCategories: string[] = categories.map(category => category.toLowerCase()); 
 
@@ -64,13 +66,27 @@ export default async function CategoryPage({
   const displayName = categoryDisplayNames[category];
   console.log("imported categories from Header:", categories[0]);
 
+  // Determine logged-in user from session cookie
+  const cookieStore = await cookies();
+  const token = cookieStore.get(COOKIE_NAME)?.value ?? null;
+  const payload = token ? await verifySessionToken(token) : null;
+  const userId = payload?.userId ?? null;
+
+  const bookmarkedSlugs: Set<string> = userId
+    ? new Set(
+        db.select().from(userBookmarks).where(eq(userBookmarks.userId, userId)).all()
+          .map(b => b.recipeSlug)
+      )
+    : new Set();
+
   // Fetch recipes that have this category in their tags
   // Tags are stored as JSON array like '["Desserts", "Quick & Easy"]'
   const categoryRecipes = db
     .select()
     .from(recipes)
     .where(like(recipes.tags, `%"${displayName}"%`))
-    .all();
+    .all()
+    .map(r => ({ ...r, bookmarked: bookmarkedSlugs.has(r.slug) }));
 
   return (
     <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
@@ -110,7 +126,7 @@ export default async function CategoryPage({
                   image={recipe.image}
                   rating={recipe.rating}
                   views={recipe.views}
-                  bookmarked={recipe.bookmarked ?? false}
+                  bookmarked={recipe.bookmarked}
                 />
               ))}
             </div>

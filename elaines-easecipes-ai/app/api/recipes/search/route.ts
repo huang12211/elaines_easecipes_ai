@@ -1,7 +1,15 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { recipes, recipe_ingredient_measUnit } from '@/lib/db/schema';
+import { recipes, recipe_ingredient_measUnit, userBookmarks } from '@/lib/db/schema';
 import { like, eq, or, and, inArray } from 'drizzle-orm';
+import { verifySessionToken, parseCookie, COOKIE_NAME } from '@/lib/auth/session';
+
+async function getUserId(request: Request): Promise<number | null> {
+  const token = parseCookie(request.headers.get('cookie'), COOKIE_NAME);
+  if (!token) return null;
+  const payload = await verifySessionToken(token);
+  return payload?.userId ?? null;
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -9,6 +17,8 @@ export async function GET(request: Request) {
   const category = searchParams.get('category');
   const recipeNumber = searchParams.get('recipeNumber');
   const ingredients = searchParams.get('ingredients');
+
+  const userId = await getUserId(request);
 
   // If recipe number is provided, search by ID
   if (recipeNumber) {
@@ -21,7 +31,12 @@ export async function GET(request: Request) {
         .get();
 
       if (recipe) {
-        return NextResponse.json([recipe]);
+        const bookmarked = userId
+          ? !!db.select().from(userBookmarks)
+              .where(and(eq(userBookmarks.userId, userId), eq(userBookmarks.recipeSlug, recipe.slug)))
+              .get()
+          : false;
+        return NextResponse.json([{ ...recipe, bookmarked }]);
       }
       return NextResponse.json([]);
     }
@@ -48,7 +63,6 @@ export async function GET(request: Request) {
 
   // Ingredients search
   if (ingredients) {
-    // Search for recipes that contain the specified ingredient
     const matchingRecipes = db
       .select({ recipe_id: recipe_ingredient_measUnit.recipe_id })
       .from(recipe_ingredient_measUnit)
@@ -60,7 +74,6 @@ export async function GET(request: Request) {
     if (recipeSlugs.length > 0) {
       conditions.push(inArray(recipes.slug, recipeSlugs as string[]));
     } else {
-      // No matching ingredients found, return empty results
       return NextResponse.json([]);
     }
   }
@@ -69,15 +82,16 @@ export async function GET(request: Request) {
   let result;
   if (conditions.length > 0) {
     const whereClause = conditions.length === 1 ? conditions[0] : and(...conditions);
-    result = db
-      .select()
-      .from(recipes)
-      .where(whereClause)
-      .all();
+    result = db.select().from(recipes).where(whereClause).all();
   } else {
-    // Return all recipes if no search criteria provided
     result = db.select().from(recipes).all();
   }
 
-  return NextResponse.json(result);
+  if (userId) {
+    const bookmarks = db.select().from(userBookmarks).where(eq(userBookmarks.userId, userId)).all();
+    const bookmarkedSlugs = new Set(bookmarks.map(b => b.recipeSlug));
+    return NextResponse.json(result.map(r => ({ ...r, bookmarked: bookmarkedSlugs.has(r.slug) })));
+  }
+
+  return NextResponse.json(result.map(r => ({ ...r, bookmarked: false })));
 }
