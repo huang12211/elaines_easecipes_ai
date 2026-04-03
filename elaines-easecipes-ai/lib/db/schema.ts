@@ -43,6 +43,19 @@ export const measurementUnits = sqliteTable('mesurementUnits', {
 export type MeasurementUnits = typeof measurementUnits.$inferSelect
 export type InsertMeasurement = typeof measurementUnits.$inferInsert
 
+// Users table for authentication
+export const users = sqliteTable('users', {
+  id: integer('id').primaryKey({ autoIncrement: true }).notNull(),
+  email: text('email').notNull().unique(),
+  passwordHash: text('password_hash').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
+
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+
 //We also want a table to list out all the ingredients used in each recipe
 export const recipe_ingredient_measUnit = sqliteTable('recipe_ingredient_measUnit', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),

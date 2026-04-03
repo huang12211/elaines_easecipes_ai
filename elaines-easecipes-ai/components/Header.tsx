@@ -3,12 +3,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { categories } from "@/lib/categories";
 
 export default function Header() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [authState, setAuthState] = useState<{ email: string } | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => { setAuthState(data); setAuthLoading(false); })
+      .catch(() => setAuthLoading(false));
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    setAuthState(null);
+    router.refresh();
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -148,6 +165,25 @@ export default function Header() {
             >
               Contact
             </Link> */}
+
+            {!authLoading && (
+              authState ? (
+                <button
+                  onClick={() => { handleLogout(); closeMenu(); }}
+                  className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-b-[10px] text-left"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="block w-full p-[15px] text-white font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] hover:bg-white/10 hover:rounded-b-[10px]"
+                >
+                  Login
+                </Link>
+              )
+            )}
           </div>
         )}
       </div>
@@ -220,6 +256,24 @@ export default function Header() {
         >
           Contact
         </Link> */}
+
+        {!authLoading && (
+          authState ? (
+            <button
+              onClick={handleLogout}
+              className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+            >
+              Login
+            </Link>
+          )
+        )}
       </nav>
       
       {/* <div className="hidden text-[#094234] md:flex flex-row flex-nowrap items-end gap-6 order-3 lg:gap-8 w-1/5 order-3 ">
