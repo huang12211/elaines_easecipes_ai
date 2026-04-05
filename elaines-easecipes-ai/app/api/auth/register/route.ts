@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
   if (!email || !emailRegex.test(email)) {
     return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
   }
-  if (!password || password.length < 8) {
-    return NextResponse.json({ error: 'Password must be at least 8 characters' }, { status: 400 });
+  if (!password || password.length < 8 || !/^[A-Za-z0-9!@#$%^&* +-]+$/.test(password)) {
+    return NextResponse.json({ error: 'Password must be at least 8 characters long and can only contain letters, numbers, and the following special characters: !@#$%^&*+-' }, { status: 400 });
   }
 
   // Check if email already exists

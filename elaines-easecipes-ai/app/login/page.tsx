@@ -126,7 +126,7 @@ export default function LoginPage() {
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="text-[#094234] underline hover:text-[#19604f] transition-colors"
+              className="font-extrabold text-[#094234] underline hover:text-[#19604f] transition-colors"
             >
               Register
             </Link>

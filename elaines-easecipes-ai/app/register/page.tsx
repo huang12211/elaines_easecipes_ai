@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -148,7 +147,7 @@ export default function RegisterPage() {
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-[#094234] underline hover:text-[#19604f] transition-colors"
+              className="font-extrabold text-[#094234] underline hover:text-[#19604f] transition-colors"
             >
               Login
             </Link>

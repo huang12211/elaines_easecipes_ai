@@ -9,8 +9,11 @@ export async function POST(request: NextRequest) {
   const { email, password } = await request.json();
 
   const user = db.select().from(users).where(eq(users.email, email)).get();
-  if (!user || !bcrypt.compareSync(password, user.passwordHash)) {
-    return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: 'Sorry we don\'t have a user with that email' }, { status: 401 });
+  }
+  else if (!bcrypt.compareSync(password, user.passwordHash)) {
+    return NextResponse.json({ error: 'Oops! Wrong password' }, { status: 401 });
   }
 
   const token = await createSessionToken({ userId: user.id, email: user.email });
