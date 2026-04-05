@@ -248,166 +248,86 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
   // let directionsArray = recipe.directions.split("\n")
 
   return (
-    <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
-      <Header />
-
-      <main className="flex flex-col">
-        {/* Recipe Title Section */}
-        <section className="pt-[30px] pb-[20px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
-          <div className="max-w-[700px] mx-auto">
-            <div className="flex items-center gap-[30px] pb-2">
-              <h1 className="font-abeezee text-[24px] sm:text-[28px] md:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
-                {recipe.title}
-              </h1>
-              <div className="flex gap-[6px] items-center">
-                <button
-                  onClick={toggleBookmark}
-                  className="flex items-center h-[20px] pr-[2px]"
-                >
-                  <Image
-                    src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
-                    alt="bookmark"
-                    width={16}
-                    height={18}
-                  />
-                </button>
-                <button className="w-[20px] h-[20px]">
-                  <Image
-                    src="/images/cart.svg"
-                    alt="Add to basket"
-                    width={20}
-                    height={20}
-                  />
-                </button>
-              </div>
-            </div>
-
-            {/* Rating, Views, Time */}
-            <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-              <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
-              <span className="text-black text-[14px]">|</span>
-              <div className="flex items-center gap-[6px]">
-                <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
-                </svg>
-                <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
-                  {recipe.views.toLocaleString()} views
-                </span>
-              </div>
-              <span className="text-black text-[14px]">|</span>
-              <div className="flex items-center gap-[4px]">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="8" cy="8" r="6.5" stroke="#E0165C" strokeWidth="1.5"/>
-                  <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
-                  {recipe.cookTime}
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Recipe Image */}
-        <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
-          <div className="relative w-full max-w-[700px] mx-auto aspect-[350/185] rounded-[8px] overflow-hidden">
-            <Image
-              src={recipe.image}
-              alt={recipe.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 700px"
-              priority
-            />
-          </div>
-        </section>
-
-        {/* Ingredients Section */}
-        <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
-          <div className="max-w-[700px] mx-auto">
-            <div className="flex flex-col gap-[5px] mb-[10px]">
-              <div className="relative inline-block">
-                <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
-                  Ingredients
-                </h2>
-                <div className="absolute -bottom-[6px] -left-[6px] w-[128px] h-[11px]">
-                  <Image
-                    src="/images/underline.svg"
-                    alt=""
-                    fill
-                    className="object-contain object-left"
-                  />
-                </div>
-              </div>
-              <div className="px-2 mt-[8px]">
-                <ServingSizeAdjuster
-                  baseServings={recipe.baseServings}
-                  minServings={recipe.minServings}
-                  servingIncrement={recipe.servingIncrement}
-                  currentServings={currentServings ?? recipe.baseServings}
-                  onServingsChange={setCurrentServings}
+    <main className="flex flex-col">
+      {/* Recipe Title Section */}
+      <section className="pt-[30px] pb-[20px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
+        <div className="max-w-[700px] mx-auto">
+          <div className="flex items-center gap-[30px] pb-2">
+            <h1 className="font-abeezee text-[24px] sm:text-[28px] md:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
+              {recipe.title}
+            </h1>
+            <div className="flex gap-[6px] items-center">
+              <button
+                onClick={toggleBookmark}
+                className="flex items-center h-[20px] pr-[2px]"
+              >
+                <Image
+                  src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
+                  alt="bookmark"
+                  width={16}
+                  height={18}
                 />
-              </div>
-            </div>
-            
-            <div className="columns-1 sm:columns-2 gap-x-8 px-4">
-              {(() => {
-                // Group ingredients by component
-                const groups: { component: string; items: { ingr: IngredientsList; index: number }[] }[] = [];
-                ingredients.forEach((ingr, index) => {
-                  const lastGroup = groups[groups.length - 1];
-                  if (!lastGroup || lastGroup.component !== ingr.component) {
-                    groups.push({ component: ingr.component, items: [{ ingr, index }] });
-                  } else {
-                    lastGroup.items.push({ ingr, index });
-                  }
-                });
-
-                return groups.map((group, groupIndex) => (
-                  <div key={groupIndex} className="break-inside-avoid mb-2">
-                    {group.component && (
-                      <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
-                        {group.component}
-                      </h3>
-                    )}
-                    <div className="flex flex-col gap-[5px]">
-                      {group.items.map(({ ingr, index }) => {
-                        const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
-                        const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
-                        const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
-
-                        return (
-                          <IngredientCheckbox
-                            key={index}
-                            amount={scaledIngredient}
-                            measUnit={ingr.measUnit_id}
-                            ingredient={ingr.ingredient_id}
-                            checked={checkedIngredients.has(index)}
-                            onChange={() => toggleIngredient(index)}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                ));
-              })()}
+              </button>
+              <button className="w-[20px] h-[20px]">
+                <Image
+                  src="/images/cart.svg"
+                  alt="Add to basket"
+                  width={20}
+                  height={20}
+                />
+              </button>
             </div>
           </div>
-        </section>
 
-        {/* Divider */}
-        <div className="flex justify-center py-[10px]">
-          <div className="w-[200px] h-[1px] bg-gray-300"></div>
+          {/* Rating, Views, Time */}
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+            <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
+            <span className="text-black text-[14px]">|</span>
+            <div className="flex items-center gap-[6px]">
+              <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
+              </svg>
+              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+                {recipe.views.toLocaleString()} views
+              </span>
+            </div>
+            <span className="text-black text-[14px]">|</span>
+            <div className="flex items-center gap-[4px]">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="6.5" stroke="#E0165C" strokeWidth="1.5"/>
+                <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+                {recipe.cookTime}
+              </span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Directions Section */}
-        <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
-          <div className="max-w-[700px] mx-auto">
-            <div className="relative inline-block mb-[10px]">
+      {/* Recipe Image */}
+      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
+        <div className="relative w-full max-w-[700px] mx-auto aspect-[350/185] rounded-[8px] overflow-hidden">
+          <Image
+            src={recipe.image}
+            alt={recipe.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 700px"
+            priority
+          />
+        </div>
+      </section>
+
+      {/* Ingredients Section */}
+      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
+        <div className="max-w-[700px] mx-auto">
+          <div className="flex flex-col gap-[5px] mb-[10px]">
+            <div className="relative inline-block">
               <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
-                Directions
+                Ingredients
               </h2>
-              <div className="absolute -bottom-[6px] -left-[8px] w-[128px] h-[11px]">
+              <div className="absolute -bottom-[6px] -left-[6px] w-[128px] h-[11px]">
                 <Image
                   src="/images/underline.svg"
                   alt=""
@@ -416,35 +336,104 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
                 />
               </div>
             </div>
-            
-            <ol className="list-decimal pl-[0px] space-y-[8px]">
-              {directions.map((step, index) => {
-                if (step.includes("title:")){
-                  return(
-                    <p key={index} className="font-abeezee text-[16px] text-[#094234] font-bold pt-4 pb-1">
-                      {step.replace("title:", "")}
-                    </p>
-                  );
-                }
-                else{
-                  return (
-                      <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
-                        {parseStyledText(step, `step-${index}-`)}
-                      </li>
-                  );
-                }
-              })}
-            </ol>
+            <div className="px-2 mt-[8px]">
+              <ServingSizeAdjuster
+                baseServings={recipe.baseServings}
+                minServings={recipe.minServings}
+                servingIncrement={recipe.servingIncrement}
+                currentServings={currentServings ?? recipe.baseServings}
+                onServingsChange={setCurrentServings}
+              />
+            </div>
           </div>
-        </section>
-      </main>
+          
+          <div className="columns-1 sm:columns-2 gap-x-8 px-4">
+            {(() => {
+              // Group ingredients by component
+              const groups: { component: string; items: { ingr: IngredientsList; index: number }[] }[] = [];
+              ingredients.forEach((ingr, index) => {
+                const lastGroup = groups[groups.length - 1];
+                if (!lastGroup || lastGroup.component !== ingr.component) {
+                  groups.push({ component: ingr.component, items: [{ ingr, index }] });
+                } else {
+                  lastGroup.items.push({ ingr, index });
+                }
+              });
 
-      {/* Footer */}
-      <footer className="bg-[#094234] w-full py-8 sm:py-10 md:py-12 flex items-center justify-center mt-[40px]">
-        <p className="font-bold text-xs sm:text-sm text-white text-center tracking-[-0.24px]">
-          &copy; Copyright 2025 Elaine&apos;s Easecipes.
-        </p>
-      </footer>
-    </div>
+              return groups.map((group, groupIndex) => (
+                <div key={groupIndex} className="break-inside-avoid mb-2">
+                  {group.component && (
+                    <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
+                      {group.component}
+                    </h3>
+                  )}
+                  <div className="flex flex-col gap-[5px]">
+                    {group.items.map(({ ingr, index }) => {
+                      const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
+                      const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
+                      const scaledIngredient = scaleIngredient(parsed, multiplier, ingr.min_amount);
+
+                      return (
+                        <IngredientCheckbox
+                          key={index}
+                          amount={scaledIngredient}
+                          measUnit={ingr.measUnit_id}
+                          ingredient={ingr.ingredient_id}
+                          checked={checkedIngredients.has(index)}
+                          onChange={() => toggleIngredient(index)}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ));
+            })()}
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="flex justify-center py-[10px]">
+        <div className="w-[200px] h-[1px] bg-gray-300"></div>
+      </div>
+
+      {/* Directions Section */}
+      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
+        <div className="max-w-[700px] mx-auto">
+          <div className="relative inline-block mb-[10px]">
+            <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
+              Directions
+            </h2>
+            <div className="absolute -bottom-[6px] -left-[8px] w-[128px] h-[11px]">
+              <Image
+                src="/images/underline.svg"
+                alt=""
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+          </div>
+          
+          <ol className="list-decimal pl-[0px] space-y-[8px]">
+            {directions.map((step, index) => {
+              if (step.includes("title:")){
+                return(
+                  <p key={index} className="font-abeezee text-[16px] text-[#094234] font-bold pt-4 pb-1">
+                    {step.replace("title:", "")}
+                  </p>
+                );
+              }
+              else{
+                return (
+                    <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
+                      {parseStyledText(step, `step-${index}-`)}
+                    </li>
+                );
+              }
+            })}
+          </ol>
+        </div>
+      </section>
+    </main>
   );
 }

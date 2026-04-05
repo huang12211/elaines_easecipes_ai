@@ -9,7 +9,6 @@ export const recipes = sqliteTable('recipes', {
   image: text('image').notNull(),
   rating: real('rating').notNull().default(0),
   views: integer('views').notNull().default(0),
-
   featured: integer('featured', { mode: 'boolean' }).default(false),
   cookTime: text('cook_time').notNull().default("30 mins"),
   baseServings: integer('base_servings').notNull().default(4),
@@ -43,6 +42,17 @@ export const measurementUnits = sqliteTable('mesurementUnits', {
 export type MeasurementUnits = typeof measurementUnits.$inferSelect
 export type InsertMeasurement = typeof measurementUnits.$inferInsert
 
+//We also want a table to list out all the ingredients used in each recipe
+export const recipe_ingredient_measUnit = sqliteTable('recipe_ingredient_measUnit', {
+  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+  recipe_id: text('recipe_id').references(() => recipes.slug), 
+  component: text('component'),
+  amount: text('amount'),
+  measUnit_id: text('measUnit_id').references(() => measurementUnits.meas_unit), 
+  ingredient_id: text('ingredient_id').references(() => ingredients.ingr),
+  min_amount: text('min_amount'),
+});
+
 // Users table for authentication
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }).notNull(),
@@ -56,21 +66,11 @@ export const users = sqliteTable('users', {
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 
-// User bookmarks junction table
+// Personalized to the User Features Requiring Database Storage //
+// Recipes Bookmarked by Each User
 export const userBookmarks = sqliteTable('user_bookmarks', {
   userId: integer('user_id').notNull().references(() => users.id),
   recipeSlug: text('recipe_slug').notNull().references(() => recipes.slug),
 }, (t) => [primaryKey({ columns: [t.userId, t.recipeSlug] })]);
 
 export type UserBookmark = typeof userBookmarks.$inferSelect;
-
-//We also want a table to list out all the ingredients used in each recipe
-export const recipe_ingredient_measUnit = sqliteTable('recipe_ingredient_measUnit', {
-  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-  recipe_id: text('recipe_id').references(() => recipes.slug), 
-  component: text('component'),
-  amount: text('amount'),
-  measUnit_id: text('measUnit_id').references(() => measurementUnits.meas_unit), 
-  ingredient_id: text('ingredient_id').references(() => ingredients.ingr),
-  min_amount: text('min_amount'),
-});
