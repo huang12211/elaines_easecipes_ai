@@ -1,6 +1,6 @@
 import { Noto_Sans_Telugu } from 'next/font/google';
 import { db } from './index';
-import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit} from './schema';
+import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, userBookmarks } from './schema';
 import { basename } from 'path';
 import { title } from 'process';
 import { max } from 'drizzle-orm';
@@ -529,10 +529,11 @@ async function seed() {
   console.log('Seeding database...');
 
   // Clear existing data
-  db.delete(recipe_ingredient_measUnit).run(); // this line must run first (child tables must be deleted before parent tables due to foreign key constraints)
+  db.delete(recipe_ingredient_measUnit).run(); // child tables must be deleted before parent tables due to foreign key constraints
+  db.delete(userBookmarks).run();
   db.delete(recipes).run();
-  db.delete(ingredients).run();
   db.delete(measurementUnits).run();
+  db.delete(ingredients).run();
 
   // Insert seed data
   for (const ingredient of seedIngredients) {
