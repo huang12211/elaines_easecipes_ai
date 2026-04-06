@@ -39,8 +39,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         - Custom Build Command: npm run db:migrate && npm run build
         - Custom Start Command: None
         OR
-        - Custom Build Command: npm run build
-        - Custom Start Command: npm run db:migrate && npm 
+        - Custom Build Command: npm run build **(testing now on Railway 6:07pm)**
+        - Pre-deploy Command: npm run db:migrate
+        - Custom Start Command: None
 
 ### 3. Prepare for Deployment on Railway:
 
