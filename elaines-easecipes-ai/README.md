@@ -22,7 +22,8 @@ npm install
 Push the database schema and seed with initial data:
 
 ```bash
-npm run db:push
+npm run db:generate #only run when db changes are made (craetes a list of the things that need to change when migration happens)
+npm run db:migrate
 npm run db:seed
 ```
 
