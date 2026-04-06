@@ -35,9 +35,35 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### 4. Build for Production
+### 4. Inspecting Database Already Deployed in Production via Railway
 
-npm run build 
+1. open up local terminal
+2. type: `railway login`, then log into railway
+3. type: `railway link` 
+4. type: `railway ssh`
+    - To exit SSH, CTRL+D
+4. Find the database file: `find / -name "*.db" -o -name "*.sqlite" -o -name "*.sqlite3" 2>/dev/null`
+5. type: `sqlite3 /path/to/your/database.db`
+    > sqlite3 /app/data/recipes.db
+    - If sqlite3 is not yet installed on your PC, then install it by running: 
+        >apt-get update && apt-get install -y sqlite3
+6. run your SQL queries: 
+    - List all tables
+        >.tables
+    - See table schema
+        >.schema users
+    - Query data
+        >SELECT * FROM users LIMIT 10;
+    - Pretty print output
+        >.mode column
+        >
+        >.headers on
+        >
+        >SELECT * FROM users LIMIT 10;
+    - Exit
+        >.quit
+
+
 
 ## Database Commands
 
