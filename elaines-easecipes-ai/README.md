@@ -17,23 +17,42 @@ A recipe discovery application built with Next.js 16, featuring a SQLite databas
 npm install
 ```
 
-### 2. Initialize the database
-
-Push the database schema and seed with initial data:
+### 2. Run locally:
 
 ```bash
 npm run db:generate #only run when db changes are made (craetes a list of the things that need to change when migration happens)
 npm run db:migrate
 npm run db:seed
-```
-
-### 3. Run the development server
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### 3. Railway Deployment Configuration:
+
+- Mounted Volume / Database: "Mount Path" = "/elaines-easecipes-ai/data"
+- elaines_easecipes_ai Service:
+    - Settings when you don't want to keep the database in its most updated state:
+        - Custom Build Command: npm run db:push && npm run db:seed && npm run build
+        - Custom Start Command: None
+    - Settings when want to keep the database as it lives today:
+        - Custom Build Command: npm run db:migrate && npm run build
+        - Custom Start Command: None
+        OR
+        - Custom Build Command: npm run build
+        - Custom Start Command: npm run db:migrate && npm 
+
+### 3. Prepare for Deployment on Railway:
+
+```bash
+npm run db:generate #only run when db changes are made (creates a list of the things that need to change when migration happens)
+
+# Push to Git Remote Main Branch #
+
+# The following lines will run in the Railway Deployment
+npm run db:migrate 
+npm start 
+```
 
 ### 4. Inspecting Database Already Deployed in Production via Railway
 

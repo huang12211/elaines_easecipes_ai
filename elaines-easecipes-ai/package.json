@@ -9,7 +9,7 @@
     "lint": "eslint",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "drizzle-kit migrate --config ./app/drizzle.config.ts",
     "db:seed": "npx tsx lib/db/seed.ts",
     "db:studio": "drizzle-kit studio"
   },

@@ -558,7 +558,7 @@ async function seed() {
 
   // Verify the data
   const allRecipes = db.select().from(recipes).all();
-  console.log('All recipes:', allRecipes);
+  console.log('ALL RECIPES HAVE BEEN SUCESSFULLY SEEDED');
 }
 
 seed().catch(console.error);
