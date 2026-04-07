@@ -216,26 +216,20 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
 
   if (loading) {
     return (
-      <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
-        <Header />
         <div className="flex items-center justify-center h-[400px]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#094234]"></div>
         </div>
-      </div>
     );
   }
 
   if (!recipe) {
     return (
-      <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
-        <Header />
         <div className="flex flex-col items-center justify-center h-[400px] gap-4">
           <p className="text-xl text-gray-600">Recipe not found</p>
           <Link href="/" className="text-[#094234] underline">
             Go back home
           </Link>
         </div>
-      </div>
     );
   }
 
