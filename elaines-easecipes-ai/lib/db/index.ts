@@ -5,7 +5,7 @@ import * as schema from './schema';
 import path from 'path';
 import fs from 'fs';
 
-const dbPath = path.join(process.cwd(), 'data', 'recipes.db');
+const dbPath = process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'recipes.db');
 
 // Ensure data directory exists
 const dataDir = path.dirname(dbPath);
