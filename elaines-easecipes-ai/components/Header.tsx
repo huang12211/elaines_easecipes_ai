@@ -26,6 +26,7 @@ export default function Header() {
     await fetch('/api/auth/logout', { method: 'POST' });
     setAuthState(null);
     router.refresh();
+    window.location.href = window.location.href; // Force full page reload to clear any client-side state
   };
 
   useEffect(() => {

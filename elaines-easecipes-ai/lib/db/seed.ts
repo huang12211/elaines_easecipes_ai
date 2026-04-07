@@ -1,10 +1,5 @@
-import { Noto_Sans_Telugu } from 'next/font/google';
 import { db } from './index';
-import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, userBookmarks } from './schema';
-import { basename } from 'path';
-import { title } from 'process';
-import { max } from 'drizzle-orm';
-import { create } from 'domain';
+import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit } from './schema';
 
 //------------------------------------------------//
 // Seed Ingredients in Alphabetical Order         //
@@ -528,37 +523,33 @@ const seedIngredientMeasUnit = [
 async function seed() {
   console.log('Seeding database...');
 
-  // Clear existing data
-  db.delete(recipe_ingredient_measUnit).run(); // child tables must be deleted before parent tables due to foreign key constraints
-  db.delete(userBookmarks).run();
-  db.delete(recipes).run();
-  db.delete(measurementUnits).run();
-  db.delete(ingredients).run();
-
-  // Insert seed data
+  // Insert seed data (idempotent — skips rows that already exist)
   for (const ingredient of seedIngredients) {
-    db.insert(ingredients).values(ingredient).run();
+    db.insert(ingredients).values(ingredient).onConflictDoNothing().run();
   }
   console.log(`Seeded ${seedIngredients.length} ingredients`);
 
   for (const measUnit of seedMeasurementUnits) {
-    db.insert(measurementUnits).values(measUnit).run();
+    db.insert(measurementUnits).values(measUnit).onConflictDoNothing().run();
   }
   console.log(`Seeded ${seedMeasurementUnits.length} measurement units...`)
 
   for (const recipe of seedRecipes) {
-    db.insert(recipes).values(recipe).run();
+    db.insert(recipes).values(recipe).onConflictDoNothing().run();
   }
   console.log(`Seeded ${seedRecipes.length} recipes`);
 
-  for (const rim of seedIngredientMeasUnit) {
-    db.insert(recipe_ingredient_measUnit).values(rim).run();
+  // Guard: junction table uses auto-increment PK so onConflictDoNothing() won't prevent duplicates.
+  // Only insert if the table is empty.
+  const existingRim = db.select().from(recipe_ingredient_measUnit).limit(1).all();
+  if (existingRim.length === 0) {
+    for (const rim of seedIngredientMeasUnit) {
+      db.insert(recipe_ingredient_measUnit).values(rim).run();
+    }
+    console.log(`Seeded ${seedIngredientMeasUnit.length} recipe-ingredient-measurementUnit relationships`);
+  } else {
+    console.log('Skipping recipe-ingredient-measUnit relationships (already seeded)');
   }
-  console.log(`Seeded ${seedIngredientMeasUnit.length} recipe-ingredient-measurementUnit relationships...`)
-
-  // Verify the data
-  const allRecipes = db.select().from(recipes).all();
-  console.log('ALL RECIPES HAVE BEEN SUCESSFULLY SEEDED');
 }
 
 seed().catch(console.error);
