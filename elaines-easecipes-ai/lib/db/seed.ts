@@ -7,7 +7,7 @@ import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit } fr
 const seedIngredients = [
     {ingr: 'Almond Flour'}, {ingr: 'Apple(s)'},
     {ingr: 'Baking Powder'}, { ingr: 'Baking Soda'}, {ingr: 'Basil'}, {ingr: 'Black Beans'}, {ingr: 'Black Pepper'}, {ingr: 'Black Sesame Paste'}, {ingr: 'Black Sesame Seeds'}, { ingr: 'Blueberries'}, {ingr: 'Brandy / Rum / Whiskey'}, { ingr: 'Brown Sugar'}, 
-    {ingr: 'Canola Oil'}, {ingr: "Carrot(s)"}, {ingr: 'Chicken Thighs, boneless'}, {ingr: 'Chickpeas'}, {ingr: 'Cinnamon'}, {ingr: 'Cocoa Powder'}, {ingr: 'Coriander'}, {ingr: 'Coriander Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'}, {ingr: 'Cranberries'},
+    {ingr: 'Canola Oil'}, {ingr: "Carrot(s)"}, {ingr: 'Cayenne Pepper'}, {ingr: 'Chicken Thighs, boneless'}, {ingr: 'Chickpeas'}, {ingr: 'Cinnamon'}, {ingr: 'Cocoa Powder'}, {ingr: 'Coriander'}, {ingr: 'Coriander Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'}, {ingr: 'Cranberries'},
     {ingr: 'Dark Chocolate, chopped'}, {ingr: 'Dijon Mustard'},
     {ingr: 'Egg(s)'}, {ingr: 'Egg White(s)'}, {ingr: 'Egg Yolk(s)'},
     {ingr: 'Flour' }, {ingr: 'Fresh Fruit'}, {ingr: 'Fresh Parsley'},
@@ -16,12 +16,13 @@ const seedIngredients = [
     {ingr: 'Ice Cold Water'},
     {ingr: 'Kidney Beans'},
     {ingr: 'Lemon(s)'},{ingr: 'Lemon Juice'}, {ingr: 'Lime'},
-    {ingr: 'Margarine' }, { ingr: 'Milk' }, 
+    {ingr: 'Margarine' }, { ingr: 'Milk' }, {ingr: 'Mozzarella Cheese'},
     {ingr: 'Olive Oil'}, {ingr: 'Onion(s)'}, {ingr: 'Orange Juice'}, {ingr: 'Orange Marmelade'},
-    {ingr: 'Peaches'}, {ingr: 'Peanut Butter'}, {ingr: 'Premade 9 inch Pie Crust'},
+    {ingr: 'Peaches'}, {ingr: 'Peanut Butter'}, {ingr: 'Pepperoni'}, {ingr: 'Premade 9 inch Pie Crust'},
     {ingr: 'Quick Oats'},
     {ingr: 'Raisins'}, {ingr: 'Raspberries'}, {ingr: 'Red Onion, diced'}, {ingr: 'Red Wine Vinegar / Apple Cider Vinegar'}, {ingr: 'Rhubarb, chopped'},
     {ingr: 'Salt' }, { ingr: 'Salted Butter' }, {ingr: 'Semisweet Chocolate Chips'}, {ingr: 'Sriracha'}, {ingr: 'Soy Sauce'}, {ingr: 'Sweet Red Pepper, diced'}, 
+    {ingr: 'Tomato Sauce'},
     {ingr: 'Unsalted Butter' }, 
     {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, {ingr: 'Vermicelli Noodles'},
     {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'}, {ingr: 'Whole Milk'},
@@ -46,6 +47,41 @@ const seedMeasurementUnits =[
 // Seed Recipes in Alphabetical Order             //
 //------------------------------------------------//
 const seedRecipes = [
+  {
+    title: "Airy Thick Crust Pizza",
+    slug: "airy-thick-crust-pizza",
+    tags: JSON.stringify(["Meals", "Italian"]),
+    image: "/images/fluffy-crust-pizza.jpg",
+    rating: 5,
+    views: 20,
+    bookmarked: false,
+    featured: false,
+    cookTime: "3h",
+    baseServings: 12,
+    minServings: 12,
+    servingIncrement: 12,
+    directions: JSON.stringify([
+      "title: Dough:",
+      "In a bowl, add the warm water, sugar and yeast. Set aside to allow the yeast to bloom.",
+      "Add in 3 cups of flour and all other ingredients for the dough into a mixer and mix until well-combined.",
+      "Once the yeast has bloomed, add the yeast mixture to the mixer.",
+      "Incrementally add more flour until the dough stops sticking to the sides of the bowl.",
+      "Let the mixer run for at least 10 minutes on medium speed until the dough is smooth and elastic.",
+      "Cover the dough and set aside in a warm place for 2 hours or until it has doubled in size.",
+      "Divide the dough into two equal portions if you have two 10-inch square pans. Or divide the dough into three equal portions if you have three 9-inch circular pans.",
+      "Grease your pan and spread the dough out into the pan(s) and cover again to let it rise for another 20 mins",
+      "Preheat the oven to 550\u00B0F or as high as your oven will go.",
+      "title: Sauce:",
+      "In a bowl, mix together the tomato sauce with cayenne pepper (leave out if you don't like your pizza spicy) and any other desired seasonings.",
+      "title: Assemble:",
+      "Prepare your desired toppings. I like to use mozzarella cheese, pepperoni, red onions, green peppers, and mushrooms.",
+      "Spread your pizza sauce on top of the dough, make sure it's evenly distributed.",
+      "Add your cheese and toppings on top of the sauce.",
+      "Take a knife and stab the pizza a few times to allow steam to escape and prevent the pizza dough from forming bubbles.",
+      "Bake the pizza for 20-30 mins or until the cheese is bubbly and golden."
+    ]),
+    createdAt: new Date(2026, 4, 7),
+  },
   {
     title: "Apple Frangipane Tart",
     slug: "apple-frangipane-tart",
@@ -366,6 +402,17 @@ const seedRecipes = [
 ];
 
 const seedIngredientMeasUnit = [
+  // Airy Thick Crust Pizza
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '1 1/3', measUnit_id: 'cup(s)', ingredient_id: 'Water', min_amount: '1 1/3'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '1', measUnit_id: 'tsp(s)', ingredient_id: 'Granulated Sugar', min_amount: '1'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '2 1/4', measUnit_id: 'tsp(s)', ingredient_id: 'Yeast', min_amount: '2 1/4'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Olive Oil', min_amount: '2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Dough:', amount: '3 1/2', measUnit_id: 'cup(s)', ingredient_id: 'Flour', min_amount: '3 1/2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Sauce:', amount: '1 1/2', measUnit_id: 'cup(s)', ingredient_id: 'Tomato Sauce', min_amount: '1 1/2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Sauce:', amount: '2', measUnit_id: 'tsp(s)', ingredient_id: 'Cayenne Pepper', min_amount: '2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Toppings:', amount: '2', measUnit_id: 'cup(s)', ingredient_id: 'Mozzarella Cheese', min_amount: '2'},
+  {recipe_id: 'airy-thick-crust-pizza', component: 'Toppings:', amount: '1/2', measUnit_id: 'cup(s)', ingredient_id: 'Pepperoni', min_amount: '1/2'},
   // Apple Frangipane Tart
   {recipe_id: 'apple-frangipane-tart', component: 'Dough:', amount: '1', measUnit_id: ' ', ingredient_id: 'Premade 9 inch Pie Crust', min_amount: '1'},
   {recipe_id: 'apple-frangipane-tart', component: 'Filling:', amount: '4', measUnit_id: 'tbsp(s)', ingredient_id: 'Unsalted Butter', min_amount: '4'},
