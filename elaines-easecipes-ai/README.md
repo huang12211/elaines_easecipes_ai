@@ -36,11 +36,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         - Custom Build Command: npm run db:push && npm run db:seed && npm run build
         - Custom Start Command: None
     - Settings when want to keep the database as it lives today:
-        - Custom Build Command: npm run db:migrate && npm run build
-        - Custom Start Command: None
-        OR
-        - Custom Build Command: npm run build **(testing now on Railway 6:07pm)**
-        - Pre-deploy Command: npm run db:migrate
+        - Custom Build Command: npm run build 
+        - Pre-deploy Command: npm run db:migrate:root
         - Custom Start Command: None
 
 ### 3. Prepare for Deployment on Railway:
