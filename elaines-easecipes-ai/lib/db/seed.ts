@@ -481,7 +481,7 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'blueberry-rolls', component: 'Dough:', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2'},
   {recipe_id: 'blueberry-rolls', component: 'Filling:', amount: '3', measUnit_id: 'tbsp(s)', ingredient_id: 'Unsalted Butter', min_amount: '3'},
   {recipe_id: 'blueberry-rolls', component: 'Filling:', amount: '1/2', measUnit_id: 'cup(s)', ingredient_id: 'Granulated Sugar', min_amount: '1/2'},
-  {recipe_id: 'blueberry-rolls', component: 'Filling:', amount: ' ', measUnit_id: '2', ingredient_id: 'Lemon(s)', min_amount: '2'},
+  {recipe_id: 'blueberry-rolls', component: 'Filling:', amount: '2', measUnit_id: ' ', ingredient_id: 'Lemon(s)', min_amount: '2'},
   {recipe_id: 'blueberry-rolls', component: 'Filling:', amount: '2', measUnit_id: 'cup(s)', ingredient_id: 'Blueberries', min_amount: '2'},
   //Chocolate Chip Cookies
   {recipe_id: 'chocolate-chip-cookies', amount: '3/4', measUnit_id: 'cup(s)', ingredient_id: 'Unsalted Butter', min_amount: '3/8'},
