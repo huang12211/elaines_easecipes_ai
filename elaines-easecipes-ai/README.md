@@ -30,15 +30,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### 3. Railway Deployment Configuration:
 
-- Mounted Volume / Database: "Mount Path" = "/elaines-easecipes-ai/data"
+- Mounted Volume / Database: "Mount Path" = "/app/data"
+
 - elaines_easecipes_ai Service:
-    - Settings when you don't want to keep the database in its most updated state:
-        - Custom Build Command: npm run db:push && npm run db:seed && npm run build
-        - Custom Start Command: None
-    <!-- - Settings when want to keep the database as it lives today:
-        - Custom Build Command: npm run db:seed && npm run build 
-        - Pre-deploy Command: None
-        - Custom Start Command: None -->
+    - Variables: 
+        - DATABASE_PATH = /app/data/recipes.db
+        - JWT_SECRET = generate one for your system
+        - PORT = 8080
+    - Settings 
+        - When want to keep the database as it lives today:
+            - Custom Build Command: npm run build 
+            - Custom Start Command: npm run db:seed && npm run start
+        - When you don't want to keep the database in its most updated state:
+            - Custom Build Command: npm run db:push && npm run db:seed && npm run build
+            - Custom Start Command: None
 
 ### 3. Prepare for Deployment on Railway:
 
