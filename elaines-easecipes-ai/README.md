@@ -41,6 +41,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         - When want to keep the database as it lives today:
             - Custom Build Command: npm run build 
             - Custom Start Command: npm run db:seed && npm run start
+            NOTE: if seed.ts has an issue, data will be wiped from the database and it reseeds from empty. 
         - When you don't want to keep the database in its most updated state:
             - Custom Build Command: npm run db:push && npm run db:seed && npm run build
             - Custom Start Command: None

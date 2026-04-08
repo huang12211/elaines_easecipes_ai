@@ -18,5 +18,7 @@ sqlite.pragma('journal_mode = WAL');
 
 export const db = drizzle(sqlite, { schema });
 
-// Automatically apply migrations on startup
-migrate(db, { migrationsFolder: path.join(process.cwd(), 'drizzle') });
+// Only run migrations at server runtime, not during `next build`
+if (process.env.NEXT_PHASE !== 'phase-production-build') {
+  migrate(db, { migrationsFolder: path.join(process.cwd(), 'drizzle') });
+}
