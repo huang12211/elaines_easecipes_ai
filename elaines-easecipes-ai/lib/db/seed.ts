@@ -1,3 +1,4 @@
+import { desc } from 'drizzle-orm';
 import { db } from './index';
 import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit } from './schema';
 
@@ -51,6 +52,7 @@ const seedRecipes = [
     title: "Airy Thick Crust Pizza",
     slug: "airy-thick-crust-pizza",
     tags: JSON.stringify(["Mains", "Italian"]),
+    // description: "A recipe for a thick crust pizza that is airy and fluffy on the inside and crispy on the edges. Personalize it with your favourite toppings and enjoy a delicious pizza night at home!",
     image: "/images/fluffy-crust-pizza.jpg",
     rating: 5,
     views: 20,
@@ -86,6 +88,7 @@ const seedRecipes = [
     title: "Apple Frangipane Tart",
     slug: "apple-frangipane-tart",
     tags: JSON.stringify(["Desserts"]),
+    // description: "A recipe for an Apple Frangipane Tart that is a perfect fall treat with its buttery almond filling and thinly sliced apples on top.",
     image: "/images/apple-frangipane-tart.png",
     rating: 5,
     views: 3,
@@ -111,6 +114,7 @@ const seedRecipes = [
     title: "Black Sesame Paste",
     slug: "black-sesame-paste",
     tags: JSON.stringify(["Easecipes"]),
+    // desccription: "A recipe for an easy homemade sweet black sesame paste to use in your asian-inspired desserts.",
     image: "/images/black-sesame-paste.png",
     rating: 5,
     views: 5,

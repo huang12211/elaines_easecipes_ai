@@ -16,7 +16,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Elaine's Easecipes",
+  title: {
+    template: "%s | Elaine's Easecipes",
+    default: "Elaine's Easecipes",
+  },
   description: "Delicious recipes made easy",
 };
 
@@ -27,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className={`${abeezee.variable} ${inter.variable} h-auto w-full antialiased`}>
         <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
           <Header />

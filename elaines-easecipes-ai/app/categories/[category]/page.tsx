@@ -8,6 +8,7 @@ import { recipes, userBookmarks } from "@/lib/db/schema";
 import { like, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { categories } from "@/lib/categories";
+import { BASE_URL } from "@/app/sitemap";
 import { cookies } from "next/headers";
 import { verifySessionToken, COOKIE_NAME } from "@/lib/auth/session";
 
@@ -34,9 +35,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
+export async function generateMetadata({params,}: {
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
@@ -47,8 +46,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${displayName} Recipes | Elaine's Easecipes`,
-    description: `Browse our collection of delicious ${displayName.toLowerCase()} recipes.`,
+    title: `${displayName}`,
+    description: `Browse our collection of delicious ${displayName.toLowerCase()}.`,
   };
 }
 
@@ -88,7 +87,24 @@ export default async function CategoryPage({
     .all()
     .map(r => ({ ...r, bookmarked: bookmarkedSlugs.has(r.slug) }));
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${displayName} Recipes`,
+    itemListElement: categoryRecipes.map((recipe, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${BASE_URL}/recipes/${recipe.slug}`,
+      name: recipe.title,
+    })),
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     <div className="min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)] bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
       {/* Category Header */}
       <div className="px-2 py-6 sm:px-4 md:px-6 lg:px-8">
@@ -133,5 +149,6 @@ export default async function CategoryPage({
         )}
       </div>
     </div>
+    </>
   );
 }

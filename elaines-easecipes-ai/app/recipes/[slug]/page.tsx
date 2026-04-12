@@ -2,6 +2,16 @@ import { db } from "@/lib/db";
 import { recipes, recipe_ingredient_measUnit } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import RecipePageClient from "./RecipePageClient";
+import { date } from "drizzle-orm/mysql-core";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const recipe = db.select().from(recipes).where(eq(recipes.slug, slug)).get();
+  return {
+    title: recipe?.title ?? slug,
+  };
+}
 
 function toCookTimeISO(raw: string): string {
   const hours = raw.match(/(\d+)\s*h/i)?.[1];
@@ -24,8 +34,10 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
         "@type": "Recipe",
         name: recipe.title,
         image: recipe.image,
+        author: {"@type": "Person", "name": "Elaine"},
+        datePublished: new Date(recipe.createdAt).toISOString(),
         recipeCategory: (JSON.parse(recipe.tags) as string[]).join(", "),
-        cookTime: toCookTimeISO(recipe.cookTime),
+        totalTime: toCookTimeISO(recipe.cookTime),
         recipeYield: `${recipe.baseServings} servings`,
         aggregateRating: {
           "@type": "AggregateRating",
