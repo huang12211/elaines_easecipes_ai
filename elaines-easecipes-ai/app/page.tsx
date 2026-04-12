@@ -9,6 +9,7 @@ import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { verifySessionToken, COOKIE_NAME } from "@/lib/auth/session";
+import { BASE_URL } from "@/app/sitemap";
 
 export default async function Home() {
   // Determine logged-in user from session cookie
@@ -55,8 +56,40 @@ export default async function Home() {
 
   const featuredRecipe = featuredRecipeRaw ? withBookmark(featuredRecipeRaw) : undefined;
 
+  const seen = new Set<string>();
+  const allDisplayed = [...newestRecipes, ...popularRecipes].filter(r => {
+    if (seen.has(r.slug)) return false;
+    seen.add(r.slug);
+    return true;
+  });
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        url: `${BASE_URL}/`,
+        name: "Elaine's Easecipes",
+      },
+      {
+        "@type": "ItemList",
+        name: "Recipes",
+        itemListElement: allDisplayed.map((recipe, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `${BASE_URL}/recipes/${recipe.slug}`,
+          name: recipe.title,
+        })),
+      },
+    ],
+  };
+
   return (
-    <div className="relative bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="relative bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
       <section className="relative w-full h-[280px] sm:h-[360px] md:h-[360px] lg:h-[420px]">
         <div className="absolute inset-0 blur-[2px] overflow-hidden">
           <Image
@@ -188,5 +221,6 @@ export default async function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

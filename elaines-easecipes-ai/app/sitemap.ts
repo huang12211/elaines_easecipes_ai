@@ -4,7 +4,7 @@ import { recipes } from '@/lib/db/schema'
 
 export const dynamic = 'force-dynamic'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
 const CATEGORIES = ['appetizers', 'mains', 'sides', 'desserts', 'drinks', 'easecipes', 'potluck']
 
