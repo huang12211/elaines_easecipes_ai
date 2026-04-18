@@ -35,7 +35,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
         name: recipe.title,
         image: recipe.image,
         author: {"@type": "Person", "name": "Elaine"},
-        datePublished: new Date(recipe.createdAt).toISOString(),
+        datePublished: recipe.createdAt.toISOString().split('T')[0],
         recipeCategory: (JSON.parse(recipe.tags) as string[]).join(", "),
         totalTime: toCookTimeISO(recipe.cookTime),
         recipeYield: `${recipe.baseServings} servings`,
