@@ -43,25 +43,26 @@ export default function RecipeCard({
       </div>
       <div className="absolute bottom-0 left-0 w-[85%] h-auto min-h-[50px] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden p-1.5 flex flex-col justify-between">
         <div className="flex gap-2 items-start justify-between w-full">
-          <p className="font-abeezee text-[10px] sm:text-[11px] md:text-xs text-black tracking-[0.25px] leading-normal flex-1 min-w-0 line-clamp-2">
+          <p className="font-abeezee text-xs sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal flex-1 min-w-0 line-clamp-2">
             {title}
           </p>
-          <button className="flex items-center h-[14px] pr-[2px]">
-            <Image
-              src={bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
-              alt="bookmark"
-              width={13}
-              height={14}
-            />
+          <button>
+            <div className="relative w-3 h-3.5 sm:mr-0.5 sm:mt-0.25 md:w-3.5 md:h-4 md:mr-0.5 md:mt-0.5">
+              <Image
+                src={bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
+                alt="bookmark"
+                fill
+              />
+            </div>
           </button>
         </div>
         <div className="flex items-center justify-between w-full">
-          <DragonFruitRating rating={rating} />
+          <DragonFruitRating rating={rating} sizeClassName="w-3 h-3.5 sm:w-3.5 sm:h-4 md:w-4 md:h-[18px]" />
           <div className="flex items-center gap-[6px]">
-            <svg width="10" height="8" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-3 h-3.5 sm:w-3.5 sm:h-4 md:w-4 md:h-[18px]" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
             </svg>
-            <span className="text-[8px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
+            <span className="text-[8px] sm:text-[10px] md:text-[11px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
               {views.toLocaleString()}
             </span>
           </div>

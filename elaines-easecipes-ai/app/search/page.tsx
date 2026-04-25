@@ -83,7 +83,7 @@ export default function SearchPage() {
               <div className="flex-1 bg-white rounded-sm shadow-sm">
                 <input
                   type="text"
-                  placeholder="Search by title or tags..."
+                  placeholder="Search by recipe name or keywords (ex: muffin, pasta)"
                   value={keywords}
                   onChange={(e) => setKeywords(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -118,23 +118,6 @@ export default function SearchPage() {
                 </select>
               </div>
             </div>
-
-            {/* Recipe Number
-            <div className="flex items-center gap-3 mb-2 sm:gap-4">
-              <label className="font-abeezee text-[15px] sm:text-[17px] text-black tracking-[-0.408px] leading-[22px] w-[90px] sm:w-[100px] shrink-0">
-                Recipe #:
-              </label>
-              <div className="flex-1 bg-white rounded-sm shadow-sm">
-                <input
-                  type="text"
-                  placeholder="Enter recipe ID..."
-                  value={recipeNumber}
-                  onChange={(e) => setRecipeNumber(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="w-full px-4 py-2.5 font-abeezee text-[15px] sm:text-[17px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none"
-                />
-              </div>
-            </div> */}
 
             {/* Ingredients */}
             <div className="flex items-center gap-3 mb-4 sm:gap-4">
@@ -221,7 +204,7 @@ export default function SearchPage() {
               Use the search form above to find recipes.
             </p>
             <p className="text-gray-400 text-sm mt-2 text-center">
-              Search by keywords, category, recipe number, or ingredients.
+              Search by keywords, category or ingredients.
             </p>
           </div>
         )}

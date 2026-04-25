@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Elaine's Easecipes",
     default: "Elaine's Easecipes",
   },
-  description: "Delicious recipes made easy",
+  description: "Elaine's Easecipes is a collection of delicious recipes made easy",
 };
 
 export default function RootLayout({

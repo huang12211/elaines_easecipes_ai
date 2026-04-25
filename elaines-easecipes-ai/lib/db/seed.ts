@@ -52,7 +52,7 @@ const seedRecipes = [
     title: "Airy Thick Crust Pizza",
     slug: "airy-thick-crust-pizza",
     tags: JSON.stringify(["Mains", "Italian"]),
-    // description: "A recipe for a thick crust pizza that is airy and fluffy on the inside and crispy on the edges. Personalize it with your favourite toppings and enjoy a delicious pizza night at home!",
+    metaDescription: "A recipe for a thick crust pizza that is airy and fluffy on the inside and crispy on the edges. Personalize it with your favourite toppings and enjoy a delicious pizza night at home!",
     image: "/images/airy-thick-crust-pizza.webp",
     rating: 5,
     views: 20,
@@ -88,7 +88,7 @@ const seedRecipes = [
     title: "Apple Frangipane Tart",
     slug: "apple-frangipane-tart",
     tags: JSON.stringify(["Desserts"]),
-    // description: "A recipe for an Apple Frangipane Tart that is a perfect fall treat with its buttery almond filling and thinly sliced apples on top.",
+    metaDescription: "A recipe for an Apple Frangipane Tart that is a perfect fall treat with its buttery almond filling and thinly sliced apples on top.",
     image: "/images/apple-frangipane-tart.webp",
     rating: 5,
     views: 3,
@@ -114,7 +114,7 @@ const seedRecipes = [
     title: "Black Sesame Paste",
     slug: "black-sesame-paste",
     tags: JSON.stringify(["Easecipes"]),
-    // desccription: "A recipe for an easy homemade sweet black sesame paste to use in your asian-inspired desserts.",
+    metaDescription: "A quick 10 minute recipe for an easy homemade sweet black sesame paste to use in your asian-inspired desserts.",
     image: "/images/black-sesame-paste.webp",
     rating: 5,
     views: 5,
@@ -136,6 +136,7 @@ const seedRecipes = [
     title: "Black Sesame Swirl Buns",
     slug: "black-sesame-swirl-buns",
     tags: JSON.stringify(["Breakfast", "Desserts"]),
+    metaDescription: "This trendy asian breakfast treat can be made at home with extra delicious black sesame paste. These homemade black sesame swirl buns will put your local Cantonese bakery to shame.",
     image: "/images/black-sesame-swirl-buns.webp",
     rating: 5,
     views: 6,
@@ -169,6 +170,7 @@ const seedRecipes = [
     title: "Blueberry Rolls",
     slug: "blueberry-rolls",
     tags: JSON.stringify(["Breakfast", "Desserts"]),
+    metaDescription: "A delicious recipe for the cinamon roll's less famous cousin - blueberry lemon rolls. These rolls are light and bright, a perfect summer treat.",
     image: "/images/blueberry-rolls.webp",
     rating: 4,
     views: 27,
@@ -199,6 +201,7 @@ const seedRecipes = [
     title: "Chocolate Chip Cookies",
     slug: "chocolate-chip-cookies",
     tags: JSON.stringify(["Desserts", "Easecipes"]),
+    metaDescription: "A recipe for the classic cookie. It's easy, quick (30 mins max.), and the perfect excuse to avoid studying for that exam ;).",
     image: "/images/chocolate-chip-cookies.webp",
     rating: 4,
     views: 12,
@@ -226,6 +229,7 @@ const seedRecipes = [
     title: "Chocolate Raspberry Mousse Cake",
     slug: "chocolate-raspberry-mousse-cake",
     tags: JSON.stringify(["Desserts"]),
+    metaDescription: "This dessert was made for those who love raspberry-chocolate combinations. Look no further if you want a balanced and glossy chocolate mousse case with a raspberry twist!",
     image: "/images/chocolate-raspberry-mousse.webp",
     rating: 4,
     views: 3,
@@ -270,6 +274,7 @@ const seedRecipes = [
     title: "Fluffy Blueberry Muffins",
     slug: "fluffy-blueberry-muffins",
     tags: JSON.stringify(["Breakfast", "Desserts", "Easecipes"]),
+    metaDescription: "Instructions for making THE best fluffy blueberry muffins that stay moist for days. Perfect to pair with a latte, or cup of tea.",
     image: "/images/fluffy-blueberry-muffins.webp",
     rating: 4,
     views: 11,
@@ -296,6 +301,7 @@ const seedRecipes = [
     title: "Grammy Vint's Good Bean Salad",
     slug: "grammy-vints-good-bean-salad",
     tags: JSON.stringify(["Sides", "Easecipes", "Potluck"]),
+    metaDescription: "A tried and true family recipe for a quick and easy salad packed with healthy protein.",
     image: "/images/good-bean-salad.webp",
     rating: 5,
     views: 6,
@@ -319,6 +325,7 @@ const seedRecipes = [
     title: "Grammy Vint's Rhubarb Cream Crisp",
     slug: "grammy-vints-rhubarb-cream-crisp",
     tags: JSON.stringify(["Desserts"]),
+    metaDescription: "A family secret recipe for a crowd pleaser that transforms rhubarb into an addictively sweet and tart dessert. I alway make this tart whenever my rhubarb is ready to harvest.",
     image: "/images/rhubarb-cream-crisp.webp",
     rating: 4,
     views: 7,
@@ -342,6 +349,7 @@ const seedRecipes = [
     title: "Merry Minced Meat Pies",
     slug: "merry-minced-meat-pies",
     tags: JSON.stringify(["Desserts", "Potluck"]),
+    metaDescription: "This that time of the year! (or not) So here's a recipe for some homemade minced meat pies. Get the party started with these boozy treats which are sure to be a hit at any large gathering.",
     image: "/images/mince-meat-pies.webp",
     rating: 4,
     views: 7,
@@ -376,6 +384,7 @@ const seedRecipes = [
     title: "Onion Pancakes",
     slug: "onion-pancakes",
     tags: JSON.stringify(["Breakfast"]),
+    metaDescription: "A recipe for onion pancakes which are a classic chinese breakfast staple. Freeze them so that you can pull one out and crisp it up in the pan whenever you're craving one.",
     image: "/images/onion-pancakes.webp",
     rating: 4,
     views: 13,
@@ -400,6 +409,7 @@ const seedRecipes = [
     title: "Thai Chicken Peanut Noodles",
     slug: "thai-chicken-peanut-noodles",
     tags: JSON.stringify(["Mains", "Thai", "Fusion"]),
+    metaDescription: "Noodles topped with a A sweet, savoury, and spicy peanut sauce that can be thrown together using chicken, eggs and any vegetables you have on hand.",
     image: "/images/thai-chicken-peanut-noodles.webp",
     rating: 4,
     views: 15,
@@ -631,10 +641,13 @@ async function seed() {
   for (const recipe of seedRecipes) {
     db.insert(recipes).values(recipe).onConflictDoNothing().run();
     //Only update the paths to the images for the recipes
-    // db.insert(recipes).values(recipe).onConflictDoUpdate({
-    //   target: recipes.slug,
-    //   set: { image: recipe.image },
-    // }).run(); 
+    db.insert(recipes).values(recipe).onConflictDoUpdate({
+      target: recipes.slug,
+      set: { 
+        metaDescription: recipe.metaDescription, 
+        image: recipe.image
+      },
+    }).run(); 
   }
   console.log(`Seeded ${seedRecipes.length} recipes`);
 

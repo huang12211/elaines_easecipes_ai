@@ -20,5 +20,9 @@ export const db = drizzle(sqlite, { schema });
 
 // Only run migrations at server runtime, not during `next build`
 if (process.env.NEXT_PHASE !== 'phase-production-build') {
+  // Disable FK enforcement during migration — SQLite ignores PRAGMA foreign_keys inside
+  // a transaction, so migrations that drop/recreate tables would fail otherwise.
+  sqlite.pragma('foreign_keys = OFF');
   migrate(db, { migrationsFolder: path.join(process.cwd(), 'drizzle') });
+  sqlite.pragma('foreign_keys = ON');
 }

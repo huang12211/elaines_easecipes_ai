@@ -10,6 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const recipe = db.select().from(recipes).where(eq(recipes.slug, slug)).get();
   return {
     title: recipe?.title ?? slug,
+    description: recipe?.metaDescription,
   };
 }
 

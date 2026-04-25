@@ -20,28 +20,6 @@ export async function GET(request: Request) {
 
   const userId = await getUserId(request);
 
-  // If recipe number is provided, search by ID
-  if (recipeNumber) {
-    const recipeId = parseInt(recipeNumber);
-    if (!isNaN(recipeId)) {
-      const recipe = db
-        .select()
-        .from(recipes)
-        .where(eq(recipes.id, recipeId))
-        .get();
-
-      if (recipe) {
-        const bookmarked = userId
-          ? !!db.select().from(userBookmarks)
-              .where(and(eq(userBookmarks.userId, userId), eq(userBookmarks.recipeSlug, recipe.slug)))
-              .get()
-          : false;
-        return NextResponse.json([{ ...recipe, bookmarked }]);
-      }
-      return NextResponse.json([]);
-    }
-  }
-
   // Build conditions array
   const conditions = [];
 
