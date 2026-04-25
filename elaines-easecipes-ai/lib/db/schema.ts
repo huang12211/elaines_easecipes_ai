@@ -7,6 +7,7 @@ export const recipes = sqliteTable('recipes', {
   slug: text('slug').notNull().unique(),
   tags: text('tags').notNull(),
   metaDescription: text('meta_description'),
+  description: text('description'),
   image: text('image').notNull(),
   rating: real('rating').notNull().default(0),
   views: integer('views').notNull().default(0),

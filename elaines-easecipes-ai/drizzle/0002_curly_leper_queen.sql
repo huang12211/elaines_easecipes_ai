@@ -1,4 +1,5 @@
 PRAGMA foreign_keys=OFF;--> statement-breakpoint
+ALTER TABLE `recipes` ADD `meta_description` text;
 CREATE TABLE `__new_recipes` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
