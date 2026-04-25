@@ -626,11 +626,11 @@ const seedIngredientMeasUnit = [
 
 async function seed() {
   console.log('Deleting tables...')
-  try{
-    await db.delete(user_bookmarks);
-  }catch(error){
-    console.log('user_bookmarks table did not exist, so did not delete.')
-  }
+  // try{
+  //   await db.delete(user_bookmarks);
+  // }catch(error){
+  //   console.log('user_bookmarks table did not exist, so did not delete.')
+  // }
   try{
     await db.delete(recipe_ingredient_measUnit);
   }catch(error){
@@ -648,7 +648,7 @@ async function seed() {
   }
   console.log('All tables deleted.')
 
-  
+
   console.log('Seeding database...');
 
   // Insert seed data (idempotent — skips rows that already exist)
