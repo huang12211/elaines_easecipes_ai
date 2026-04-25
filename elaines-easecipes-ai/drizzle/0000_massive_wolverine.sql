@@ -24,6 +24,8 @@ CREATE TABLE `recipes` (
 	`title` text NOT NULL,
 	`slug` text NOT NULL,
 	`tags` text NOT NULL,
+	`meta_description` text,
+	`description` text,
 	`image` text NOT NULL,
 	`rating` real DEFAULT 0 NOT NULL,
 	`views` integer DEFAULT 0 NOT NULL,

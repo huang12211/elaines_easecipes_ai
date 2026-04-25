@@ -49,12 +49,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### 3. Prepare for Deployment on Railway:
 
 ```bash
-npm run db:generate #only run when db changes are made (creates a list of the things that need to change when migration happens)
+npm run db:generate #only run when changes to the schema are made (creates a list of the things that need to change when migration happens)
 
 # Push to Git Remote Main Branch #
 
 # The following lines will run in the Railway Deployment
-npm run db:migrate 
+npm run db:migrate:root (optional)
+npm run db:seed
 npm start 
 ```
 
@@ -93,7 +94,7 @@ npm start
 | Command | Description |
 |---------|-------------|
 | `npm run db:push` | Push schema changes to the database |
-| `npm run db:seed` | Seed the database with initial recipe data |
+| `npm run db:seed` | Seed the database with recipe data / changes to recipe data |
 | `npm run db:studio` | Open Drizzle Studio to browse/edit data |
 
 ## API Routes

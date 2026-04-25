@@ -5,16 +5,9 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1775434733770,
-      "tag": "0000_low_thaddeus_ross",
+      "when": 1777153732293,
+      "tag": "0000_massive_wolverine",
       "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1776621906095,
-      "tag": "0002_curly_leper_queen",
-      "breakpoints": true
-    },
+    }
   ]
 }

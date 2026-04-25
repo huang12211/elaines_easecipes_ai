@@ -639,15 +639,15 @@ async function seed() {
   console.log(`Seeded ${seedMeasurementUnits.length} measurement units...`)
 
   for (const recipe of seedRecipes) {
-    // db.insert(recipes).values(recipe).onConflictDoNothing().run();
+    db.insert(recipes).values(recipe).onConflictDoNothing().run();
     //Only update the _______ for the recipes
-    db.insert(recipes).values(recipe).onConflictDoUpdate({
-      target: recipes.slug,
-      set: { 
-        metaDescription: recipe.metaDescription, 
-        image: recipe.image
-      },
-    }).run(); 
+    // db.insert(recipes).values(recipe).onConflictDoUpdate({
+    //   target: recipes.slug,
+    //   set: { 
+    //     metaDescription: recipe.metaDescription, 
+    //     image: recipe.image
+    //   },
+    // }).run(); 
   }
   console.log(`Seeded ${seedRecipes.length} recipes`);
 
