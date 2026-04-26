@@ -142,6 +142,7 @@ export default function SearchPage() {
                 onClick={handleSearch}
                 disabled={isLoading}
                 className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] sm:text-[17px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50"
+                aria-label="Search Button"
               >
                 {isLoading ? "Searching..." : "Search"}
               </button>

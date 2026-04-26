@@ -631,22 +631,22 @@ async function seed() {
   // }catch(error){
   //   console.log('user_bookmarks table did not exist, so did not delete.')
   // }
-  try{
-    await db.delete(recipe_ingredient_measUnit);
-  }catch(error){
-    console.log('recipe_ingredient_measUnit table did not exist, so did not delete.')
-  }
-  try{
-    await db.delete(ingredients)
-  }catch(error){
-    console.log('ingredients table did not exist, so did not delete.')
-  }
-  try{
-    await db.delete(recipes)
-  }catch(error){
-    console.log('recipes table did not exist, so did not delete.')
-  }
-  console.log('All tables deleted.')
+  // try{
+  //   await db.delete(recipe_ingredient_measUnit);
+  // }catch(error){
+  //   console.log('recipe_ingredient_measUnit table did not exist, so did not delete.')
+  // }
+  // try{
+  //   await db.delete(ingredients)
+  // }catch(error){
+  //   console.log('ingredients table did not exist, so did not delete.')
+  // }
+  // try{
+  //   await db.delete(recipes)
+  // }catch(error){
+  //   console.log('recipes table did not exist, so did not delete.')
+  // }
+  // console.log('All tables deleted.')
 
 
   console.log('Seeding database...');

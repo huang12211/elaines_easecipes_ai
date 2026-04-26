@@ -248,6 +248,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
               <button
                 onClick={toggleBookmark}
                 className="flex items-center h-[20px] pr-[2px]"
+                aria-label="Bookmark Recipe Button"
               >
                 <Image
                   src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
@@ -256,7 +257,10 @@ export default function RecipePageClient({ slug }: { slug: string }) {
                   height={18}
                 />
               </button>
-              <button className="w-[20px] h-[20px]">
+              <button 
+              className="w-[20px] h-[20px]"
+              aria-label="Shopping Cart Button"
+              >
                 <Image
                   src="/images/cart.svg"
                   alt="Add to basket"

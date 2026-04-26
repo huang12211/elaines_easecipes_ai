@@ -131,12 +131,12 @@ export default function RegisterPage() {
             </p>
           )}
 
-          {/* Submit button */}
           <div className="flex justify-end mb-4">
             <button
               onClick={handleSubmit}
               disabled={isLoading}
               className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50"
+              aria-label="Submit Button"
             >
               {isLoading ? "Creating account..." : "Create Account"}
             </button>

@@ -120,7 +120,7 @@ export default async function Home() {
                   <span className="font-abeezee text-sm sm:text-base md:text-lg lg:text-xl text-black tracking-[0.25px] leading-normal whitespace-nowrap">
                     {featuredRecipe.title}
                   </span>
-                  <button>
+                  <button aria-label="Bookmark Recipe Button">
                     <div className="relative w-3.5 h-4 sm:mr-0.5 sm:mt-0.25 md:w-4 md:h-4.5 md:mr-0.5 md:mt-0.5">
                       <Image
                         src={featuredRecipe.bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}

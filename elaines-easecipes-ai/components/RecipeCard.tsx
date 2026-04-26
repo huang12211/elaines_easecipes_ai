@@ -46,7 +46,7 @@ export default function RecipeCard({
           <p className="font-abeezee text-xs sm:text-sm md:text-base text-black tracking-[0.25px] leading-normal flex-1 min-w-0 line-clamp-2">
             {title}
           </p>
-          <button>
+          <button aria-label="Bookmark Recipe Button">
             <div className="relative w-3 h-3.5 sm:mr-0.5 sm:mt-0.25 md:w-3.5 md:h-4 md:mr-0.5 md:mt-0.5">
               <Image
                 src={bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}

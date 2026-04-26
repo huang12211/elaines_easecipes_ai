@@ -116,6 +116,7 @@ export default function LoginPage() {
               onClick={handleSubmit}
               disabled={isLoading}
               className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50"
+              aria-label="Search button"
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>

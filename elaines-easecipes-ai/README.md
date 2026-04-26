@@ -47,6 +47,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
             - Custom Start Command: None
 
 ### 3. Prepare for Deployment on Railway:
+1. review the content of npm run db:seed to ensure that it updates your database the way that you want to. If you get stuck, wipe all tables and restart. 
+
 
 ```bash
 npm run db:generate #only run when changes to the schema are made (creates a list of the things that need to change when migration happens)
@@ -54,8 +56,7 @@ npm run db:generate #only run when changes to the schema are made (creates a lis
 # Push to Git Remote Main Branch #
 
 # The following lines will run in the Railway Deployment
-npm run db:migrate:root (optional)
-npm run db:seed
+npm run db:seed 
 npm start 
 ```
 

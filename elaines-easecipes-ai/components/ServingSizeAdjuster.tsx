@@ -45,7 +45,7 @@ export default function ServingSizeAdjuster({
               ? 'border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white cursor-pointer'
               : 'border-gray-300 text-gray-300 cursor-not-allowed'
           }`}
-          aria-label="Decrease servings"
+          aria-label="Decrease servings button"
         >
           <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -62,7 +62,7 @@ export default function ServingSizeAdjuster({
               ? 'border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white cursor-pointer'
               : 'border-gray-300 text-gray-300 cursor-not-allowed'
           }`}
-          aria-label="Increase servings"
+          aria-label="Increase servings button"
         >
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 1V9M1 5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
