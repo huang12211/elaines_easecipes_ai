@@ -37,9 +37,9 @@ export default function RootLayout({
         <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
           <Header />
           {/* <div className="min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)]"> Adjusted for header and footer height */}
-          <div>
+          <main>
             {children}
-          </div>
+          </main>
           <Footer/>
         </div>
       </body>

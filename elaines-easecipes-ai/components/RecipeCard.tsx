@@ -34,8 +34,8 @@ export default function RecipeCard({
       </div>
       <div className="absolute top-[5px] left-[8px] flex flex-wrap gap-1">
         {tags.map((cat, index) => (
-          <div key={index} className="bg-[#ff1768] rounded-[30px] px-[12px] pt-[1px] pb-[3px]">
-            <span className="font-abeezee text-[14px] text-white leading-normal tracking-[0.25px]">
+          <div key={index} className="bg-[#FFF7FA] rounded-[30px] px-[12px] pt-[1px] pb-[3px] border-[#FF2693] border-2">
+            <span className="font-abeezee text-[14px] text-[#FF2693] font-black leading-normal tracking-[0.25px]">
               {cat}
             </span>
           </div>
