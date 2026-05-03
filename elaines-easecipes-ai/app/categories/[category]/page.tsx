@@ -105,14 +105,14 @@ export default async function CategoryPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    <div className="min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)] bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
+    <div className="min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)]]">
       {/* Category Header */}
       <div className="px-2 py-6 sm:px-4 md:px-6 lg:px-8">
-        <div className="relative mb-[12px] pl-[2px]">
+        <div className="relative mb-[12px] pl-[2px] pr-8 inline-block">
           <h1 className="font-semibold text-[28px] sm:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
             {displayName}
           </h1>
-          <div className="relative h-[19px] w-[180px] mt-[-6px] ml-[-4px]">
+          <div className="absolute top-full inset-0 h-[16px] mt-[-4px] ml-[-4px]">
             <Image
               src="/images/underline.svg"
               alt=""

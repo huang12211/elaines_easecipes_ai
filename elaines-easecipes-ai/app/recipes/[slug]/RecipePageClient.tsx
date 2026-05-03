@@ -236,7 +236,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
   // let directionsArray = recipe.directions.split("\n")
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       {/* Recipe Title Section */}
       <section className="pt-[30px] pb-[20px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
         <div className="max-w-[700px] mx-auto">
@@ -391,7 +391,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
 
       {/* Directions Section */}
       <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
-        <div className="max-w-[700px] mx-auto">
+        <div className="max-w-[700px] mx-auto mb-6">
           <div className="relative inline-block mb-[10px]">
             <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
               Directions
@@ -426,6 +426,6 @@ export default function RecipePageClient({ slug }: { slug: string }) {
           </ol>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

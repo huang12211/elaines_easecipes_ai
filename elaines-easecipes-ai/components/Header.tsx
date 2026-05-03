@@ -55,7 +55,8 @@ export default function Header() {
     <header className="bg-[#094234] h-[53px] sm:h-[60px] md:h-[64px] w-full shadow-[0px_2px_4px_rgba(0,0,0,0.79)] flex items-center justify-between px-2.5 sm:px-4 md:px-6 lg:px-10 sticky top-0 z-50">
       {/* Logo - left on desktop, center on mobile */}
       <Link 
-        href="/" className="relative w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] order-2 md:hidden"
+        href="/" 
+        className="relative w-[120px] h-[55px] -ml-6 sm:w-[140px] sm:h-[60px] sm:-ml-10 order-2 md:hidden"
         aria-label = "Return to Homepage button"
       >
         <Image
@@ -205,7 +206,7 @@ export default function Header() {
       <nav className="hidden md:flex flex-row flex-nowrap items-end gap-6 order-1 lg:gap-8 order-1">
         <Link 
           href="/" 
-          className="relative w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px]"
+          className="relative w-[120px] h-[55px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] -ml-6"
           aria-label="Go to Home Page"
         >
           <Image

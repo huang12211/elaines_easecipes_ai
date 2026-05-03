@@ -34,7 +34,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${abeezee.variable} ${inter.variable} h-auto w-full antialiased`}>
-        <div className="bg-white min-h-screen w-full max-w-[1440px] mx-auto relative">
+        <div className="min-h-screen w-full max-w-[1440px] mx-auto relative">
           <Header />
           {/* <div className="min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)]"> Adjusted for header and footer height */}
           <main>

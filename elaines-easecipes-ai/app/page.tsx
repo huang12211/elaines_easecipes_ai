@@ -89,7 +89,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="relative bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
+      <div className="relative mb-6">
       <section className="relative w-full h-[280px] sm:h-[360px] md:h-[360px] lg:h-[420px]">
         <div className="absolute inset-0 blur-[2px] overflow-hidden">
           <Image
@@ -148,12 +148,12 @@ export default async function Home() {
       </section>
 
       {/* Newest Recipes Section */}
-      <section className="relative px-2 py-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="relative mb-[12px] pl-[2px]">
+      <section className="relative mt-5 px-2.5 sm:mt-10 sm:px-4 md:mt-12 md:px-6 lg:mt-14 lg:px-10">
+        <div className="relative mb-[12px] pl-[2px] pr-8 inline-block">
           <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
             Newest Recipes:
           </h2>
-          <div className="relative h-[19px] w-[180px] mt-[-6px] ml-[-4px]">
+          <div className="absolute top-full inset-0 h-[19px] mt-[-4px] ml-[-4px]">
             <Image
               src="/images/underline.svg"
               alt=""
@@ -163,7 +163,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5 justify-items-center">
+        <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5">
           {newestRecipes.map((recipe, index) => (
             <div
               key={recipe.id}
@@ -190,12 +190,12 @@ export default async function Home() {
       </section>
 
       {/* Most Popular Section */}
-      <section className="relative mt-5 pb-2.5 sm:mt-6 md:mt-8">
-        <div className="relative px-2 mb-3 pl-2.5 sm:px-4 md:px-6 lg:px-8">
+      <section className="relative my-5 px-2.5 sm:my-10 sm:px-4 md:my-12 md:px-6 lg:my-14 lg:px-10">
+        <div className="relative mb-[24px] pl-[2px] pr-8 inline-block">
           <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
             Most Popular:
           </h2>
-          <div className="relative h-[19px] w-[180px] mt-[-6px] ml-[-4px]">
+          <div className="absolute top-full inset-0 h-[19px] mt-[-4px] ml-[-4px]">
             <Image
               src="/images/underline.svg"
               alt=""
@@ -205,7 +205,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="flex gap-3 overflow-x-auto px-2 pb-2 sm:gap-4 sm:px-4 md:px-6 lg:px-8 scrollbar-hide">
+        <div className="flex gap-3 overflow-x-auto pb-2 sm:gap-4 scrollbar-hide">
           {popularRecipes.map((recipe) => (
             <div key={recipe.id} className="w-[200px] sm:w-[220px] md:w-[240px] shrink-0">
               <RecipeCard

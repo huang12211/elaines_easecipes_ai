@@ -22,7 +22,10 @@ export default function RecipeCard({
   bookmarked = false,
 }: RecipeCardProps) {
   return (
-    <Link href={`/recipes/${slug}`} className="w-full aspect-square min-w-[160px] max-w-[280px] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] relative shrink-0 block cursor-pointer transition-transform hover:scale-[1.02]">
+    <Link 
+    href={`/recipes/${slug}`} 
+    className="justify-self-center w-full aspect-square min-w-[160px] max-w-[280px] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] relative shrink-0 block cursor-pointer transition-transform hover:scale-[1.02]"
+    >
       <div className="absolute inset-0">
         <Image
           src={image}
@@ -35,7 +38,7 @@ export default function RecipeCard({
       <div className="absolute top-[5px] left-[8px] flex flex-wrap gap-1">
         {tags.map((cat, index) => (
           <div key={index} className="bg-[#FFF7FA] rounded-[30px] px-[12px] pt-[1px] pb-[3px] border-[#FF2693] border-2">
-            <span className="font-abeezee text-[14px] text-[#FF2693] font-black leading-normal tracking-[0.25px]">
+            <span className="font-abeezee text-[14px] text-[#E30088] font-black leading-normal tracking-[0.25px]">
               {cat}
             </span>
           </div>

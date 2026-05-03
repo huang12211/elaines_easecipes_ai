@@ -48,7 +48,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)] bg-[radial-gradient(ellipse_at_center,rgba(191,221,165,0.2)_0%,rgba(142,173,116,0.2)_50%,rgba(118,149,92,0.2)_75%,rgba(93,125,67,0.2)_100%)]">
+    <div className="relative min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)] xl:min-h-[calc(100vh-64px-116px)]">
       {/* Background image overlay */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[rgba(24,183,145,0.3)]" />
@@ -65,11 +65,11 @@ export default function RegisterPage() {
       <div className="relative flex-1 flex items-center justify-center px-4 py-12">
         <div className="bg-white rounded-[16px] shadow-md w-full max-w-[400px] p-8">
           {/* Title */}
-          <div className="mb-6">
+          <div className="relative mb-6 pr-6 inline-block">
             <h1 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
               Create Account
             </h1>
-            <div className="relative h-[19px] w-[180px] mt-[-4px] ml-[-4px]">
+            <div className="absolute top-full inset-0 h-[14px] mt-[-2px] ml-[-4px]">
               <Image
                 src="/images/underline.svg"
                 alt=""
