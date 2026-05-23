@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import RecipeCard from "@/components/RecipeCard";
 import { categories as cat} from "@/lib/categories";
+import { useChat } from "@ai-sdk/react";
 
 const categories = ["", ...cat]; // Add an empty string for "All Categories"
 
@@ -27,6 +28,15 @@ export default function SearchPage() {
   const [results, setResults] = useState<Recipe[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { messages, sendMessage, status } = useChat();
+  const [chatInput, setChatInput] = useState("");
+  const chatLoading = status === "submitted" || status === "streaming";
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -209,6 +219,89 @@ export default function SearchPage() {
             </p>
           </div>
         )}
+      </section>
+
+      {/* Chat Section */}
+      <section className="px-4 py-6 sm:px-6 md:px-8 lg:px-12 border-t border-gray-200">
+        <div className="max-w-2xl mx-auto">
+          <div className="relative mb-[12px] pl-[2px]">
+            <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
+              Ask Pitaya Pal
+            </h2>
+            <div className="relative h-[19px] w-[120px] mt-[-6px] ml-[-4px]">
+              <Image
+                src="/images/underline.svg"
+                alt=""
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+          </div>
+
+          {messages.length > 0 && (
+            <div className="mb-4 max-h-80 overflow-y-auto flex flex-col gap-3 pr-1">
+              {messages.map((m) => {
+                const text = m.parts
+                  .filter((p) => p.type === "text")
+                  .map((p) => (p as { type: "text"; text: string }).text)
+                  .join("");
+                return (
+                  <div
+                    key={m.id}
+                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl font-abeezee text-[15px] sm:text-[17px] tracking-[-0.408px] leading-[22px] ${
+                        m.role === "user"
+                          ? "bg-[#19604f] text-white rounded-br-sm"
+                          : "bg-gray-100 text-black rounded-bl-sm"
+                      }`}
+                    >
+                      {text}
+                    </div>
+                  </div>
+                );
+              })}
+              {chatLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 text-black px-4 py-2.5 rounded-2xl rounded-bl-sm font-abeezee text-[15px] tracking-[-0.408px] leading-[22px]">
+                    ...
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          )}
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!chatInput.trim() || chatLoading) return;
+              sendMessage({ text: chatInput });
+              setChatInput("");
+            }}
+            className="flex gap-2"
+          >
+            <div className="flex-1 bg-white rounded-sm shadow-sm border border-gray-200">
+              <input
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Ask about recipes, ingredients, cooking tips..."
+                className="w-full px-4 py-2.5 font-abeezee text-[15px] sm:text-[17px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none bg-transparent"
+                aria-label="Chat with Claude"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={chatLoading || !chatInput.trim()}
+              className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] sm:text-[17px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50 shrink-0"
+              aria-label="Send message to Claude"
+            >
+              {chatLoading ? "..." : "Send"}
+            </button>
+          </form>
+        </div>
       </section>
     </div>
   );
