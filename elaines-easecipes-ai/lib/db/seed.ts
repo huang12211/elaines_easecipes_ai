@@ -1,6 +1,9 @@
-import { desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
+import { embedMany } from 'ai';
+import { google } from '@ai-sdk/google';
+import { vertex, type GoogleVertexEmbeddingModelOptions } from '@ai-sdk/google-vertex';
 import { db } from './index';
-import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit } from './schema';
+import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, recipeEmbeddings } from './schema';
 
 //------------------------------------------------//
 // Seed Ingredients in Alphabetical Order         //
@@ -631,11 +634,11 @@ async function seed() {
   // }catch(error){
   //   console.log('user_bookmarks table did not exist, so did not delete.')
   // }
-  // try{
-  //   await db.delete(recipe_ingredient_measUnit);
-  // }catch(error){
-  //   console.log('recipe_ingredient_measUnit table did not exist, so did not delete.')
-  // }
+  try{
+    await db.delete(recipe_ingredient_measUnit);
+  }catch(error){
+    console.log('recipe_ingredient_measUnit table did not exist, so did not delete.')
+  }
   // try{
   //   await db.delete(ingredients)
   // }catch(error){
@@ -686,6 +689,63 @@ async function seed() {
   } else {
     console.log('Skipping recipe-ingredient-measUnit relationships (already seeded)');
   }
+
+
+  //Identify the content to embed for each recipe, which includes the title, tags, meta description, rating, views, cook time, directions, and ingredients.
+  const allRecipes = db.select().from(recipes).all();
+
+  const recipeContents = allRecipes.map(recipe => {
+    const recipeIngredients = db.select().from(recipe_ingredient_measUnit)
+      .where(eq(recipe_ingredient_measUnit.recipe_id, recipe.slug))
+      .all();
+
+    const ingredientParts = recipeIngredients.map(ri => [ri.component, ri.ingredient_id].filter(Boolean).join(' ')).join(', ');
+    const tagsArray: string[] = JSON.parse(recipe.tags);
+    const directionsArray: string[] = JSON.parse(recipe.directions);
+    const content = [
+      `title: ${recipe.title}`,
+      `tags: ${tagsArray.join(', ')}`,
+      `metaDescription: ${recipe.metaDescription ?? ''}`,
+      `rating: ${recipe.rating}`,
+      `views: ${recipe.views}`,
+      `cookTime: ${recipe.cookTime}`,
+      `directions: ${directionsArray.join(' ')}`,
+      `ingredients: ${ingredientParts}`,
+    ].join('\n');
+
+    return { slug: recipe.slug, content };
+  });
+
+  // Generate embeddings for all recipes using the Google embedding model.
+  const { embeddings } = await embedMany({
+    model: google.embeddingModel('gemini-embedding-001'),
+    values: recipeContents.map(r => r.content),
+  });
+
+  // const { embeddings } = await embedMany({
+  //   model: vertex.embeddingModel('text-embedding-005'),
+  //   values: recipeContents.map(r => r.content),
+  //   providerOptions: {
+  //     vertex: {
+  //       // outputDimensionality: 512, // optional, number of dimensions for the embedding
+  //       taskType: 'RETRIEVAL_DOCUMENT', // optional, specifies the task type for generating embeddings
+  //       // autoTruncate: false, // optional
+  //     } satisfies GoogleVertexEmbeddingModelOptions,
+  //   },
+  // });
+
+  // Seed recipe embeddings that have been updated with new fields that are relevant to the embedding content. 
+  // This allows us to keep the existing embeddings for recipes that haven't changed, 
+  // while updating the embeddings for recipes that have changed.
+  for (let i = 0; i < recipeContents.length; i++) {
+    db.insert(recipeEmbeddings).values({
+      recipeSlug: recipeContents[i].slug,
+      content: recipeContents[i].content,
+      embedding: JSON.stringify(embeddings[i]),
+    }).onConflictDoNothing().run();
+  }
+  console.log(`Seeded ${allRecipes.length} recipe embeddings`);
+
 }
 
 seed().catch(console.error);

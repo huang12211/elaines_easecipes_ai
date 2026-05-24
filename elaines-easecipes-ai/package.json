@@ -11,12 +11,12 @@
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate:root": "drizzle-kit migrate --config ./drizzle.config.ts",
-    "db:seed": "npx tsx lib/db/seed.ts",
+    "db:seed": "npx tsx --env-file=.env.local lib/db/seed.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.78",
     "@ai-sdk/google": "^3.0.79",
+    "@ai-sdk/google-vertex": "^4.0.137",
     "@ai-sdk/react": "^3.0.187",
     "ai": "^6.0.185",
     "bcryptjs": "^3.0.3",

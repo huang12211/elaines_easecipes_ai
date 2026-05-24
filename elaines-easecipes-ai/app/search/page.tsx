@@ -9,6 +9,28 @@ import { useChat } from "@ai-sdk/react";
 
 const categories = ["", ...cat]; // Add an empty string for "All Categories"
 
+function renderMessage(text: string) {
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+  return text.split('\n').map((line, i, arr) => {
+    const nodes: React.ReactNode[] = [];
+    let last = 0;
+    let match;
+    linkRegex.lastIndex = 0;
+    while ((match = linkRegex.exec(line)) !== null) {
+      if (match.index > last) nodes.push(line.slice(last, match.index));
+      match[2] = match[2].replace(/[''\u2019]/g, ''); // Remove single quotes from URL to prevent XSS
+      nodes.push(
+        <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" className="hover:underline text-emerald-700">
+          {match[1]}
+        </a>
+      );
+      last = match.index + match[0].length;
+    }
+    if (last < line.length) nodes.push(line.slice(last));
+    return <span key={i}>{nodes.length ? nodes : line}{i < arr.length - 1 && <br />}</span>;
+  });
+}
+
 interface Recipe {
   id: number;
   title: string;
@@ -32,6 +54,7 @@ export default function SearchPage() {
   const { messages, sendMessage, status } = useChat();
   const [chatInput, setChatInput] = useState("");
   const chatLoading = status === "submitted" || status === "streaming";
+  const chatSubmitting = status === "submitted";
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -257,12 +280,12 @@ export default function SearchPage() {
                           : "bg-gray-100 text-black rounded-bl-sm"
                       }`}
                     >
-                      {text}
+                      {renderMessage(text)}
                     </div>
                   </div>
                 );
               })}
-              {chatLoading && (
+              {chatSubmitting && (
                 <div className="flex justify-start">
                   <div className="bg-gray-100 text-black px-4 py-2.5 rounded-2xl rounded-bl-sm font-abeezee text-[15px] tracking-[-0.408px] leading-[22px]">
                     ...
@@ -289,14 +312,14 @@ export default function SearchPage() {
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder="Ask about recipes, ingredients, cooking tips..."
                 className="w-full px-4 py-2.5 font-abeezee text-[15px] sm:text-[17px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none bg-transparent"
-                aria-label="Chat with Claude"
+                aria-label="Chat with Pitaya Pal input"
               />
             </div>
             <button
               type="submit"
               disabled={chatLoading || !chatInput.trim()}
               className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] sm:text-[17px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50 shrink-0"
-              aria-label="Send message to Claude"
+              aria-label="Send message to Pitaya Pal"
             >
               {chatLoading ? "..." : "Send"}
             </button>

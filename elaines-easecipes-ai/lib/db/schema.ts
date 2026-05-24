@@ -7,7 +7,6 @@ export const recipes = sqliteTable('recipes', {
   slug: text('slug').notNull().unique(),
   tags: text('tags').notNull(),
   metaDescription: text('meta_description'),
-  description: text('description'),
   image: text('image').notNull(),
   rating: real('rating').notNull().default(0),
   views: integer('views').notNull().default(0),
@@ -76,3 +75,14 @@ export const userBookmarks = sqliteTable('user_bookmarks', {
 }, (t) => [primaryKey({ columns: [t.userId, t.recipeSlug] })]);
 
 export type UserBookmark = typeof userBookmarks.$inferSelect;
+export type NewUserBookmark = typeof userBookmarks.$inferInsert;
+
+//Embeddings table to store the vector embeddings for each recipe, which will be used for personalized recommendations and search functionality
+export const recipeEmbeddings = sqliteTable('recipe_embeddings', {
+  recipeSlug: text('recipe_slug').notNull().references(() => recipes.slug).primaryKey(),
+  content: text('content').notNull(), // We will store the original content used to generate the embedding, such as the recipe title and ingredients
+  embedding: text('embedding').notNull(), 
+});
+
+export type RecipeEmbedding = typeof recipeEmbeddings.$inferSelect;
+export type NewRecipeEmbedding = typeof recipeEmbeddings.$inferInsert;
