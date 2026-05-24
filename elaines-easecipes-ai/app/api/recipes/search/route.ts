@@ -23,14 +23,15 @@ export async function GET(request: Request) {
   // Build conditions array
   const conditions = [];
 
-  // Keywords search - search in title and tags
+  // Keywords search - split by spaces/commas, each term must match title or tags
   if (keywords) {
-    const keywordConditions = or(
-      like(recipes.title, `%${keywords}%`),
-      like(recipes.tags, `%${keywords}%`)
-    );
-    if (keywordConditions) {
-      conditions.push(keywordConditions);
+    const terms = keywords.split(/[\s,]+/).filter(Boolean);
+    for (const term of terms) {
+      const termCondition = or(
+        like(recipes.title, `%${term}%`),
+        like(recipes.tags, `%${term}%`)
+      );
+      if (termCondition) conditions.push(termCondition);
     }
   }
 
@@ -39,20 +40,29 @@ export async function GET(request: Request) {
     conditions.push(like(recipes.tags, `%"${category}"%`));
   }
 
-  // Ingredients search
+  // Ingredients search - split by spaces/commas, recipe must contain all terms
   if (ingredients) {
-    const matchingRecipes = db
-      .select({ recipe_id: recipe_ingredient_measUnit.recipe_id })
-      .from(recipe_ingredient_measUnit)
-      .where(like(recipe_ingredient_measUnit.ingredient_id, `%${ingredients}%`))
-      .all();
+    const terms = ingredients.split(/[\s,]+/).filter(Boolean);
+    let validSlugs: string[] | null = null;
 
-    const recipeSlugs = [...new Set(matchingRecipes.map(r => r.recipe_id).filter(Boolean))];
+    for (const term of terms) {
+      const matchingRecipes = db
+        .select({ recipe_id: recipe_ingredient_measUnit.recipe_id })
+        .from(recipe_ingredient_measUnit)
+        .where(like(recipe_ingredient_measUnit.ingredient_id, `%${term}%`))
+        .all();
 
-    if (recipeSlugs.length > 0) {
-      conditions.push(inArray(recipes.slug, recipeSlugs as string[]));
-    } else {
-      return NextResponse.json([]);
+      const slugs = [...new Set(matchingRecipes.map(r => r.recipe_id).filter(Boolean))] as string[];
+
+      if (slugs.length === 0) return NextResponse.json([]);
+
+      validSlugs = validSlugs === null ? slugs : validSlugs.filter(s => slugs.includes(s));
+
+      if (validSlugs.length === 0) return NextResponse.json([]);
+    }
+
+    if (validSlugs && validSlugs.length > 0) {
+      conditions.push(inArray(recipes.slug, validSlugs));
     }
   }
 

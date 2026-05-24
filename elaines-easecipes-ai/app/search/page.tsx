@@ -160,7 +160,7 @@ export default function SearchPage() {
               <div className="flex-1 bg-white rounded-sm shadow-sm">
                 <input
                   type="text"
-                  placeholder="Search by ingredient..."
+                  placeholder="Search by ingredients (ex: chicken, blueberries, etc.)..."
                   value={ingredients}
                   onChange={(e) => setIngredients(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -235,7 +235,10 @@ export default function SearchPage() {
         {!hasSearched && (
           <div className="flex flex-col items-center justify-center py-16">
             <p className="text-gray-500 text-lg text-center">
-              Use the search form above to find recipes.
+              Already know what you're looking for?
+            </p>
+            <p className="text-gray-500 text-lg text-center">
+              Use the classic search tools above to find your favourite Easecipe.
             </p>
             <p className="text-gray-400 text-sm mt-2 text-center">
               Search by keywords, category or ingredients.
@@ -247,11 +250,11 @@ export default function SearchPage() {
       {/* Chat Section */}
       <section className="px-4 py-6 sm:px-6 md:px-8 lg:px-12 border-t border-gray-200">
         <div className="max-w-2xl mx-auto">
-          <div className="relative mb-[12px] pl-[2px]">
+          <div className="relative mb-[12px] pl-[2px] pr-8 inline-block">
             <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
               Ask Pitaya Pal
             </h2>
-            <div className="relative h-[19px] w-[120px] mt-[-6px] ml-[-4px]">
+            <div className="absolute top-full inset-0 h-[19px] mt-[-4px] ml-[-4px]">
               <Image
                 src="/images/underline.svg"
                 alt=""
@@ -260,9 +263,12 @@ export default function SearchPage() {
               />
             </div>
           </div>
+          <h3 className="py-2 border-b border-gray-200">
+            Ask about taste profiles you're craving, recipes you can make with what you have on hand, cooking tips and more. 
+          </h3>
 
           {messages.length > 0 && (
-            <div className="mb-4 max-h-80 overflow-y-auto flex flex-col gap-3 pr-1">
+            <div className="my-4 max-h-80 overflow-y-auto flex flex-col gap-3 pr-1">
               {messages.map((m) => {
                 const text = m.parts
                   .filter((p) => p.type === "text")

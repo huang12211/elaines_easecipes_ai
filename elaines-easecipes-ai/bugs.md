@@ -8,6 +8,8 @@
 2. modify text input to voice input (voice to text)
 3. modify test input to voice or image input. 
 
+![alt text](image.png)
+
 # Bugs:
 2. change it so that when you click on login and finish loggging in, you are redirected to the page on which you originally clicked the login button. 
 3. Make sure all buttons have an aria-label for accessibility (In progress)
