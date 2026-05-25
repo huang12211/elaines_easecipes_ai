@@ -56,8 +56,10 @@ npm run db:generate #only run when changes to the schema are made (creates a lis
 # Push to Git Remote Main Branch #
 
 # The following lines will run in the Railway Deployment
+npm run db:migrate:root
 npm run db:seed 
 npm start 
+![alt text](image-1.png)
 ```
 
 ### 4. Inspecting Database Already Deployed in Production via Railway
@@ -90,22 +92,13 @@ npm start
 
 
 
-## Database Commands
+## Database Commands in Dev
 
 | Command | Description |
 |---------|-------------|
 | `npm run db:push` | Push schema changes to the database |
 | `npm run db:seed` | Seed the database with recipe data / changes to recipe data |
 | `npm run db:studio` | Open Drizzle Studio to browse/edit data |
-
-## API Routes
-
-| Endpoint | Description |
-|----------|-------------|
-| `GET /api/recipes` | Get all recipes (supports `?tag=` and `?limit=` params) |
-| `GET /api/recipes/newest` | Get newest recipes sorted by creation date |
-| `GET /api/recipes/popular` | Get most popular recipes sorted by views |
-| `GET /api/recipes/featured` | Get the featured recipe for the hero section |
 
 ## Project Structure
 
