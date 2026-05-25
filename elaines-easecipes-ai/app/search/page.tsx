@@ -216,7 +216,7 @@ export default function SearchPage() {
             {hasSearched && (
               <>
                 <div className="relative mb-[12px] pl-4">
-                  <h3 className="font-semibold text-[24px] text-pink-700 tracking-[-0.48px] leading-[1.2]">
+                  <h3 className="font-semibold text-[24px] text-gray-500 tracking-[-0.48px] leading-[1.2]">
                     {results.length > 0
                       ? `Search Results (${results.length})`
                       : ""}
