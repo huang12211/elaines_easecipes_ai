@@ -116,7 +116,7 @@ export default function SearchPage() {
         ))}
       </div>
       
-      <div className="md:flex md:flex-row md:flex-1">
+      <div className="flex flex-grow flex-col md:flex md:flex-row md:flex-1">
         {/* Search + Results Sections */}
         <div className={`flex flex-col w-full md:w-1/2 md:border-r md:border-[#094234] ${activeTab !== "search" ? "hidden md:flex" : ""}`}>
           <section className="relative w-full -mt-0.25 border-t-2 border-[#094234]">
@@ -212,7 +212,7 @@ export default function SearchPage() {
           </section>
 
           {/* Search Results Section */}
-          <section className="relative px-2 py-6 sm:px-4 md:px-6 lg:px-8 h-[calc(51vh)] md:h-[calc(64vh)] overflow-y-scroll">
+          <section className="relative px-2 py-6 sm:px-4 md:px-6 lg:px-8 h-[calc(51vh)] md:h-[calc(58vh)] overflow-y-scroll">
             {hasSearched && (
               <>
                 <div className="relative mb-[12px] pl-4">
@@ -268,7 +268,7 @@ export default function SearchPage() {
         </div>
 
         {/* Chat Section */}
-        <div className={`flex flex-col w-full md:w-1/2 ${activeTab !== "chat" ? "hidden md:flex" : ""}`}>
+        <div className={`flex flex-grow flex-col w-full md:w-1/2 ${activeTab !== "chat" ? "hidden md:flex" : ""}`}>
           <section className="flex flex-col flex-grow relative w-full h-full -mt-0.25 pt-4 pb-8 border-t-2 border-[#094234]">
             <div className="absolute w-full h-full top-0 right-0 bg-[url('/images/dragonfruit_wallpaper.png')] bg-cover bg-opacity-30"> 
               <div className="w-full h-full bg-gradient-to-b from-[#094234] from-30% to-[#EFF5F4] to-100% opacity-80"/> {/* overlay to improve text visibility on background */}

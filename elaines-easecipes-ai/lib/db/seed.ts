@@ -742,7 +742,12 @@ async function seed() {
       recipeSlug: recipeContents[i].slug,
       content: recipeContents[i].content,
       embedding: JSON.stringify(embeddings[i]),
-    }).onConflictDoNothing().run();
+    }).onConflictDoUpdate({
+      target: recipeEmbeddings.recipeSlug,
+      set: { 
+        embedding: JSON.stringify(embeddings[i]),
+      },
+    }).run(); 
   }
   console.log(`Seeded ${allRecipes.length} recipe embeddings`);
 

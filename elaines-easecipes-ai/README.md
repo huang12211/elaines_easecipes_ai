@@ -37,6 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
         - DATABASE_PATH = /app/data/recipes.db
         - JWT_SECRET = generate one for your system
         - PORT = 8080
+        - GOOGLE_GENERATIVE_AI_API_KEY = <your_api_key>
     - Settings 
         - When want to keep the database as it lives today:
             - Custom Build Command: npm run build 
