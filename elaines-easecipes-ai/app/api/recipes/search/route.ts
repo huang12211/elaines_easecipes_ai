@@ -4,6 +4,8 @@ import { recipes, recipe_ingredient_measUnit, userBookmarks } from '@/lib/db/sch
 import { like, eq, or, and, inArray } from 'drizzle-orm';
 import { verifySessionToken, parseCookie, COOKIE_NAME } from '@/lib/auth/session';
 
+export const dynamic = 'force-dynamic';
+
 async function getUserId(request: Request): Promise<number | null> {
   const token = parseCookie(request.headers.get('cookie'), COOKIE_NAME);
   if (!token) return null;

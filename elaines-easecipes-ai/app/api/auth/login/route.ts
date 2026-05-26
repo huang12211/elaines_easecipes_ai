@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
+
+export const dynamic = 'force-dynamic';
 import { createSessionToken, COOKIE_NAME, COOKIE_MAX_AGE } from '@/lib/auth/session';
 
 export async function POST(request: NextRequest) {

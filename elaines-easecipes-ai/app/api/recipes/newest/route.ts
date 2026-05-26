@@ -3,6 +3,8 @@ import { db } from '@/lib/db';
 import { recipes } from '@/lib/db/schema';
 import { desc } from 'drizzle-orm';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const limit = parseInt(searchParams.get('limit') || '6');

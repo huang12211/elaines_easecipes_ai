@@ -3,6 +3,8 @@ import { streamText, convertToModelMessages, UIMessage, embed } from "ai";
 import { db } from "@/lib/db";
 import { recipeEmbeddings } from "@/lib/db/schema";
 
+export const dynamic = 'force-dynamic';
+
 export const maxDuration = 30;
 
 function cosineSimilarity(a: number[], b: number[]): number {
