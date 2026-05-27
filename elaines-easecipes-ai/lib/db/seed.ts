@@ -1,9 +1,10 @@
 import { eq } from 'drizzle-orm';
 import { embedMany } from 'ai';
 import { google } from '@ai-sdk/google';
-import { vertex, type GoogleVertexEmbeddingModelOptions } from '@ai-sdk/google-vertex';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { db } from './index';
 import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, recipeEmbeddings } from './schema';
+import error from 'next/error';
 
 //------------------------------------------------//
 // Seed Ingredients in Alphabetical Order         //
@@ -717,40 +718,45 @@ async function seed() {
   });
 
   // Generate embeddings for all recipes using the Google embedding model.
-  const { embeddings } = await embedMany({
-    model: google.embeddingModel('gemini-embedding-001'),
-    values: recipeContents.map(r => r.content),
-  });
-
-  // const { embeddings } = await embedMany({
-  //   model: vertex.embeddingModel('text-embedding-005'),
-  //   values: recipeContents.map(r => r.content),
-  //   providerOptions: {
-  //     vertex: {
-  //       // outputDimensionality: 512, // optional, number of dimensions for the embedding
-  //       taskType: 'RETRIEVAL_DOCUMENT', // optional, specifies the task type for generating embeddings
-  //       // autoTruncate: false, // optional
-  //     } satisfies GoogleVertexEmbeddingModelOptions,
-  //   },
-  // });
-
-  // Seed recipe embeddings that have been updated with new fields that are relevant to the embedding content. 
-  // This allows us to keep the existing embeddings for recipes that haven't changed, 
-  // while updating the embeddings for recipes that have changed.
-  for (let i = 0; i < recipeContents.length; i++) {
-    db.insert(recipeEmbeddings).values({
-      recipeSlug: recipeContents[i].slug,
-      content: recipeContents[i].content,
-      embedding: JSON.stringify(embeddings[i]),
-    }).onConflictDoUpdate({
-      target: recipeEmbeddings.recipeSlug,
-      set: { 
-        embedding: JSON.stringify(embeddings[i]),
-      },
-    }).run(); 
+  const google = createGoogleGenerativeAI({apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY});
+  if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    console.error('Missing GOOGLE_GENERATIVE_AI_API_KEY');
   }
-  console.log(`Seeded ${allRecipes.length} recipe embeddings`);
+  else{
+    let embeddings: number[][] | undefined = undefined;
+    try{
+      const result = await embedMany({
+        model: google.embeddingModel('gemini-embedding-001'),
+        values: recipeContents.map(r => r.content),
+      });
+      embeddings = result.embeddings;
+      
+    } catch(error){
+      console.error('Error generating embeddings:', error);
+    }
 
+    // Seed recipe embeddings that have been updated with new fields that are relevant to the embedding content. 
+    // This allows us to keep the existing embeddings for recipes that haven't changed, 
+    // while updating the embeddings for recipes that have changed.
+    if (embeddings) {
+      for (let i = 0; i < recipeContents.length; i++) {
+        db.insert(recipeEmbeddings).values({
+          recipeSlug: recipeContents[i].slug,
+          content: recipeContents[i].content,
+          embedding: JSON.stringify(embeddings[i]),
+        }).onConflictDoUpdate({
+          target: recipeEmbeddings.recipeSlug,
+          set: { 
+            embedding: JSON.stringify(embeddings[i]),
+          },
+        }).run(); 
+      }
+      console.log(`Seeded ${allRecipes.length} recipe embeddings`);
+    }
+    else {
+      console.log('No embeddings generated, so skipping seeding recipe embeddings.');
+    }
+  }
 }
 
 seed().catch(console.error);
