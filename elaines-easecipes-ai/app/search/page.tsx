@@ -12,6 +12,7 @@ const categories = ["", ...cat]; // Add an empty string for "All Categories"
 function renderMessage(text: string) {
   const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
   return text.split('\n').map((line, i, arr) => {
+    line = line.replace(/^\* /, '- ');
     const nodes: React.ReactNode[] = [];
     let last = 0;
     let match;
@@ -20,7 +21,7 @@ function renderMessage(text: string) {
       if (match.index > last) nodes.push(line.slice(last, match.index));
       match[2] = match[2].replace(/[''\u2019]/g, ''); // Remove single quotes from URL to prevent XSS
       nodes.push(
-        <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" className="hover:underline text-emerald-700">
+        <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" className="hover:underline text-pink-700">
           {match[1]}
         </a>
       );
@@ -274,7 +275,7 @@ export default function SearchPage() {
               <div className="w-full h-full bg-gradient-to-b from-[#094234] from-30% to-[#EFF5F4] to-100% opacity-80"/> {/* overlay to improve text visibility on background */}
             </div>
 
-            <div className="flex flex-col flex-grow relative max-w-[calc(100%-2rem)] mx-auto py-6 px-4 bg-[#E3F0E5] rounded-2xl shadow-sm">
+            <div className="flex flex-col flex-grow relative max-w-[calc(100%-2rem)] max-h-168 mx-auto py-6 px-4 bg-[#E3F0E5] rounded-2xl shadow-sm">
               <div className="flex flex-row items-start gap-4 sm:gap-6">
                 <Image
                   src="/images/pitaya_pal.png"
@@ -304,7 +305,7 @@ export default function SearchPage() {
               
 
               {messages.length >= 0 && (
-                <div className="flex flex-col flex-grow my-2 overflow-y-auto  gap-3 pr-1 bg-[#F9FAF5] rounded-2xl">
+                <div className="flex flex-col flex-grow gap-3 my-2 py-2 px-4 overflow-y-auto  bg-[#F9FAF5] rounded-2xl">
                   {messages.map((m) => {
                     const text = m.parts
                       .filter((p) => p.type === "text")

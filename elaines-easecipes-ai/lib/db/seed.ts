@@ -718,16 +718,27 @@ async function seed() {
   });
 
   // Generate embeddings for all recipes using the Google embedding model.
-  const google = createGoogleGenerativeAI({apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY});
-  if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
-    console.error('Missing GOOGLE_GENERATIVE_AI_API_KEY');
-  }
-  else{
+  //Check if there are new recipes that have not been embedded yet 
+  // by comparing the recipe slugs in the recipeContents array with the recipe slugs in the recipeEmbeddings table. 
+  // If there are new recipes that have not been embedded yet, generate embeddings for those recipes and insert them into the recipeEmbeddings table. 
+  // If there are no new recipes that have not been embedded yet, skip generating embeddings and log that there are no new recipes to embed.
+  const existingEmbeddings = db.select().from(recipeEmbeddings).all();
+  const existingEmbeddingSlugs = new Set(existingEmbeddings.map(e => e.recipeSlug));
+  const newRecipesToEmbed = recipeContents.filter(rc => !existingEmbeddingSlugs.has(rc.slug));
+
+  if (newRecipesToEmbed.length != 0) {
+    // Check if the API key is available before attempting to generate embeddings. If the API key is not available, log an error and end process.
+    if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+      console.error('Missing GOOGLE_GENERATIVE_AI_API_KEY');
+    }
+    const google = createGoogleGenerativeAI({apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY});
+    
+    // Generate embeddings for the new recipes using the Google embedding model. If there is an error generating embeddings, log the error and skip seeding recipe embeddings.
     let embeddings: number[][] | undefined = undefined;
     try{
       const res = await embedMany({
         model: google.embeddingModel('gemini-embedding-001'),
-        values: recipeContents.map(r => r.content),
+        values: newRecipesToEmbed.map(r => r.content),
       });
       embeddings = res.embeddings;
       
@@ -739,10 +750,10 @@ async function seed() {
     // This allows us to keep the existing embeddings for recipes that haven't changed, 
     // while updating the embeddings for recipes that have changed.
     if (embeddings) {
-      for (let i = 0; i < recipeContents.length; i++) {
+      for (let i = 0; i < newRecipesToEmbed.length; i++) {
         db.insert(recipeEmbeddings).values({
-          recipeSlug: recipeContents[i].slug,
-          content: recipeContents[i].content,
+          recipeSlug: newRecipesToEmbed[i].slug,
+          content: newRecipesToEmbed[i].content,
           embedding: JSON.stringify(embeddings[i]),
         }).onConflictDoUpdate({
           target: recipeEmbeddings.recipeSlug,
@@ -754,8 +765,12 @@ async function seed() {
       console.log(`Seeded ${embeddings.length} recipe embeddings`);
     }
     else {
-      console.log('No embeddings generated, so skipping seeding recipe embeddings.');
+      console.log('Was unable to generate embeddings, so skipping seeding.');
     }
+    
+  }
+  else {
+    console.log('No new recipes to embed, so skipping generating and seeding recipe embeddings.');
   }
 }
 

@@ -11,10 +11,9 @@
     "db:migrate:root": "drizzle-kit migrate --config ./drizzle.config.ts",
     "db:seed": "npx tsx lib/db/seed.ts",
     "db:studio": "drizzle-kit studio",
-    
+
     "db:drop": "drizzle-kit drop",
-    "db:push": "drizzle-kit push",
-    "db:seed:local": "npx tsx --env-file=.env.local lib/db/seed.ts"
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.79",
