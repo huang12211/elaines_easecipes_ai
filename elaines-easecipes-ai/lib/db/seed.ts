@@ -725,11 +725,11 @@ async function seed() {
   else{
     let embeddings: number[][] | undefined = undefined;
     try{
-      const result = await embedMany({
+      const res = await embedMany({
         model: google.embeddingModel('gemini-embedding-001'),
         values: recipeContents.map(r => r.content),
       });
-      embeddings = result.embeddings;
+      embeddings = res.embeddings;
       
     } catch(error){
       console.error('Error generating embeddings:', error);
