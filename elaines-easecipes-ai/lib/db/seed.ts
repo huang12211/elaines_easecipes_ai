@@ -751,7 +751,7 @@ async function seed() {
           },
         }).run(); 
       }
-      console.log(`Seeded ${allRecipes.length} recipe embeddings`);
+      console.log(`Seeded ${embeddings.length} recipe embeddings`);
     }
     else {
       console.log('No embeddings generated, so skipping seeding recipe embeddings.');
