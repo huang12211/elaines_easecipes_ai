@@ -64,6 +64,9 @@ Create `.env.local`:
 JWT_SECRET=<generate a random secret>
 GOOGLE_GENERATIVE_AI_API_KEY=<your Gemini API key>
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+LANGFUSE_PUBLIC_KEY=<your Langfuse public key>
+LANGFUSE_SECRET_KEY=<your Langfuse secret key>
+LANGFUSE_BASE_URL=https://cloud.langfuse.com # 🇪🇺 EU region. 🇺🇸 US: https://us.cloud.langfuse.com
 ```
 
 ### 3. Set up and run
@@ -106,6 +109,9 @@ Deployed on Railway with a mounted volume for SQLite persistence.
 - `JWT_SECRET=<random secret>`
 - `GOOGLE_GENERATIVE_AI_API_KEY=<your API key>`
 - `PORT=8080`
+- `LANGFUSE_PUBLIC_KEY=<your Langfuse public key>`
+- `LANGFUSE_SECRET_KEY=<your Langfuse secret key>`
+- `LANGFUSE_BASE_URL=<https://cloud.langfuse.com or https://us.cloud.langfuse.com>`
 
 **Build/start commands** — choose based on whether you want to preserve existing production data:
 
