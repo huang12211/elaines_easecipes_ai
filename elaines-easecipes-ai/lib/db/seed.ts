@@ -1,10 +1,8 @@
 import { eq } from 'drizzle-orm';
 import { embedMany } from 'ai';
-import { google } from '@ai-sdk/google';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { db } from './index';
 import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, recipeEmbeddings } from './schema';
-import error from 'next/error';
 
 //------------------------------------------------//
 // Seed Ingredients in Alphabetical Order         //
@@ -637,7 +635,7 @@ async function seed() {
   // }
   try{
     await db.delete(recipe_ingredient_measUnit);
-  }catch(error){
+  }catch{
     console.log('recipe_ingredient_measUnit table did not exist, so did not delete.')
   }
   // try{

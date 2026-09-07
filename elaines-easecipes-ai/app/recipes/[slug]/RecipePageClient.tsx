@@ -113,14 +113,14 @@ function parseStyledText(text: string, keyPrefix: string = ''): React.ReactNode[
 
 function IngredientCheckbox({ amount, measUnit, ingredient, checked, onChange }: IngredientCheckboxProps) {
   return (
-    <label className="flex gap-[7px] items-center px-[5px] py-[2px] cursor-pointer">
+    <label className="flex cursor-pointer items-center gap-[7px] px-[5px] py-[2px]">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="w-[14px] h-[14px] border border-black appearance-none cursor-pointer checked:bg-[#094234] checked:border-[#094234] relative checked:after:content-['✓'] checked:after:text-white checked:after:text-[10px] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2"
+        className="relative size-[14px] cursor-pointer appearance-none border border-black checked:border-[#094234] checked:bg-[#094234] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-1/2 checked:after:text-[10px] checked:after:text-white checked:after:content-['✓']"
       />
-      <span className={`font-abeezee text-[14px] tracking-[0.25px] leading-normal ${checked ? 'line-through text-gray-400' : 'text-black'}`}>
+      <span className={`font-abeezee text-[14px] leading-normal tracking-[0.25px] ${checked ? 'text-gray-400 line-through' : 'text-black'}`}>
         {amount} {measUnit} {ingredient}
       </span>
     </label>
@@ -210,15 +210,15 @@ export default function RecipePageClient({ slug }: { slug: string }) {
 
   if (loading) {
     return (
-        <div className="flex items-center justify-center h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#094234]"></div>
+        <div className="flex h-100 items-center justify-center">
+          <div className="size-12 animate-spin rounded-full border-b-2 border-[#094234]"></div>
         </div>
     );
   }
 
   if (!recipe) {
     return (
-        <div className="flex flex-col items-center justify-center h-[400px] gap-4">
+        <div className="flex h-100 flex-col items-center justify-center gap-4">
           <p className="text-xl text-gray-600">Recipe not found</p>
           <Link href="/" className="text-[#094234] underline">
             Go back home
@@ -238,16 +238,16 @@ export default function RecipePageClient({ slug }: { slug: string }) {
   return (
     <div className="flex flex-col">
       {/* Recipe Title Section */}
-      <section className="pt-[30px] pb-[20px] px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
-        <div className="max-w-[700px] mx-auto">
+      <section className="px-[10px] pt-[30px] pb-5 sm:px-5 md:px-10 lg:px-20">
+        <div className="mx-auto max-w-175">
           <div className="flex items-center gap-[30px] pb-2">
-            <h1 className="font-abeezee text-[24px] sm:text-[28px] md:text-[32px] text-black tracking-[-0.48px] leading-[1.2]">
+            <h1 className="leading-1.2 font-abeezee text-[24px] tracking-[-0.48px] text-black sm:text-[28px] md:text-[32px]">
               {recipe.title}
             </h1>
-            <div className="flex gap-[6px] items-center">
+            <div className="flex items-center gap-[6px]">
               <button
                 onClick={toggleBookmark}
-                className="flex items-center h-[20px] pr-[2px]"
+                className="flex h-5 items-center pr-[2px]"
                 aria-label="Bookmark Recipe Button"
               >
                 <Image
@@ -258,7 +258,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
                 />
               </button>
               <button 
-              className="w-[20px] h-[20px]"
+              className="size-[20px]"
               aria-label="Shopping Cart Button"
               >
                 <Image
@@ -272,24 +272,24 @@ export default function RecipePageClient({ slug }: { slug: string }) {
           </div>
 
           {/* Rating, Views, Time */}
-          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
-            <span className="text-black text-[14px]">|</span>
+            <span className="text-[14px] text-black">|</span>
             <div className="flex items-center gap-[6px]">
               <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
               </svg>
-              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+              <span className="font-abeezee text-[12px] tracking-[0.25px] text-black">
                 {recipe.views.toLocaleString()} views
               </span>
             </div>
-            <span className="text-black text-[14px]">|</span>
-            <div className="flex items-center gap-[4px]">
+            <span className="text-[14px] text-black">|</span>
+            <div className="flex items-center gap-1">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="8" cy="8" r="6.5" stroke="#E0165C" strokeWidth="1.5"/>
                 <path d="M8 4.5V8L10.5 10.5" stroke="#E0165C" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              <span className="font-abeezee text-[12px] text-black tracking-[0.25px]">
+              <span className="font-abeezee text-[12px] tracking-[0.25px] text-black">
                 {recipe.cookTime}
               </span>
             </div>
@@ -298,8 +298,8 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       </section>
 
       {/* Recipe Image */}
-      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px]">
-        <div className="relative w-full max-w-[700px] mx-auto aspect-[350/185] rounded-[8px] overflow-hidden">
+      <section className="px-[10px] sm:px-5 md:px-10 lg:px-20">
+        <div className="relative mx-auto aspect-350/185 w-full max-w-175 overflow-hidden rounded-[8px]">
           <Image
             src={recipe.image}
             alt={recipe.title}
@@ -312,14 +312,14 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       </section>
 
       {/* Ingredients Section */}
-      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
-        <div className="max-w-[700px] mx-auto">
-          <div className="flex flex-col gap-[5px] mb-[10px]">
+      <section className="px-[10px] py-4 sm:px-5 md:px-10 lg:px-20">
+        <div className="mx-auto max-w-175">
+          <div className="mb-[10px] flex flex-col gap-[5px]">
             <div className="relative inline-block">
-              <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
+              <h2 className="font-abeezee text-[20px] tracking-[0.25px] text-black">
                 Ingredients
               </h2>
-              <div className="absolute -bottom-[6px] -left-[6px] w-[128px] h-[11px]">
+              <div className="absolute bottom-[-6px] left-[-6px] h-[11px] w-32">
                 <Image
                   src="/images/underline.svg"
                   alt=""
@@ -328,7 +328,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
                 />
               </div>
             </div>
-            <div className="px-2 mt-[8px]">
+            <div className="mt-2 px-2">
               <ServingSizeAdjuster
                 baseServings={recipe.baseServings}
                 minServings={recipe.minServings}
@@ -339,7 +339,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
             </div>
           </div>
 
-          <div className="columns-1 sm:columns-2 gap-x-8 px-4">
+          <div className="columns-1 gap-x-8 px-4 sm:columns-2">
             {(() => {
               // Group ingredients by component
               const groups: { component: string; items: { ingr: IngredientsList; index: number }[] }[] = [];
@@ -353,9 +353,9 @@ export default function RecipePageClient({ slug }: { slug: string }) {
               });
 
               return groups.map((group, groupIndex) => (
-                <div key={groupIndex} className="break-inside-avoid mb-2">
+                <div key={groupIndex} className="mb-2 break-inside-avoid">
                   {group.component && (
-                    <h3 className="font-abeezee text-[16px] text-[#094234] font-bold pt-2 pb-1">
+                    <h3 className="pt-2 pb-1 font-abeezee text-[16px] font-bold text-[#094234]">
                       {group.component}
                     </h3>
                   )}
@@ -386,17 +386,17 @@ export default function RecipePageClient({ slug }: { slug: string }) {
 
       {/* Divider */}
       <div className="flex justify-center py-[10px]">
-        <div className="w-[200px] h-[1px] bg-gray-300"></div>
+        <div className="h-px w-50 bg-gray-300"></div>
       </div>
 
       {/* Directions Section */}
-      <section className="px-[10px] sm:px-[20px] md:px-[40px] lg:px-[80px] py-[16px]">
-        <div className="max-w-[700px] mx-auto mb-6">
-          <div className="relative inline-block mb-[10px]">
-            <h2 className="font-abeezee text-[20px] text-black tracking-[0.25px]">
+      <section className="px-[10px] py-4 sm:px-5 md:px-10 lg:px-20">
+        <div className="mx-auto mb-6 max-w-175">
+          <div className="relative mb-[10px] inline-block">
+            <h2 className="font-abeezee text-[20px] tracking-[0.25px] text-black">
               Directions
             </h2>
-            <div className="absolute -bottom-[6px] -left-[8px] w-[128px] h-[11px]">
+            <div className="absolute bottom-[-6px] -left-2 h-[11px] w-32">
               <Image
                 src="/images/underline.svg"
                 alt=""
@@ -406,18 +406,18 @@ export default function RecipePageClient({ slug }: { slug: string }) {
             </div>
           </div>
 
-          <ol className="list-decimal pl-[0px] space-y-[8px]">
+          <ol className="list-decimal space-y-[8px] pl-0">
             {directions.map((step, index) => {
               if (step.includes("title:")){
                 return(
-                  <p key={index} className="font-abeezee text-[16px] text-[#094234] font-bold pt-4 pb-1">
+                  <p key={index} className="pt-4 pb-1 font-abeezee text-[16px] font-bold text-[#094234]">
                     {step.replace("title:", "")}
                   </p>
                 );
               }
               else{
                 return (
-                    <li key={index} className="font-abeezee text-[14px] text-black tracking-[0.25px] leading-normal pl-[5px] ml-[30px]">
+                    <li key={index} className="ml-[30px] pl-[5px] font-abeezee text-[14px] leading-normal tracking-[0.25px] text-black">
                       {parseStyledText(step, `step-${index}-`)}
                     </li>
                 );

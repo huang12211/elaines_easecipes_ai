@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "prepare": "cd .. && husky .husky",
     "db:generate": "drizzle-kit generate",
     "db:migrate:root": "drizzle-kit migrate --config ./drizzle.config.ts",
     "db:seed": "npx tsx lib/db/seed.ts",
     "db:studio": "drizzle-kit studio",
-
     "db:drop": "drizzle-kit drop",
     "db:push": "drizzle-kit push"
   },
@@ -38,6 +39,10 @@
     "drizzle-kit": "^0.31.8",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "eslint-plugin-tailwindcss": "^4.4.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.0",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

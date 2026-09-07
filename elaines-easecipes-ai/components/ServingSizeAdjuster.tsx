@@ -33,17 +33,17 @@ export default function ServingSizeAdjuster({
 
   return (
     <div className="flex items-center gap-[10px]">
-      <span className="font-abeezee text-[16px] text-black tracking-[0.25px]">
+      <span className="font-abeezee text-[16px] tracking-[0.25px] text-black">
         for
       </span>
       <div className="flex items-center gap-[6px]">
         <button
           onClick={handleDecrement}
           disabled={!canDecrement}
-          className={`w-[24px] h-[24px] rounded-full border flex items-center justify-center transition-colors ${
+          className={`flex size-[24px] items-center justify-center rounded-full border transition-colors ${
             canDecrement
-              ? 'border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white cursor-pointer'
-              : 'border-gray-300 text-gray-300 cursor-not-allowed'
+              ? 'cursor-pointer border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white'
+              : 'cursor-not-allowed border-gray-300 text-gray-300'
           }`}
           aria-label="Decrease servings button"
         >
@@ -51,16 +51,16 @@ export default function ServingSizeAdjuster({
             <path d="M1 1H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
         </button>
-        <span className="font-abeezee text-[16px] text-black tracking-[0.25px] min-w-[24px] text-center">
+        <span className="min-w-6 text-center font-abeezee text-[16px] tracking-[0.25px] text-black">
           {currentServings}
         </span>
         <button
           onClick={handleIncrement}
           disabled={!canIncrement}
-          className={`w-[24px] h-[24px] rounded-full border flex items-center justify-center transition-colors ${
+          className={`flex size-[24px] items-center justify-center rounded-full border transition-colors ${
             canIncrement
-              ? 'border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white cursor-pointer'
-              : 'border-gray-300 text-gray-300 cursor-not-allowed'
+              ? 'cursor-pointer border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white'
+              : 'cursor-not-allowed border-gray-300 text-gray-300'
           }`}
           aria-label="Increase servings button"
         >
@@ -69,7 +69,7 @@ export default function ServingSizeAdjuster({
           </svg>
         </button>
       </div>
-      <span className="font-abeezee text-[16px] text-black tracking-[0.25px]">
+      <span className="font-abeezee text-[16px] tracking-[0.25px] text-black">
         servings
       </span>
     </div>

@@ -90,8 +90,8 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="relative mb-6">
-      <section className="relative w-full h-[280px] sm:h-[360px] md:h-[360px] lg:h-[420px]">
-        <div className="absolute inset-0 blur-[2px] overflow-hidden">
+      <section className="relative h-70 w-full sm:h-90 md:h-90 lg:h-105">
+        <div className="absolute inset-0 overflow-hidden blur-[2px]">
           <Image
             src="/images/hero-bg.png"
             alt="Hero background"
@@ -105,7 +105,7 @@ export default async function Home() {
         </div>
         {featuredRecipe && (
           <Link href={`/recipes/${featuredRecipe.slug}`}>
-            <div className="absolute top-[26px] left-1/2 -translate-x-1/2 h-[calc(100%-80px)] max-w-[360px] sm:max-w-[700px] aspect-[294/149] rounded-[16px] overflow-hidden shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-[1.02]">
+            <div className="hover:scale-1.02 absolute top-[26px] left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-[16px] shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform sm:max-w-175">
               <Image
                 src={featuredRecipe.image}
                 alt={featuredRecipe.title}
@@ -115,13 +115,13 @@ export default async function Home() {
                 sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
                 style={{ width: '100%', height: '100%' }}
               />
-              <div className="absolute bottom-0 left-0 w-[230px] h-[54px] sm:w-[360px] sm:h-[56px] md:w-[420px] md:h-[64px] lg:w-[70%] lg:h-[72] bg-white rounded-bl-[16px] rounded-tr-[10px] overflow-hidden">
-                <div className="py-1 px-2 w-full flex justify-between items-center">
-                  <span className="font-abeezee text-sm sm:text-base md:text-lg lg:text-xl text-black tracking-[0.25px] leading-normal whitespace-nowrap">
+              <div className="absolute bottom-0 left-0 h-[54px] w-[230px] overflow-hidden rounded-tr-[10px] rounded-bl-[16px] bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-72 lg:w-[70%]">
+                <div className="flex w-full items-center justify-between px-2 py-1">
+                  <span className="font-abeezee text-sm leading-normal tracking-[0.25px] whitespace-nowrap text-black sm:text-base md:text-lg lg:text-xl">
                     {featuredRecipe.title}
                   </span>
                   <button aria-label="Bookmark Recipe Button">
-                    <div className="relative w-3.5 h-4 sm:mr-0.5 sm:mt-0.25 md:w-4 md:h-4.5 md:mr-0.5 md:mt-0.5">
+                    <div className="relative h-4 w-3.5 sm:mt-0.25 sm:mr-0.5 md:mt-0.5 md:mr-0.5 md:h-4.5 md:w-4">
                       <Image
                         src={featuredRecipe.bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
                         alt="bookmark"
@@ -130,13 +130,13 @@ export default async function Home() {
                     </div>
                   </button>
                 </div>
-                <div className="px-2 flex items-center">
+                <div className="flex items-center px-2">
                   <DragonFruitRating rating={featuredRecipe.rating} sizeClassName="w-3.5 h-4 sm:w-4 sm:h-4.5 md:w-5 md:h-5.5"/>
-                  <div className="flex items-center gap-1 ml-auto">
-                    <svg className="w-3.5 h-4 sm:w-4 sm:h-4.5 md:w-5 md:h-5.5" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
+                  <div className="ml-auto flex items-center gap-1">
+                    <svg className="h-4 w-3.5 sm:h-4.5 sm:w-4 md:h-5.5 md:w-5" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
                     </svg>
-                    <span className="text-[10px] sm:text-[12px] md:text-[14px] font-medium text-black/60 tracking-[0.05px] leading-[16px]">
+                    <span className="text-[10px] leading-4 font-medium tracking-[0.05px] text-black/60 sm:text-[12px] md:text-[14px]">
                       {featuredRecipe.views.toLocaleString()}
                     </span>
                   </div>
@@ -149,11 +149,11 @@ export default async function Home() {
 
       {/* Newest Recipes Section */}
       <section className="relative mt-5 px-2.5 sm:mt-10 sm:px-4 md:mt-12 md:px-6 lg:mt-14 lg:px-10">
-        <div className="relative mb-[12px] pl-[2px] pr-8 inline-block">
-          <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
+        <div className="relative mb-3 inline-block pr-8 pl-[2px]">
+          <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
             Newest Recipes:
           </h2>
-          <div className="absolute top-full inset-0 h-[19px] mt-[-4px] ml-[-4px]">
+          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-[19px]">
             <Image
               src="/images/underline.svg"
               alt=""
@@ -163,7 +163,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-5 sm:gap-x-3 md:gap-x-4 lg:gap-x-5">
+        <div className="my-4 grid grid-cols-2 gap-x-2 gap-y-5 sm:gap-x-3 md:grid-cols-3 md:gap-x-4 lg:grid-cols-4 lg:gap-x-5 xl:grid-cols-5">
           {newestRecipes.map((recipe, index) => (
             <div
               key={recipe.id}
@@ -191,11 +191,11 @@ export default async function Home() {
 
       {/* Most Popular Section */}
       <section className="relative my-5 px-2.5 sm:my-10 sm:px-4 md:my-12 md:px-6 lg:my-14 lg:px-10">
-        <div className="relative mb-[24px] pl-[2px] pr-8 inline-block">
-          <h2 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
+        <div className="relative mb-6 inline-block pr-8 pl-[2px]">
+          <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
             Most Popular:
           </h2>
-          <div className="absolute top-full inset-0 h-[19px] mt-[-4px] ml-[-4px]">
+          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-[19px]">
             <Image
               src="/images/underline.svg"
               alt=""
@@ -205,9 +205,9 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="flex gap-3 overflow-x-auto pb-2 sm:gap-4 scrollbar-hide">
+        <div className="scrollbar-hide flex gap-3 overflow-x-auto pb-2 sm:gap-4">
           {popularRecipes.map((recipe) => (
-            <div key={recipe.id} className="w-[200px] sm:w-[220px] md:w-[240px] shrink-0">
+            <div key={recipe.id} className="w-50 shrink-0 sm:w-55 md:w-60">
               <RecipeCard
                 title={recipe.title}
                 slug={recipe.slug}

@@ -17,7 +17,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keywords = searchParams.get('keywords');
   const category = searchParams.get('category');
-  const recipeNumber = searchParams.get('recipeNumber');
+  // TODO: search-by-recipe-number is not implemented in the query below yet.
+  // const recipeNumber = searchParams.get('recipeNumber');
   const ingredients = searchParams.get('ingredients');
 
   const userId = await getUserId(request);
