@@ -25,6 +25,7 @@ A full-stack recipe discovery app with AI-powered search: browse, search, and bo
 | Language | TypeScript |
 | Tooling | ESLint, Drizzle Kit (migrations/studio) |
 | Deployment | Railway (persistent volume for SQLite) |
+| Observability | Langfuse |
 
 ## Project Structure
 
