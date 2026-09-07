@@ -16,7 +16,7 @@ export default function DragonFruitRating({
   sizeClassName,
 }: DragonFruitRatingProps) {
   return (
-    <div className="flex items-center gap-[2px]">
+    <div className="flex items-center gap-0.5">
       {Array.from({ length: maxRating }).map((_, i) => (
         <div
           key={i}

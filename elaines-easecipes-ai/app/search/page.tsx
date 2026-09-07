@@ -106,7 +106,7 @@ export default function SearchPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`-rounded-b-[20px] w-full rounded-t-[20px] px-6 py-2 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] transition-colors sm:text-[17px] ${
+            className={`-rounded-b-[20px] w-full rounded-t-[20px] px-6 py-2 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] transition-colors sm:text-[17px] ${
               activeTab === tab
                 ? "bg-[#094234] text-white"
                 : "border-x border-t border-[#094234] bg-white text-[#094234] hover:bg-[#094234] hover:text-white"
@@ -120,7 +120,7 @@ export default function SearchPage() {
       <div className="flex grow flex-col md:flex md:flex-1 md:flex-row">
         {/* Search + Results Sections */}
         <div className={`flex w-full flex-col md:w-1/2 md:border-r md:border-[#094234] ${activeTab !== "search" ? "hidden md:flex" : ""}`}>
-          <section className="relative -mt-0.25 w-full border-t-2 border-[#094234]">
+          <section className="relative -mt-px w-full border-t-2 border-[#094234]">
             {/* Background Image */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute inset-0 bg-linear-to-b from-[#094234] from-50% to-[#EFF5F4] to-98%" />
@@ -138,7 +138,7 @@ export default function SearchPage() {
               <div className="mx-auto max-w-2xl">
                 {/* Keywords */}
                 <div className="mb-2 flex items-center gap-3 sm:gap-4">
-                  <label className="w-[90px] shrink-0 font-abeezee text-[15px] leading-[22px] font-black text-white sm:w-25 sm:text-[17px]">
+                  <label className="w-22.5 shrink-0 font-abeezee text-[15px] leading-5.5 font-black text-white sm:w-25 sm:text-[17px]">
                     Keywords:
                   </label>
                   <div className="flex-1 rounded-sm bg-white shadow-sm">
@@ -148,21 +148,21 @@ export default function SearchPage() {
                       value={keywords}
                       onChange={(e) => setKeywords(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      className="w-full px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
+                      className="w-full px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
                     />
                   </div>
                 </div>
 
                 {/* Category */}
                 <div className="mb-2 flex items-center gap-3 sm:gap-4">
-                  <label className="w-[90px] shrink-0 font-abeezee text-[15px] leading-[22px] font-black text-white sm:w-25 sm:text-[17px]">
+                  <label className="w-22.5 shrink-0 font-abeezee text-[15px] leading-5.5 font-black text-white sm:w-25 sm:text-[17px]">
                     Category:
                   </label>
                   <div className="flex-1 rounded-sm bg-white shadow-sm">
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full cursor-pointer appearance-none bg-transparent px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none sm:text-[17px]"
+                      className="w-full cursor-pointer appearance-none bg-transparent px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black outline-none sm:text-[17px]"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='9' cy='9' r='8.5' stroke='%23094234'/%3E%3Cpath d='M5.5 7.5L9 11L12.5 7.5' stroke='%23094234' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -182,7 +182,7 @@ export default function SearchPage() {
 
                 {/* Ingredients */}
                 <div className="mb-4 flex items-center gap-3 sm:gap-4">
-                  <label className="w-[90px] shrink-0 font-abeezee text-[15px] leading-[22px] font-black text-white sm:w-25 sm:text-[17px]">
+                  <label className="w-22.5 shrink-0 font-abeezee text-[15px] leading-5.5 font-black text-white sm:w-25 sm:text-[17px]">
                     Ingredients:
                   </label>
                   <div className="flex-1 rounded-sm bg-white shadow-sm">
@@ -192,7 +192,7 @@ export default function SearchPage() {
                       value={ingredients}
                       onChange={(e) => setIngredients(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      className="w-full px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
+                      className="w-full px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
                     />
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export default function SearchPage() {
                   <button
                     onClick={handleSearch}
                     disabled={isLoading}
-                    className="rounded-[20px] bg-[#19604f] px-6 py-2 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:bg-[#094234] disabled:opacity-50 sm:text-[17px]"
+                    className="rounded-[20px] bg-[#19604f] px-6 py-2 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:bg-[#094234] disabled:opacity-50 sm:text-[17px]"
                     aria-label="Search Button"
                   >
                     {isLoading ? "Searching..." : "Search"}
@@ -270,7 +270,7 @@ export default function SearchPage() {
 
         {/* Chat Section */}
         <div className={`flex w-full grow flex-col md:w-1/2 ${activeTab !== "chat" ? "hidden md:flex" : ""}`}>
-          <section className="relative -mt-0.25 flex size-full grow flex-col border-t-2 border-[#094234] pt-4 pb-8">
+          <section className="relative -mt-px flex size-full grow flex-col border-t-2 border-[#094234] pt-4 pb-8">
             <div className="bg-opacity-30 absolute top-0 right-0 size-full bg-[url('/images/dragonfruit_wallpaper.png')] bg-cover"> 
               <div className="size-full bg-linear-to-b from-[#094234] from-30% to-[#EFF5F4] to-100% opacity-80"/> {/* overlay to improve text visibility on background */}
             </div>
@@ -284,11 +284,11 @@ export default function SearchPage() {
                   height={100}
                 />
                 <div>
-                  <div className="relative mb-3 inline-block pr-8 pl-[2px]">
+                  <div className="relative mb-3 inline-block pr-8 pl-0.5">
                     <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
                       Ask Pitaya Pal
                     </h2>
-                    <div className="absolute inset-0 top-full -mt-1 -ml-1 h-[19px]">
+                    <div className="absolute inset-0 top-full -mt-1 -ml-1 h-4.75">
                       <Image
                         src="/images/underline.svg"
                         alt=""
@@ -317,7 +317,7 @@ export default function SearchPage() {
                         className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                       >
                         <div
-                          className={`max-w-[80%] rounded-2xl px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] sm:text-[17px] ${
+                          className={`max-w-[80%] rounded-2xl px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] sm:text-[17px] ${
                             m.role === "user"
                               ? "rounded-br-sm bg-[#19604f] text-white"
                               : "rounded-bl-sm bg-gray-100 text-black"
@@ -330,7 +330,7 @@ export default function SearchPage() {
                   })}
                   {chatSubmitting && (
                     <div className="flex justify-start">
-                      <div className="rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black italic">
+                      <div className="rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black italic">
                         {"thinking" + ".".repeat(thinkingDots)}
                       </div>
                     </div>
@@ -354,14 +354,14 @@ export default function SearchPage() {
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Ask about recipes, ingredients, cooking tips..."
-                    className="w-full bg-transparent px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
+                    className="w-full bg-transparent px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
                     aria-label="Chat with Pitaya Pal input"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={chatLoading || !chatInput.trim()}
-                  className="h-full shrink-0 place-self-end rounded-[20px] bg-[#19604f] px-6 py-2 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:bg-[#094234] disabled:opacity-50 sm:text-[17px]"
+                  className="h-full shrink-0 place-self-end rounded-[20px] bg-[#19604f] px-6 py-2 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:bg-[#094234] disabled:opacity-50 sm:text-[17px]"
                   aria-label="Send message to Pitaya Pal"
                 >
                   {chatLoading ? "..." : "Send"}

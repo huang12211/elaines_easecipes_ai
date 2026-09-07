@@ -107,7 +107,7 @@ export default async function CategoryPage({
     <div className="xl:min-h-[calc(100vh-64px-116px)]] min-h-[calc(100vh-53px-80px)] sm:min-h-[calc(100vh-60px-100px)]">
       {/* Category Header */}
       <div className="px-2 py-6 sm:px-4 md:px-6 lg:px-8">
-        <div className="relative mb-3 inline-block pr-8 pl-[2px]">
+        <div className="relative mb-3 inline-block pr-8 pl-0.5">
           <h1 className="leading-1.2 text-[28px] font-semibold tracking-[-0.48px] text-black sm:text-[32px]">
             {displayName}
           </h1>

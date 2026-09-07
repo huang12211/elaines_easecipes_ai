@@ -105,7 +105,7 @@ export default async function Home() {
         </div>
         {featuredRecipe && (
           <Link href={`/recipes/${featuredRecipe.slug}`}>
-            <div className="hover:scale-1.02 absolute top-[26px] left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-[16px] shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform sm:max-w-175">
+            <div className="hover:scale-1.02 absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform sm:max-w-175">
               <Image
                 src={featuredRecipe.image}
                 alt={featuredRecipe.title}
@@ -115,13 +115,13 @@ export default async function Home() {
                 sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
                 style={{ width: '100%', height: '100%' }}
               />
-              <div className="absolute bottom-0 left-0 h-[54px] w-[230px] overflow-hidden rounded-tr-[10px] rounded-bl-[16px] bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-72 lg:w-[70%]">
+              <div className="absolute bottom-0 left-0 h-13.5 w-57.5 overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-72 lg:w-[70%]">
                 <div className="flex w-full items-center justify-between px-2 py-1">
                   <span className="font-abeezee text-sm leading-normal tracking-[0.25px] whitespace-nowrap text-black sm:text-base md:text-lg lg:text-xl">
                     {featuredRecipe.title}
                   </span>
                   <button aria-label="Bookmark Recipe Button">
-                    <div className="relative h-4 w-3.5 sm:mt-0.25 sm:mr-0.5 md:mt-0.5 md:mr-0.5 md:h-4.5 md:w-4">
+                    <div className="relative h-4 w-3.5 sm:mt-px sm:mr-0.5 md:mt-0.5 md:mr-0.5 md:h-4.5 md:w-4">
                       <Image
                         src={featuredRecipe.bookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
                         alt="bookmark"
@@ -149,11 +149,11 @@ export default async function Home() {
 
       {/* Newest Recipes Section */}
       <section className="relative mt-5 px-2.5 sm:mt-10 sm:px-4 md:mt-12 md:px-6 lg:mt-14 lg:px-10">
-        <div className="relative mb-3 inline-block pr-8 pl-[2px]">
+        <div className="relative mb-3 inline-block pr-8 pl-0.5">
           <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
             Newest Recipes:
           </h2>
-          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-[19px]">
+          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-4.75">
             <Image
               src="/images/underline.svg"
               alt=""
@@ -191,11 +191,11 @@ export default async function Home() {
 
       {/* Most Popular Section */}
       <section className="relative my-5 px-2.5 sm:my-10 sm:px-4 md:my-12 md:px-6 lg:my-14 lg:px-10">
-        <div className="relative mb-6 inline-block pr-8 pl-[2px]">
+        <div className="relative mb-6 inline-block pr-8 pl-0.5">
           <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
             Most Popular:
           </h2>
-          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-[19px]">
+          <div className="absolute inset-0 top-full -mt-1 -ml-1 h-4.75">
             <Image
               src="/images/underline.svg"
               alt=""

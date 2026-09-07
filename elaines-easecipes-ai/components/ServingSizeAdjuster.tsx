@@ -32,15 +32,15 @@ export default function ServingSizeAdjuster({
   };
 
   return (
-    <div className="flex items-center gap-[10px]">
+    <div className="flex items-center gap-2.5"> 
       <span className="font-abeezee text-[16px] tracking-[0.25px] text-black">
         for
       </span>
-      <div className="flex items-center gap-[6px]">
+      <div className="flex items-center gap-1.5">
         <button
           onClick={handleDecrement}
           disabled={!canDecrement}
-          className={`flex size-[24px] items-center justify-center rounded-full border transition-colors ${
+          className={`flex size-6 items-center justify-center rounded-full border transition-colors ${
             canDecrement
               ? 'cursor-pointer border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white'
               : 'cursor-not-allowed border-gray-300 text-gray-300'
@@ -57,7 +57,7 @@ export default function ServingSizeAdjuster({
         <button
           onClick={handleIncrement}
           disabled={!canIncrement}
-          className={`flex size-[24px] items-center justify-center rounded-full border transition-colors ${
+          className={`flex size-6 items-center justify-center rounded-full border transition-colors ${
             canIncrement
               ? 'cursor-pointer border-[#094234] text-[#094234] hover:bg-[#094234] hover:text-white'
               : 'cursor-not-allowed border-gray-300 text-gray-300'
