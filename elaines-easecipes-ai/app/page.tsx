@@ -91,7 +91,7 @@ export default async function Home() {
       />
       <div className="relative mb-6">
       <section className="relative h-70 w-full sm:h-90 md:h-90 lg:h-105">
-        <div className="absolute inset-0 overflow-hidden blur-[2px]">
+        <div className="absolute inset-0 -left-0.5 overflow-hidden blur-[2px]">
           <Image
             src="/images/hero-bg.png"
             alt="Hero background"
@@ -115,7 +115,7 @@ export default async function Home() {
                 sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
                 style={{ width: '100%', height: '100%' }}
               />
-              <div className="absolute bottom-0 left-0 h-13.5 w-57.5 overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-72 lg:w-[70%]">
+              <div className="absolute bottom-0 left-0 h-13.5 w-57.5 overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-18 lg:w-[70%]">
                 <div className="flex w-full items-center justify-between px-2 py-1">
                   <span className="font-abeezee text-sm leading-normal tracking-[0.25px] whitespace-nowrap text-black sm:text-base md:text-lg lg:text-xl">
                     {featuredRecipe.title}
