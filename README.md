@@ -23,8 +23,9 @@ A full-stack recipe discovery app with AI-powered search: browse, search, and bo
 | Auth | JWT (`jose`) + `bcryptjs` password hashing |
 | AI / ML | Google Gemini via Vercel AI SDK (`ai`, `@ai-sdk/google`) — chat streaming + text embeddings |
 | Language | TypeScript |
-| Tooling | ESLint, Drizzle Kit (migrations/studio) |
+| Tooling | ESLint (incl. Tailwind class linting), Husky + lint-staged (pre-commit checks), Drizzle Kit (migrations/studio) |
 | Deployment | Railway (persistent volume for SQLite) |
+| Observability | Langfuse |
 
 ## Project Structure
 
@@ -63,6 +64,9 @@ Create `.env.local`:
 JWT_SECRET=<generate a random secret>
 GOOGLE_GENERATIVE_AI_API_KEY=<your Gemini API key>
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+LANGFUSE_PUBLIC_KEY=<your Langfuse public key>
+LANGFUSE_SECRET_KEY=<your Langfuse secret key>
+LANGFUSE_BASE_URL=https://cloud.langfuse.com # 🇪🇺 EU region. 🇺🇸 US: https://us.cloud.langfuse.com
 ```
 
 ### 3. Set up and run
@@ -75,6 +79,16 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+## Pre-commit Hooks
+
+A Husky pre-commit hook runs `lint-staged` on every `git commit` — it's installed automatically via the `prepare` script when you run `npm install`, so there's no manual setup.
+
+On staged files, it runs:
+- **ESLint (`--fix`)** on `.js/.jsx/.ts/.tsx` files, including `eslint-plugin-tailwindcss` rules that check Tailwind class usage against `app/globals.css`.
+- **`npm run typecheck`** on `.ts/.tsx` files.
+
+If either check fails, the commit is blocked until the issues are fixed.
 
 ## Database Commands
 
@@ -95,6 +109,9 @@ Deployed on Railway with a mounted volume for SQLite persistence.
 - `JWT_SECRET=<random secret>`
 - `GOOGLE_GENERATIVE_AI_API_KEY=<your API key>`
 - `PORT=8080`
+- `LANGFUSE_PUBLIC_KEY=<your Langfuse public key>`
+- `LANGFUSE_SECRET_KEY=<your Langfuse secret key>`
+- `LANGFUSE_BASE_URL=<https://cloud.langfuse.com or https://us.cloud.langfuse.com>`
 
 **Build/start commands** — choose based on whether you want to preserve existing production data:
 

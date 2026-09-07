@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { recipes, recipe_ingredient_measUnit } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import RecipePageClient from "./RecipePageClient";
-import { date } from "drizzle-orm/mysql-core";
 import type { Metadata } from "next";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

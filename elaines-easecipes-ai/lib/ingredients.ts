@@ -189,7 +189,7 @@ export function scaleIngredient(parsed: ParsedIngredient, multiplier: number, mi
   }
 
 
-  let minAmountNum = parseFraction(minAmount);
+  const minAmountNum = parseFraction(minAmount);
 
   const scaledQuantity = minAmountNum * multiplier;
   console.log(`minAmountNum: ${minAmountNum} by multiplier ${multiplier} gives ${scaledQuantity}`);

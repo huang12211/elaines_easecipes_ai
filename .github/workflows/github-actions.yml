@@ -1,0 +1,51 @@
+name: Database Migration Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-migrations:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: elaines-easecipes-ai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: elaines-easecipes-ai/package-lock.json
+
+      - run: npm ci
+
+      - name: drizzle-kit check
+        run: npx drizzle-kit check
+
+      - name: Schema drift check
+        run: |
+          git status --porcelain drizzle > /tmp/before.txt
+          npx drizzle-kit generate
+          git status --porcelain drizzle > /tmp/after.txt
+          if ! diff -q /tmp/before.txt /tmp/after.txt > /dev/null; then
+            echo "::error::Schema drift detected: lib/db/schema.ts changed but drizzle/ migrations are out of date. Run 'npm run db:generate' locally, commit the result, and push again."
+            exit 1
+          fi
+
+      - name: Destructive migration check
+        run: |
+          BASE_REF="${{ github.event.pull_request.base.sha || format('{0}~1', github.sha) }}"
+          CHANGED=$(git diff --relative --name-only --diff-filter=ACM "$BASE_REF" HEAD -- 'drizzle/*.sql' || true)
+          for f in $CHANGED; do
+            if grep -Eiq 'DROP[[:space:]]+COLUMN|DROP[[:space:]]+TABLE|RENAME[[:space:]]+COLUMN|RENAME[[:space:]]+TABLE' "$f"; then
+              echo "::warning file=$f::Destructive schema change (DROP/RENAME) - double check this is intentional."
+            fi
+          done

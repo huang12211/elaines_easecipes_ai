@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -56,14 +55,14 @@ export default function LoginPage() {
       </div>
 
       {/* Form card */}
-      <div className="relative flex-1 flex items-center justify-center px-4 py-12">
-        <div className="bg-white rounded-[16px] shadow-md w-full max-w-[400px] p-8">
+      <div className="relative flex flex-1 items-center justify-center px-4 py-12">
+        <div className="w-full max-w-100 rounded-[16px] bg-white p-8 shadow-md">
           {/* Title */}
-          <div className="relative mb-6 pr-6 inline-block">
-            <h1 className="font-semibold text-[24px] text-black tracking-[-0.48px] leading-[1.2]">
+          <div className="relative mb-6 inline-block pr-6">
+            <h1 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
               Login
             </h1>
-            <div className="absolute top-full inset-0 h-[14px] mt-[-2px] ml-[-4px]">
+            <div className="absolute inset-0 top-full mt-[-2px] -ml-1 h-[14px]">
               <Image
                 src="/images/underline.svg"
                 alt=""
@@ -75,7 +74,7 @@ export default function LoginPage() {
 
           {/* Email */}
           <div className="mb-3">
-            <label className="block font-abeezee text-[15px] text-black tracking-[-0.408px] leading-[22px] mb-1">
+            <label className="mb-1 block font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black">
               Email
             </label>
             <input
@@ -84,13 +83,13 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="you@example.com"
-              className="w-full px-4 py-2.5 font-abeezee text-[15px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none border border-gray-200 focus:border-[#094234] rounded-sm"
+              className="w-full rounded-sm border border-gray-200 px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] focus:border-[#094234]"
             />
           </div>
 
           {/* Password */}
           <div className="mb-4">
-            <label className="block font-abeezee text-[15px] text-black tracking-[-0.408px] leading-[22px] mb-1">
+            <label className="mb-1 block font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black">
               Password
             </label>
             <input
@@ -99,23 +98,23 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Your password"
-              className="w-full px-4 py-2.5 font-abeezee text-[15px] text-black placeholder:text-[rgba(60,60,67,0.6)] tracking-[-0.408px] leading-[22px] outline-none border border-gray-200 focus:border-[#094234] rounded-sm"
+              className="w-full rounded-sm border border-gray-200 px-4 py-2.5 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] focus:border-[#094234]"
             />
           </div>
 
           {/* Error message */}
           {error && (
-            <p className="font-abeezee text-[14px] text-red-600 tracking-[-0.408px] mb-3">
+            <p className="mb-3 font-abeezee text-[14px] tracking-[-0.408px] text-red-600">
               {error}
             </p>
           )}
 
           {/* Submit button */}
-          <div className="flex justify-end mb-4">
+          <div className="mb-4 flex justify-end">
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="bg-[#19604f] hover:bg-[#094234] transition-colors text-white font-abeezee text-[15px] tracking-[-0.408px] leading-[22px] px-6 py-2 rounded-[20px] disabled:opacity-50"
+              className="rounded-[20px] bg-[#19604f] px-6 py-2 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:bg-[#094234] disabled:opacity-50"
               aria-label="Search button"
             >
               {isLoading ? "Logging in..." : "Login"}
@@ -123,11 +122,11 @@ export default function LoginPage() {
           </div>
 
           {/* Link to register */}
-          <p className="font-abeezee text-[14px] text-center text-black tracking-[-0.408px]">
+          <p className="text-center font-abeezee text-[14px] tracking-[-0.408px] text-black">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="font-extrabold text-[#094234] underline hover:text-[#19604f] transition-colors"
+              className="font-extrabold text-[#094234] underline transition-colors hover:text-[#19604f]"
             >
               Register
             </Link>
