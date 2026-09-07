@@ -23,7 +23,7 @@ A full-stack recipe discovery app with AI-powered search: browse, search, and bo
 | Auth | JWT (`jose`) + `bcryptjs` password hashing |
 | AI / ML | Google Gemini via Vercel AI SDK (`ai`, `@ai-sdk/google`) — chat streaming + text embeddings |
 | Language | TypeScript |
-| Tooling | ESLint, Drizzle Kit (migrations/studio) |
+| Tooling | ESLint (incl. Tailwind class linting), Husky + lint-staged (pre-commit checks), Drizzle Kit (migrations/studio) |
 | Deployment | Railway (persistent volume for SQLite) |
 | Observability | Langfuse |
 
@@ -76,6 +76,16 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+## Pre-commit Hooks
+
+A Husky pre-commit hook runs `lint-staged` on every `git commit` — it's installed automatically via the `prepare` script when you run `npm install`, so there's no manual setup.
+
+On staged files, it runs:
+- **ESLint (`--fix`)** on `.js/.jsx/.ts/.tsx` files, including `eslint-plugin-tailwindcss` rules that check Tailwind class usage against `app/globals.css`.
+- **`npm run typecheck`** on `.ts/.tsx` files.
+
+If either check fails, the commit is blocked until the issues are fixed.
 
 ## Database Commands
 

@@ -1,0 +1,48 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+elaines-easecipes-ai/.pnp
+.pnp.*
+elaines-easecipes-ai/.yarn/*
+!elaines-easecipes-ai/.yarn/patches
+!elaines-easecipes-ai/.yarn/plugins
+!elaines-easecipes-ai/.yarn/releases
+!elaines-easecipes-ai/.yarn/versions
+
+# testing
+elaines-easecipes-ai/coverage
+
+# next.js
+elaines-easecipes-ai/.next/
+elaines-easecipes-ai/out/
+
+# production
+elaines-easecipes-ai/build
+
+# misc
+.DS_Store
+.playwright-mcp/
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# database
+elaines-easecipes-ai/data/*.db
+elaines-easecipes-ai/data/*.db-journal
+elaines-easecipes-ai/data/*.db-shm
+elaines-easecipes-ai/data/*.db-wal
