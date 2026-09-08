@@ -1,4 +1,4 @@
-import { google } from "@ai-sdk/google";
+import {EMBEDDING_MODEL, CHAT_MODEL } from "@/constants";
 import { streamText, convertToModelMessages, UIMessage, embed } from "ai";
 import { after } from "next/server";
 import { observe, propagateAttributes, updateActiveObservation } from "@langfuse/tracing";
@@ -38,7 +38,7 @@ const handler = async (req: Request) => {
       const rootSpan = trace.getActiveSpan();
 
       const { embedding: queryEmbedding } = await embed({
-        model: google.embedding('gemini-embedding-001'),
+        model: EMBEDDING_MODEL,
         value: query,
         telemetry: { functionId: "embed-query" },
       });
@@ -56,7 +56,7 @@ const handler = async (req: Request) => {
       const context = topRecipes.map(r => r.content).join('\n\n---\n\n');
 
       const result = streamText({
-        model: google("gemini-2.5-flash-lite"),
+        model: CHAT_MODEL,
         temperature: 0.1,
         system:
           `
