@@ -21,7 +21,7 @@ A full-stack recipe discovery app with AI-powered search: browse, search, and bo
 | Backend | Next.js API routes (Node runtime) |
 | Database | SQLite via `better-sqlite3` + Drizzle ORM |
 | Auth | JWT (`jose`) + `bcryptjs` password hashing |
-| AI / ML | Google Gemini via Vercel AI SDK (`ai`, `@ai-sdk/google`) — chat streaming + text embeddings |
+| AI / ML | Google Gemini via Vercel AI SDK (`ai`, `@ai-sdk/google`) — chat streaming + text embeddings; Current embedding model is Gemini Embedding and Current Inferrence Model is Gemini 3.8 Flash |
 | Language | TypeScript |
 | Tooling | ESLint (incl. Tailwind class linting), Husky + lint-staged (pre-commit checks), Drizzle Kit (migrations/studio) |
 | Deployment | Railway (persistent volume for SQLite) |
