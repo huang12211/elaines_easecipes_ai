@@ -1,7 +1,7 @@
 import {EMBEDDING_MODEL, CHAT_MODEL } from "@/constants";
-import { streamText, convertToModelMessages, UIMessage, embed } from "ai";
+import { streamText, convertToModelMessages, UIMessage, embed, toUIMessageStream, createUIMessageStreamResponse } from "ai";
 import { after } from "next/server";
-import { observe, propagateAttributes, updateActiveObservation } from "@langfuse/tracing";
+import { observe, propagateAttributes, startActiveObservation, updateActiveObservation } from "@langfuse/tracing";
 import { context as otelContext, trace } from "@opentelemetry/api";
 import { db } from "@/lib/db";
 import { recipeEmbeddings } from "@/lib/db/schema";
@@ -43,15 +43,27 @@ const handler = async (req: Request) => {
         telemetry: { functionId: "embed-query" },
       });
 
-      const allEmbeddings = db.select().from(recipeEmbeddings).all();
+      const topRecipes = startActiveObservation(
+        "retrieve-recipes",
+        (retriever) => {
+          retriever.update({ input: query });
 
-      const topRecipes = allEmbeddings
-        .map(row => ({
-          content: row.content,
-          score: cosineSimilarity(queryEmbedding, JSON.parse(row.embedding) as number[]),
-        }))
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 10);
+          const allEmbeddings = db.select().from(recipeEmbeddings).all();
+
+          const recipes = allEmbeddings
+            .map(row => ({
+              content: row.content,
+              score: cosineSimilarity(queryEmbedding, JSON.parse(row.embedding) as number[]),
+            }))
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
+
+          retriever.update({ output: recipes });
+
+          return recipes;
+        },
+        { asType: "retriever" }
+      );
 
       const context = topRecipes.map(r => r.content).join('\n\n---\n\n');
 
@@ -91,7 +103,12 @@ const handler = async (req: Request) => {
 
       after(async () => await langfuseSpanProcessor.forceFlush());
 
-      return result.toUIMessageStreamResponse();
+      return createUIMessageStreamResponse({
+        stream: toUIMessageStream({
+          stream: result.stream,
+          onError: () => "Uh oh, I've used up all my tokens, Please come back another time.",
+        }),
+      });
     }
   );
 };

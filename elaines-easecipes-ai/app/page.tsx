@@ -105,16 +105,21 @@ export default async function Home() {
         </div>
         {featuredRecipe && (
           <Link href={`/recipes/${featuredRecipe.slug}`}>
-            <div className="hover:scale-1.02 absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform sm:max-w-175">
+            <div className="absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)] sm:max-w-175">
               <Image
                 src={featuredRecipe.image}
                 alt={featuredRecipe.title}
                 width = {0}
                 height = {0}
-                className="object-cover"
+                className="object-cover opacity-90 transition-opacity hover:opacity-100"
                 sizes="(max-width: 640px) calc(100vw - 80px), (max-width: 1024px) 60vw, 700px"
                 style={{ width: '100%', height: '100%' }}
               />
+              <div className= "absolute top-4 left-4 -rotate-4 rounded-[30px] border border-[#711F3B] bg-[#da1d5f] px-3 pt-px pb-0.75">
+                <span className = "font-abeezee text-[14px] leading-normal font-black tracking-[0.25px] text-[#ffffff] uppercase">
+                  this week&apos;s obsession
+                </span>
+              </div>
               <div className="absolute bottom-0 left-0 h-13.5 w-57.5 overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-18 lg:w-[70%]">
                 <div className="flex w-full items-center justify-between px-2 py-1">
                   <span className="font-abeezee text-sm leading-normal tracking-[0.25px] whitespace-nowrap text-black sm:text-base md:text-lg lg:text-xl">
@@ -150,9 +155,9 @@ export default async function Home() {
       {/* Newest Recipes Section */}
       <section className="relative mt-5 px-2.5 sm:mt-10 sm:px-4 md:mt-12 md:px-6 lg:mt-14 lg:px-10">
         <div className="relative mb-3 inline-block pr-8 pl-0.5">
-          <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
+          <h1>
             Newest Recipes:
-          </h2>
+          </h1>
           <div className="absolute inset-0 top-full -mt-1 -ml-1 h-4.75">
             <Image
               src="/images/underline.svg"
@@ -192,9 +197,9 @@ export default async function Home() {
       {/* Most Popular Section */}
       <section className="relative my-5 px-2.5 sm:my-10 sm:px-4 md:my-12 md:px-6 lg:my-14 lg:px-10">
         <div className="relative mb-6 inline-block pr-8 pl-0.5">
-          <h2 className="leading-1.2 text-[24px] font-semibold tracking-[-0.48px] text-black">
+          <h1>
             Most Popular:
-          </h2>
+          </h1>
           <div className="absolute inset-0 top-full -mt-1 -ml-1 h-4.75">
             <Image
               src="/images/underline.svg"
