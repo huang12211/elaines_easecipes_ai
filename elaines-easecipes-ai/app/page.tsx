@@ -105,7 +105,7 @@ export default async function Home() {
         </div>
         {featuredRecipe && (
           <Link href={`/recipes/${featuredRecipe.slug}`}>
-            <div className="hover:scale-1.02 absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)] sm:max-w-175">
+            <div className="absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)] sm:max-w-175">
               <Image
                 src={featuredRecipe.image}
                 alt={featuredRecipe.title}

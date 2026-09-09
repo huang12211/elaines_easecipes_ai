@@ -1,5 +1,5 @@
 import {EMBEDDING_MODEL, CHAT_MODEL } from "@/constants";
-import { streamText, convertToModelMessages, UIMessage, embed } from "ai";
+import { streamText, convertToModelMessages, UIMessage, embed, toUIMessageStream, createUIMessageStreamResponse } from "ai";
 import { after } from "next/server";
 import { observe, propagateAttributes, startActiveObservation, updateActiveObservation } from "@langfuse/tracing";
 import { context as otelContext, trace } from "@opentelemetry/api";
@@ -103,7 +103,12 @@ const handler = async (req: Request) => {
 
       after(async () => await langfuseSpanProcessor.forceFlush());
 
-      return result.toUIMessageStreamResponse();
+      return createUIMessageStreamResponse({
+        stream: toUIMessageStream({
+          stream: result.stream,
+          onError: () => "Uh oh, I've used up all my tokens, Please come back another time.",
+        }),
+      });
     }
   );
 };
