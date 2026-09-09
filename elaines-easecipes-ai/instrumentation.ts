@@ -1,16 +1,12 @@
-import type { LangfuseSpanProcessor as LangfuseSpanProcessorType } from "@langfuse/otel";
+import { LangfuseSpanProcessor } from "@langfuse/otel";
+import { LangfuseVercelAiSdkIntegration } from "@langfuse/vercel-ai-sdk";
+import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
+import { registerTelemetry } from "ai";
 
-export let langfuseSpanProcessor: LangfuseSpanProcessorType;
+export const langfuseSpanProcessor = new LangfuseSpanProcessor();
 
-export async function register() {
+export function register() {
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
-
-  const { LangfuseSpanProcessor } = await import("@langfuse/otel");
-  const { LangfuseVercelAiSdkIntegration } = await import("@langfuse/vercel-ai-sdk");
-  const { NodeTracerProvider } = await import("@opentelemetry/sdk-trace-node");
-  const { registerTelemetry } = await import("ai");
-
-  langfuseSpanProcessor = new LangfuseSpanProcessor();
 
   const tracerProvider = new NodeTracerProvider({
     spanProcessors: [langfuseSpanProcessor],

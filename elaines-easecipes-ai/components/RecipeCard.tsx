@@ -24,29 +24,29 @@ export default function RecipeCard({
   return (
     <Link 
     href={`/recipes/${slug}`} 
-    className="hover:scale-1.02 relative block aspect-square w-full max-w-70 min-w-40 shrink-0 cursor-pointer justify-self-center overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform"
+    className="hover:scale-1.02 relative block aspect-square w-full max-w-70 min-w-40 shrink-0 cursor-pointer justify-self-center overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
     >
       <div className="absolute inset-0">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover"
+          className="object-cover opacity-90 transition-opacity hover:opacity-100"
           sizes="(max-width: 640px) 46vw, (max-width: 768px) 30vw, (max-width: 1024px) 23vw, 280px"
         />
       </div>
       <div className="absolute top-1.25 left-2 flex flex-wrap gap-1">
         {tags.map((cat, index) => (
-          <div key={index} className="rounded-[30px] border-2 border-[#FF2693] bg-[#FFF7FA] px-3 pt-px pb-0.75">
-            <span className="font-abeezee text-[14px] leading-normal font-black tracking-[0.25px] text-[#E30088]">
+          <div key={index} className="rounded-[30px] border border-[#711F3B] bg-[#db1c5f] px-3 pt-px pb-0.75">
+            <span className="font-abeezee text-[14px] leading-normal font-black tracking-[0.25px] text-[#ffffff] uppercase">
               {cat}
             </span>
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0 left-0 flex h-auto min-h-12.5 w-[85%] flex-col justify-between overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white p-1.5">
+      <div className="absolute bottom-0 left-0 flex h-auto min-h-12.5 w-full flex-col justify-between overflow-hidden rounded-bl-2xl bg-white p-1.5">
         <div className="flex w-full items-start justify-between gap-2">
-          <p className="line-clamp-2 min-w-0 flex-1 font-abeezee text-xs leading-normal tracking-[0.25px] text-black sm:text-sm md:text-base">
+          <p className="line-clamp-2 min-w-0 flex-1 font-abeezee text-xs leading-normal font-semibold tracking-tight text-black italic sm:text-sm md:text-base">
             {title}
           </p>
           <button aria-label="Bookmark Recipe Button">
