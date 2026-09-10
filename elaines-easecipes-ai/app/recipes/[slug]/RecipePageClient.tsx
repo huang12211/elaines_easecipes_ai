@@ -238,16 +238,16 @@ export default function RecipePageClient({ slug }: { slug: string }) {
   return (
     <div className="flex flex-col">
       {/* Recipe Title Section */}
-      <section className="px-[10px] pt-[30px] pb-5 sm:px-5 md:px-10 lg:px-20">
+      <section className="px-2.5 pt-7.5 pb-5 sm:px-5 md:px-10 lg:px-20">
         <div className="mx-auto max-w-175">
-          <div className="flex items-start gap-[30px] pb-2">
+          <div className="flex items-start gap-7.5 pb-2">
             <h1 className="leading-1.2 tracking-[-0.48px] text-black">
               {recipe.title}
             </h1>
-            <div className="mt-3 flex shrink-0 items-center gap-[6px]">
+            <div className="mt-3 flex shrink-0 items-center gap-1.5">
               <button
                 onClick={toggleBookmark}
-                className="flex items-center pr-[2px]"
+                className="flex items-center pr-0.5"
                 aria-label="Bookmark Recipe Button"
               >
                 <Image
@@ -274,7 +274,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
           <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <DragonFruitRating rating={recipe.rating} iconWidth={17} iconHeight={20} />
             <span className="text-[14px] text-black">|</span>
-            <div className="flex items-center gap-[6px]">
+            <div className="flex items-center gap-1.5">
               <svg width="14" height="11" viewBox="0 0 10 7" fill="#E0165C" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 0.5C2.73 0.5 0.8 1.91 0 4C0.8 6.09 2.73 7.5 5 7.5C7.27 7.5 9.2 6.09 10 4C9.2 1.91 7.27 0.5 5 0.5ZM5 6.17C3.8 6.17 2.83 5.2 2.83 4C2.83 2.8 3.8 1.83 5 1.83C6.2 1.83 7.17 2.8 7.17 4C7.17 5.2 6.2 6.17 5 6.17ZM5 2.9C4.39 2.9 3.9 3.39 3.9 4C3.9 4.61 4.39 5.1 5 5.1C5.61 5.1 6.1 4.61 6.1 4C6.1 3.39 5.61 2.9 5 2.9Z"/>
               </svg>
@@ -297,8 +297,8 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       </section>
 
       {/* Recipe Image */}
-      <section className="px-[10px] sm:px-5 md:px-10 lg:px-20">
-        <div className="relative mx-auto aspect-350/185 w-full max-w-175 overflow-hidden rounded-[8px]">
+      <section className="px-2.5 sm:px-5 md:px-10 lg:px-20">
+        <div className="relative mx-auto aspect-350/185 w-full max-w-175 overflow-hidden rounded-lg">
           <Image
             src={recipe.image}
             alt={recipe.title}
@@ -311,14 +311,14 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       </section>
 
       {/* Ingredients Section */}
-      <section className="px-[10px] py-4 sm:px-5 md:px-10 lg:px-20">
+      <section className="px-2.5 py-4 sm:px-5 md:px-10 lg:px-20">
         <div className="mx-auto max-w-175">
-          <div className="mb-[10px] flex flex-col gap-[5px]">
+          <div className="mb-2.5 flex flex-col gap-1.25">
             <div className="relative inline-block">
               <h2 className="font-abeezee text-[20px] tracking-[0.25px] text-black">
                 Ingredients
               </h2>
-              <div className="absolute bottom-[-6px] left-[-6px] h-[11px] w-32">
+              <div className="absolute -bottom-1.25 left-2.5 h-2.75 w-32">
                 <Image
                   src="/images/underline.svg"
                   alt=""
@@ -358,7 +358,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
                       {group.component}
                     </h3>
                   )}
-                  <div className="flex flex-col gap-[5px]">
+                  <div className="flex flex-col gap-1.25">
                     {group.items.map(({ ingr, index }) => {
                       const multiplier = (currentServings ?? recipe.baseServings) / recipe.minServings;
                       const parsed = parseIngredient((currentServings ?? ingr.amount).toString() + " " + ingr.measUnit_id + " " + ingr.ingredient_id);
@@ -384,18 +384,18 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       </section>
 
       {/* Divider */}
-      <div className="flex justify-center py-[10px]">
+      <div className="flex justify-center py-2.5">
         <div className="h-px w-50 bg-gray-300"></div>
       </div>
 
       {/* Directions Section */}
-      <section className="px-[10px] py-4 sm:px-5 md:px-10 lg:px-20">
+      <section className="px-2.5 py-4 sm:px-5 md:px-10 lg:px-20">
         <div className="mx-auto mb-6 max-w-175">
-          <div className="relative mb-[10px] inline-block">
+          <div className="relative mb-2.5 inline-block">
             <h2 className="font-abeezee text-[20px] tracking-[0.25px] text-black">
               Directions
             </h2>
-            <div className="absolute bottom-[-6px] -left-2 h-[11px] w-32">
+            <div className="absolute -bottom-1.25 -left-2.5 h-2.75 w-32">
               <Image
                 src="/images/underline.svg"
                 alt=""
@@ -405,7 +405,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
             </div>
           </div>
 
-          <ol className="list-decimal space-y-[8px] pl-0">
+          <ol className="list-decimal space-y-2 pl-0">
             {directions.map((step, index) => {
               if (step.includes("title:")){
                 return(
@@ -416,7 +416,7 @@ export default function RecipePageClient({ slug }: { slug: string }) {
               }
               else{
                 return (
-                    <li key={index} className="ml-[30px] pl-[5px] font-abeezee text-[14px] leading-normal tracking-[0.25px] text-black">
+                    <li key={index} className="ml-7.5 pl-1.25 font-abeezee text-[14px] leading-normal tracking-[0.25px] text-black">
                       {parseStyledText(step, `step-${index}-`)}
                     </li>
                 );

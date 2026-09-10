@@ -52,11 +52,11 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-[53px] w-full items-center justify-between bg-[#094234] px-2.5 shadow-[0px_2px_4px_rgba(0,0,0,0.79)] sm:h-15 sm:px-4 md:h-16 md:px-6 lg:px-10">
+    <header className="sticky top-0 z-50 flex h-13.25 w-full items-center justify-between bg-[#094234] px-2.5 shadow-[0px_2px_4px_rgba(0,0,0,0.79)] sm:h-15 sm:px-4 md:h-16 md:px-6 lg:px-10">
       {/* Logo - left on desktop, center on mobile */}
       <Link 
         href="/" 
-        className="relative order-2 -ml-6 h-[55px] w-30 sm:-ml-10 sm:h-15 sm:w-35 md:hidden"
+        className="relative order-2 -ml-6 h-13.75 w-30 sm:-ml-10 sm:h-15 sm:w-35 md:hidden"
         aria-label = "Return to Homepage button"
       >
         <Image
@@ -75,20 +75,20 @@ export default function Header() {
             setIsMenuOpen(!isMenuOpen);
             if (isMenuOpen) setIsCategoriesOpen(false);
           }}
-          className="flex size-[30px] flex-col items-center justify-center gap-[5px] p-1 sm:size-[36px]"
+          className="flex size-7.5 flex-col items-center justify-center gap-1.25 p-1 sm:size-9"
           aria-label="Menu Button"
         >
-          <div className="h-[3px] w-[25px] rounded-[50px] bg-[#d9d9d9]" />
-          <div className="h-[3px] w-[25px] rounded-[50px] bg-[#d9d9d9]" />
-          <div className="h-[3px] w-[25px] rounded-[50px] bg-[#d9d9d9]" />
+          <div className="h-0.75 w-6.25 rounded-[50px] bg-[#d9d9d9]" />
+          <div className="h-0.75 w-6.25 rounded-[50px] bg-[#d9d9d9]" />
+          <div className="h-0.75 w-6.25 rounded-[50px] bg-[#d9d9d9]" />
         </button>
 
         {isMenuOpen && (
-          <div className="absolute top-[42px] -left-2 z-50 w-[150px] rounded-[10px] bg-[#094234] sm:top-[50px]">
+          <div className="absolute top-10.5 -left-2 z-50 w-37.5 rounded-[10px] bg-[#094234] sm:top-12.5">
             <Link
               href="/search"
               onClick={closeMenu}
-              className="block w-full p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:rounded-t-[10px] hover:bg-white/10"
+              className="block w-full p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:rounded-t-[10px] hover:bg-white/10"
               aria-label="Go to Search Recipes Page Button"
             >
               Search Recipes
@@ -97,7 +97,7 @@ export default function Header() {
             <div className="relative">
               <button
                 onMouseEnter={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                className="flex w-full items-center justify-between p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:bg-white/10"
+                className="flex w-full items-center justify-between p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:bg-white/10"
                 aria-label="Recipe Categories Drop-down Button"
               >
                 <span>Categories</span>
@@ -107,7 +107,7 @@ export default function Header() {
               {isCategoriesOpen && (
                 <div
                 onMouseLeave={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                className="absolute -top-0.5 left-38 w-[125px] rounded-[10px] bg-[#094234]"
+                className="absolute -top-0.5 left-38 w-31.25 rounded-[10px] bg-[#094234]"
                 >
                   {categories.map((category, index) => {
                     if (index === 0) {
@@ -116,7 +116,7 @@ export default function Header() {
                           key={index}
                           href={`/categories/${category.toLowerCase()}`}
                           onClick={closeMenu}
-                          className="block w-full p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:rounded-t-[10px] hover:bg-white/10"
+                          className="block w-full p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:rounded-t-[10px] hover:bg-white/10"
                           aria-label={`Go to page of recipes of only ${category}`}
                         >
                           {category}
@@ -129,7 +129,7 @@ export default function Header() {
                           key={index}
                           href={`/categories/${category.toLowerCase()}`}
                           onClick={closeMenu}
-                          className="block w-full p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
+                          className="block w-full p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
                           aria-label={`Go to page of recipes of only ${category}`}
                         >
                           {category}
@@ -142,7 +142,7 @@ export default function Header() {
                           key={index}
                           href={`/categories/${category.toLowerCase()}`}
                           onClick={closeMenu}
-                          className="block w-full p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:bg-white/10"
+                          className="block w-full p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:bg-white/10"
                           aria-label={`Go to page of recipes of only ${category}`}
                         >
                           {category}
@@ -182,7 +182,7 @@ export default function Header() {
               authState ? (
                 <button
                   onClick={() => { handleLogout(); closeMenu(); }}
-                  className="block w-full p-[15px] text-left font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
+                  className="block w-full p-3.75 text-left font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
                   aria-label="Logout Button"
                 >
                   Logout
@@ -191,7 +191,7 @@ export default function Header() {
                 <Link
                   href="/login"
                   onClick={closeMenu}
-                  className="block w-full p-[15px] font-abeezee text-[17px] leading-[22px] tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
+                  className="block w-full p-3.75 font-abeezee text-[17px] leading-5.5 tracking-[-0.408px] text-white hover:rounded-b-[10px] hover:bg-white/10"
                   aria-label="Go to Login Page"
                 >
                   Login
@@ -203,10 +203,10 @@ export default function Header() {
       </div>
 
       {/* Desktop navigation - visible only on desktop */}
-      <nav className="order-1 order-1 hidden flex-row flex-nowrap items-end gap-6 md:flex lg:gap-8">
+      <nav className="order-1 hidden flex-row flex-nowrap items-end gap-6 md:flex lg:gap-8">
         <Link 
           href="/" 
-          className="relative -ml-6 h-[55px] w-30 sm:h-15 sm:w-35 md:h-17 md:w-40"
+          className="relative -ml-6 h-13.75 w-7.5 sm:h-3.75 sm:w-8.75 md:h-4.25 md:w-10"
           aria-label="Go to Home Page"
         >
           <Image
@@ -219,7 +219,7 @@ export default function Header() {
         </Link>
         <Link
           href="/search"
-          className="font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:pb-4.5 lg:text-[17px]"
+          className="font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:pb-4.5 lg:text-[17px]"
           aria-label="Go to Search Recipes"
         >
           Search Recipes
@@ -228,7 +228,7 @@ export default function Header() {
         <div className="group relative">
           <button
             onMouseEnter={() => setIsCategoriesOpen(true)}
-            className="flex flex-row items-center gap-3 px-2 font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:pb-4.5 lg:text-[17px]"
+            className="flex flex-row items-center gap-3 px-2 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:pb-4.5 lg:text-[17px]"
             aria-label="Recipe Categories Drop-down Button"
           >
             <span>Categories</span>
@@ -245,7 +245,7 @@ export default function Header() {
                   key={index}
                   href={`/categories/${category.toLowerCase()}`}
                   onClick={() => setIsCategoriesOpen(false)}
-                  className={`block w-full p-[15px] font-abeezee text-[17px] tracking-[-0.408px] text-white hover:bg-white/10 ${
+                  className={`block w-full p-3.75 font-abeezee text-[17px] tracking-[-0.408px] text-white hover:bg-white/10 ${
                     index === 0 ? 'hover:rounded-t-[10px]' : ''
                   } ${index === categories.length - 1 ? 'hover:rounded-b-[10px]' : ''}`}
                   aria-label={`Go to page of recipes of only ${category}`}
@@ -259,21 +259,21 @@ export default function Header() {
 
         {/* <Link
           href="/blog"
-          className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+          className="text-white font-abeezee text-[15px] md:pb-4.5 lg:text-[17px] leading-5.5 tracking-[-0.408px] hover:text-white/80 transition-colors"
         >
           Blog
         </Link>
 
         <Link
           href="/store"
-          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-5.5 tracking-[-0.408px] hover:text-white/80 transition-colors"
         >
           Store
         </Link>
 
         <Link
           href="/contact"
-          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-[22px] tracking-[-0.408px] hover:text-white/80 transition-colors"
+          className="text-white font-abeezee text-[15px] md:pb-2 lg:text-[17px] leading-5.5 tracking-[-0.408px] hover:text-white/80 transition-colors"
         >
           Contact
         </Link> */}
@@ -284,7 +284,7 @@ export default function Header() {
       </div> */}
 
       {/* Icons - right side on both mobile and desktop */}
-      <div className="order-3 flex items-center gap-[2px] md:order-4">
+      <div className="order-3 flex items-center gap-0.5 md:order-4">
         {/* <button className="w-[30px] h-[30px] sm:w-[36px] sm:h-[36px]">
           <Image
             src="/images/bookmark-book.svg"
@@ -312,7 +312,7 @@ export default function Header() {
           authState ? (
             <button
               onClick={handleLogout}
-              className="hidden font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:block lg:text-[17px]"
+              className="hidden font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:block lg:text-[17px]"
               aria-label="Logout Button"
             >
               Logout
@@ -320,7 +320,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="hidden font-abeezee text-[15px] leading-[22px] tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:block lg:text-[17px]"
+              className="hidden font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-white transition-colors hover:text-white/80 md:block lg:text-[17px]"
               aria-label="Go to Login Page"
             >
               Login
