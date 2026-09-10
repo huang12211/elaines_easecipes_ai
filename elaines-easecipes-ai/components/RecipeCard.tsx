@@ -24,7 +24,7 @@ export default function RecipeCard({
   return (
     <Link 
     href={`/recipes/${slug}`} 
-    className="relative block aspect-square w-full max-w-70 min-w-40 shrink-0 cursor-pointer justify-self-center overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
+    className="relative block aspect-square w-full max-w-70 min-w-40 shrink-0 cursor-pointer justify-self-center overflow-hidden rounded-2xl border-[0.5px] shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)]"
     >
       <div className="absolute inset-0">
         <Image

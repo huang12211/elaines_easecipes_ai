@@ -10,10 +10,10 @@ import { recipes, ingredients, measurementUnits, recipe_ingredient_measUnit, rec
 const seedIngredients = [
     {ingr: 'Almond Flour'}, {ingr: 'Apple(s)'},
     {ingr: 'Baking Powder'}, { ingr: 'Baking Soda'}, {ingr: 'Basil'}, {ingr: 'Black Beans'}, {ingr: 'Black Pepper'}, {ingr: 'Black Sesame Paste'}, {ingr: 'Black Sesame Seeds'}, { ingr: 'Blueberries'}, {ingr: 'Brandy / Rum / Whiskey'}, { ingr: 'Brown Sugar'}, 
-    {ingr: 'Canola Oil'}, {ingr: "Carrot(s)"}, {ingr: 'Cayenne Pepper'}, {ingr: 'Chicken Thighs, boneless'}, {ingr: 'Chickpeas'}, {ingr: 'Cinnamon'}, {ingr: 'Cocoa Powder'}, {ingr: 'Coriander'}, {ingr: 'Coriander Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'}, {ingr: 'Cranberries'},
+    {ingr: 'Canola Oil'}, {ingr: "Carrot(s)"}, {ingr: 'Cayenne Pepper'}, {ingr: 'Chicken Thighs, boneless'}, {ingr: 'Chickpeas'}, {ingr: 'Cinnamon'}, {ingr: 'Cocoa Powder'}, {ingr: 'Shào Xīng Cooking Wine'}, {ingr: 'Coriander'}, {ingr: 'Coriander Powder'}, {ingr: 'Cornstarch'}, {ingr: 'Corn Kernels'}, {ingr: 'Cranberries'},
     {ingr: 'Dark Chocolate, chopped'}, {ingr: 'Dijon Mustard'},
     {ingr: 'Egg(s)'}, {ingr: 'Egg White(s)'}, {ingr: 'Egg Yolk(s)'},
-    {ingr: 'Flour' }, {ingr: 'Fresh Fruit'}, {ingr: 'Fresh Parsley'},
+    {ingr: 'Fermented Bean Curd'}, {ingr: 'Flour' }, {ingr: 'Fresh Fruit'}, {ingr: 'Fresh Ginger'}, {ingr: 'Fresh Parsley'}, 
     {ingr: 'Garlic, minced'}, {ingr: 'Gelatin Powder'}, {ingr: 'Ginger Powder'}, {ingr: 'Golden Raisins'}, {ingr: 'Granulated Sugar'}, { ingr: 'Tips of Green Onions' }, { ingr: 'Ground Cinnamon'}, {ingr: 'Ground Cloves'},
     {ingr: 'Heavy Cream'}, {ingr: 'Honey / Maple Syrup'}, { ingr: 'Hot Water' }, {ingr: 'Hot Sauce'},
     {ingr: 'Ice Cold Water'},
@@ -28,7 +28,8 @@ const seedIngredients = [
     {ingr: 'Tomato Sauce'},
     {ingr: 'Unsalted Butter' }, 
     {ingr: 'Vanilla Extract' }, { ingr: 'Vegetable Oil'}, {ingr: 'Vermicelli Noodles'},
-    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'White Vinegar'}, {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'}, {ingr: 'Whole Milk'},
+    {ingr: 'Walnuts (optional)'}, {ingr: 'Water'}, {ingr: 'Water Spinach | Ong Choy | Kōng Xīn Cài 空心菜'}, {ingr: 'White Vinegar'}, {ingr: 'White Pepper'},
+    {ingr: 'Whites of Green Onions'}, {ingr: 'White Wine Vinegar / Apple Cider Vinegar / Lemon Juice'}, {ingr: 'Whole Milk'},
     {ingr: 'Yeast'}, 
     {ingr: 'Zucchini'},
 ];
@@ -38,8 +39,9 @@ const seedIngredients = [
 //------------------------------------------------//
 const seedMeasurementUnits =[
     {meas_unit: ' '}, {meas_unit: '12 oz can'}, {meas_unit: '15 oz can'}, {meas_unit: '19 oz can'}, 
-    {meas_unit: 'clove(s) of'}, { meas_unit: 'cup(s)'}, 
-    {meas_unit: 'g'}, 
+    {meas_unit: 'bunch(es) of'},
+    {meas_unit: 'clove(s) of'}, { meas_unit: 'cup(s)'}, {meas_unit: 'cube(s) of'},
+    {meas_unit: 'g'}, {meas_unit: 'inch piece of'},
     {meas_unit: 'ml'},
     {meas_unit: 'oz(s)'}, 
     {meas_unit: 'sprigs of'},
@@ -95,7 +97,7 @@ const seedRecipes = [
     rating: 5,
     views: 3,
     bookmarked: false,
-    featured: true,
+    featured: false,
     cookTime: "1h",
     baseServings: 12,
     minServings: 12,
@@ -121,7 +123,7 @@ const seedRecipes = [
     rating: 5,
     views: 5,
     bookmarked: false,
-    featured: true,
+    featured: false,
     cookTime: "10 min",
     baseServings: 1,
     minServings: 1,
@@ -386,7 +388,7 @@ const seedRecipes = [
     title: "Onion Pancakes",
     slug: "onion-pancakes",
     tags: JSON.stringify(["Breakfast"]),
-    metaDescription: "A recipe for onion pancakes which are a classic chinese breakfast staple. Freeze them so that you can pull one out and crisp it up in the pan whenever you're craving one.",
+    metaDescription: "A recipe for onion pancakes which are a classic Chinese breakfast staple. Freeze them so that you can pull one out and crisp it up in the pan whenever you're craving one.",
     image: "/images/onion-pancakes.webp",
     rating: 4,
     views: 13,
@@ -444,6 +446,35 @@ const seedRecipes = [
       "Serve with chopped cilantro on top.",
     ]),
     createdAt: new Date(2026, 2, 10),
+  },
+  {
+    title: "Water Spinach with Fermented Tofu Sauce | Ong Choy",
+    slug: "water-spinach-with-fermented-tofu-sauce",
+    tags: JSON.stringify(["Mains", "Chinese", "Vegetarian"]),
+    metaDescription: "Stir-fried water spinach with a velvety tofu sauce. A quick and easy Cantonese vegetable dish to whip up on a busy weeknight.",
+    image: "/images/kong-xin-cai.webp",
+    rating: 4.5,
+    views: 10,
+    bookmarked: false,
+    featured: true,
+    cookTime: "15 min",
+    baseServings: 8,
+    minServings: 4,
+    servingIncrement: 4,
+    directions: JSON.stringify([
+      "title: Prep work:",
+      "Bring a large pot of water to a boil.",
+      "Wash the water spinach, making sure to remove any dirt or grit.",
+      "Tear up the stems of the water spinach into 2-3 inch pieces and set aside.",
+      "In a small bowl, make the tofu slurry by smashing the tofu, mixing in the cooking wine, and pepper.",
+      "title: Stir-fry:",
+      "Heat the oil in a wok or large pan over medium-high heat. Then add the ginger and garlic and stir-fry for 30 seconds until fragrant.",
+      "Blanch the water spinach in the large pot of boiling water for 1 minute.",
+      "Transfer the water spinach to the wok and stir-fry for 1-2 minutes until it starts to wilt.",
+      "Add the tofu slurry and stir-fry for another 1-2 minutes until the sauce thickens and coats the water spinach.",
+      "Serve hot."
+    ]),
+    createdAt: new Date(2019, 3, 15),
   },
 ];
 
@@ -624,6 +655,13 @@ const seedIngredientMeasUnit = [
   {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Onion(s)', min_amount: '1'},
   {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Carrot(s)', min_amount: '1'},
   {recipe_id: 'thai-chicken-peanut-noodles', component: 'Stir Fry:', amount: '1', measUnit_id: ' ', ingredient_id: 'Zucchini', min_amount: '1'},
+  // Water Spinach with Fermented Bean Curd Sauce
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '2', measUnit_id: 'bunch(es) of', ingredient_id: 'Water Spinach | Ong Choy | Kōng Xīn Cài 空心菜', min_amount: '1'},
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '6', measUnit_id: 'cube(s) of', ingredient_id: 'Fermented Bean Curd', min_amount: '3'},
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Shào Xīng Cooking Wine', min_amount: '1'},
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '2', measUnit_id: 'tsp(s)', ingredient_id: 'White Pepper', min_amount: '1'},
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '4', measUnit_id: 'clove(s) of', ingredient_id: 'Garlic, minced', min_amount: '3'},
+  {recipe_id: 'water-spinach-with-fermented-tofu-sauce', amount: '1', measUnit_id: 'inch piece of', ingredient_id: 'Fresh Ginger', min_amount: '1/2'},
 ];
 
 async function seed() {
@@ -666,14 +704,18 @@ async function seed() {
 
   for (const recipe of seedRecipes) {
     db.insert(recipes).values(recipe).onConflictDoNothing().run();
-    //Only update the _______ for the recipes
-    // db.insert(recipes).values(recipe).onConflictDoUpdate({
-    //   target: recipes.slug,
-    //   set: { 
-    //     metaDescription: recipe.metaDescription, 
-    //     image: recipe.image
-    //   },
-    // }).run(); 
+    //Only update the featured flag for the recipes
+    db.insert(recipes).values(recipe).onConflictDoUpdate({
+      target: recipes.slug,
+      set: { 
+        // metaDescription: recipe.metaDescription, 
+        // image: recipe.image,
+        // featured: recipe.featured,
+        // baseServings: recipe.baseServings,
+        // minServings: recipe.minServings,
+        // servingIncrement: recipe.servingIncrement,
+      },
+    }).run(); 
   }
   console.log(`Seeded ${seedRecipes.length} recipes`);
 

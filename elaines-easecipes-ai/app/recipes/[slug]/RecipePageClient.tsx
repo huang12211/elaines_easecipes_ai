@@ -113,12 +113,12 @@ function parseStyledText(text: string, keyPrefix: string = ''): React.ReactNode[
 
 function IngredientCheckbox({ amount, measUnit, ingredient, checked, onChange }: IngredientCheckboxProps) {
   return (
-    <label className="flex cursor-pointer items-center gap-[7px] px-[5px] py-[2px]">
+    <label className="flex cursor-pointer items-start gap-1.75 px-1.25 py-0.5">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="relative size-[14px] cursor-pointer appearance-none border border-black checked:border-[#094234] checked:bg-[#094234] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-1/2 checked:after:text-[10px] checked:after:text-white checked:after:content-['✓']"
+        className="relative mt-0.5 size-3.5 shrink-0 cursor-pointer appearance-none border border-black checked:border-[#094234] checked:bg-[#094234] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-1/2 checked:after:text-[10px] checked:after:text-white checked:after:content-['✓']"
       />
       <span className={`font-abeezee text-[14px] leading-normal tracking-[0.25px] ${checked ? 'text-gray-400 line-through' : 'text-black'}`}>
         {amount} {measUnit} {ingredient}
@@ -240,32 +240,31 @@ export default function RecipePageClient({ slug }: { slug: string }) {
       {/* Recipe Title Section */}
       <section className="px-[10px] pt-[30px] pb-5 sm:px-5 md:px-10 lg:px-20">
         <div className="mx-auto max-w-175">
-          <div className="flex items-center gap-[30px] pb-2">
-            <h1 className="leading-1.2 font-abeezee text-[24px] tracking-[-0.48px] text-black sm:text-[28px] md:text-[32px]">
+          <div className="flex items-start gap-[30px] pb-2">
+            <h1 className="leading-1.2 tracking-[-0.48px] text-black">
               {recipe.title}
             </h1>
-            <div className="flex items-center gap-[6px]">
+            <div className="mt-3 flex shrink-0 items-center gap-[6px]">
               <button
                 onClick={toggleBookmark}
-                className="flex h-5 items-center pr-[2px]"
+                className="flex items-center pr-[2px]"
                 aria-label="Bookmark Recipe Button"
               >
                 <Image
                   src={isBookmarked ? "/images/bookmark-filled.svg" : "/images/bookmark.svg"}
                   alt="bookmark"
-                  width={16}
-                  height={18}
+                  width={20}
+                  height={22}
                 />
               </button>
               <button 
-              className="size-[20px]"
               aria-label="Shopping Cart Button"
               >
                 <Image
                   src="/images/cart.svg"
                   alt="Add to basket"
-                  width={20}
-                  height={20}
+                  width={24}
+                  height={24}
                 />
               </button>
             </div>

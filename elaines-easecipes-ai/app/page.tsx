@@ -105,7 +105,7 @@ export default async function Home() {
         </div>
         {featuredRecipe && (
           <Link href={`/recipes/${featuredRecipe.slug}`}>
-            <div className="absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)] sm:max-w-175">
+            <div className="absolute top-6.5 left-1/2 aspect-294/149 h-[calc(100%-80px)] max-w-90 -translate-x-1/2 overflow-hidden rounded-2xl border shadow-[4px_4px_4px_rgba(0,0,0,0.25)] transition-transform hover:scale-102 hover:shadow-[4px_4px_4px_rgba(0,0,0,0.5)] sm:max-w-175">
               <Image
                 src={featuredRecipe.image}
                 alt={featuredRecipe.title}
@@ -120,9 +120,9 @@ export default async function Home() {
                   this week&apos;s obsession
                 </span>
               </div>
-              <div className="absolute bottom-0 left-0 h-13.5 w-57.5 overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white sm:h-14 sm:w-90 md:h-16 md:w-105 lg:h-18 lg:w-[70%]">
-                <div className="flex w-full items-center justify-between px-2 py-1">
-                  <span className="font-abeezee text-sm leading-normal tracking-[0.25px] whitespace-nowrap text-black sm:text-base md:text-lg lg:text-xl">
+              <div className="absolute bottom-0 left-0 h-auto w-[85%] overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white pb-2">
+                <div className="flex w-full items-start justify-between gap-2 px-2 py-1">
+                  <span className="font-abeezee text-sm leading-normal font-semibold tracking-tight text-black italic sm:text-base md:text-lg lg:text-xl">
                     {featuredRecipe.title}
                   </span>
                   <button aria-label="Bookmark Recipe Button">
