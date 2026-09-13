@@ -129,6 +129,7 @@ export default function SearchPage() {
                 alt=""
                 fill
                 className="object-cover opacity-30"
+                sizes="(max-width: 767px) 100vw, 50vw"
                 priority
               />
             </div>

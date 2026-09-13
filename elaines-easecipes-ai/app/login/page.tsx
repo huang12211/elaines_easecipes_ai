@@ -50,6 +50,7 @@ export default function LoginPage() {
           alt=""
           fill
           className="object-cover opacity-30"
+          sizes="100vw"
           priority
         />
       </div>
