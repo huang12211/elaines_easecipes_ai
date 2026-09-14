@@ -16,6 +16,13 @@ if (!fs.existsSync(dataDir)) {
 const sqlite = new Database(dbPath);
 sqlite.pragma('journal_mode = WAL');
 
+// Lets SQL queries strip accents (e.g. via `strip_accents(column) LIKE ...`) to match
+// accent-insensitively against user input that's already been normalized in JS.
+sqlite.function('strip_accents', (value: unknown) => {
+  if (value == null) return value;
+  return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+});
+
 export const db = drizzle(sqlite, { schema });
 
 // Only run migrations at server runtime, not during `next build`

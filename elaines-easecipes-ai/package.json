@@ -15,15 +15,18 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:root": "drizzle-kit migrate --config ./drizzle.config.ts",
     "db:seed": "npx tsx lib/db/seed.ts",
+    "db:seed:dev": "npx tsx --env-file=.env.local lib/db/seed.ts",
     "db:studio": "drizzle-kit studio",
     "db:drop": "drizzle-kit drop",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "@ai-sdk/cohere": "^4.0.41",
     "@ai-sdk/google": "^3.0.79",
     "@ai-sdk/google-vertex": "^4.0.137",
     "@ai-sdk/openai": "^4.0.60",
     "@ai-sdk/react": "^3.0.187",
+    "@langfuse/client": "^5.11.0",
     "@langfuse/otel": "^5.11.0",
     "@langfuse/tracing": "^5.11.0",
     "@langfuse/vercel-ai-sdk": "^5.11.0",

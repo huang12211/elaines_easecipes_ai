@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { recipes, recipe_ingredient_measUnit, userBookmarks } from '@/lib/db/schema';
-import { like, eq, or, and, inArray } from 'drizzle-orm';
+import { like, eq, or, and, inArray, sql } from 'drizzle-orm';
 import { verifySessionToken, parseCookie, COOKIE_NAME } from '@/lib/auth/session';
 
 export const dynamic = 'force-dynamic';
@@ -26,13 +26,14 @@ export async function GET(request: Request) {
   // Build conditions array
   const conditions = [];
 
-  // Keywords search - split by spaces/commas, each term must match title or tags
+  // Keywords search - split by spaces/commas, each term must match title or tags after removing accents
   if (keywords) {
-    const terms = keywords.split(/[\s,]+/).filter(Boolean);
+    const normalizedKeywords = keywords.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const terms = normalizedKeywords.split(/[\s,]+/).filter(Boolean);
     for (const term of terms) {
       const termCondition = or(
-        like(recipes.title, `%${term}%`),
-        like(recipes.tags, `%${term}%`)
+        like(sql`strip_accents(${recipes.title})`, `%${term}%`),
+        like(sql`strip_accents(${recipes.tags})`, `%${term}%`)
       );
       if (termCondition) conditions.push(termCondition);
     }
@@ -45,14 +46,15 @@ export async function GET(request: Request) {
 
   // Ingredients search - split by spaces/commas, recipe must contain all terms
   if (ingredients) {
-    const terms = ingredients.split(/[\s,]+/).filter(Boolean);
+    const normalizedIngredients = ingredients.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const terms = normalizedIngredients.split(/[\s,]+/).filter(Boolean);
     let validSlugs: string[] | null = null;
 
     for (const term of terms) {
       const matchingRecipes = db
         .select({ recipe_id: recipe_ingredient_measUnit.recipe_id })
         .from(recipe_ingredient_measUnit)
-        .where(like(recipe_ingredient_measUnit.ingredient_id, `%${term}%`))
+        .where(like(sql`strip_accents(${recipe_ingredient_measUnit.ingredient_id})`, `%${term}%`))
         .all();
 
       const slugs = [...new Set(matchingRecipes.map(r => r.recipe_id).filter(Boolean))] as string[];
