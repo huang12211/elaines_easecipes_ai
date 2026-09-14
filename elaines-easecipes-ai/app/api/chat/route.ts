@@ -114,7 +114,9 @@ const handler = async (req: Request) => {
           const recipes= startActiveObservation(
             "retrieve-recipes",
             (retriever) => {
-              retriever.update({ input: query});
+              retriever.update({
+                input: `query Embedding is: ${queryEmbedding.length} dims: [${queryEmbedding.slice(0, 5).map(n => n.toFixed(3)).join(", ")}, ...]`,
+              });
 
               const allEmbeddings = db.select().from(recipeEmbeddings).all();
 
