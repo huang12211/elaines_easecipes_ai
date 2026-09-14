@@ -53,7 +53,7 @@ export default function SearchPage() {
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { messages, sendMessage, status } = useChat();
+  const { messages, sendMessage, status, error } = useChat();
   const [chatInput, setChatInput] = useState("");
   const chatLoading = status === "submitted" || status === "streaming";
   const chatSubmitting = status === "submitted";
@@ -333,6 +333,13 @@ export default function SearchPage() {
                     <div className="flex justify-start">
                       <div className="rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black italic">
                         {"thinking" + ".".repeat(thinkingDots)}
+                      </div>
+                    </div>
+                  )}
+                  {error && (
+                    <div className="flex justify-start">
+                      <div className="rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-2.5 font-abeezee text-[15px] leading-5.5 font-semibold tracking-[-0.408px] text-pink-700 sm:text-[17px]">
+                        {error.message}
                       </div>
                     </div>
                   )}
