@@ -704,13 +704,13 @@ async function seed() {
 
   for (const recipe of seedRecipes) {
     db.insert(recipes).values(recipe).onConflictDoNothing().run();
-    //Only update the featured flag for the recipes
+    //Only update the ____ field for the recipes
     db.insert(recipes).values(recipe).onConflictDoUpdate({
       target: recipes.slug,
       set: { 
         // metaDescription: recipe.metaDescription, 
         // image: recipe.image,
-        // featured: recipe.featured,
+        featured: recipe.featured,
         // baseServings: recipe.baseServings,
         // minServings: recipe.minServings,
         // servingIncrement: recipe.servingIncrement,
