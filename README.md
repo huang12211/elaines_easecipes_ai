@@ -7,6 +7,7 @@ A full-stack recipe discovery app with AI-powered search: browse, search, and bo
 ## Highlights
 
 - **AI / RAG chat assistant** — user queries are embedded (`gemini-embedding-001`), matched against precomputed recipe embeddings via cosine similarity, and the top matches are injected as context into a streamed `gemini-2.5-flash-lite` chat response ([app/api/chat/route.ts](app/api/chat/route.ts)).
+- **Langfuse** - for LLM observability, and for prompt management 
 - **Authentication** — email/password auth with `bcryptjs` password hashing, stateless JWT sessions (`jose`), and HttpOnly session cookies ([lib/auth/session.ts](lib/auth/session.ts), [app/api/auth/](app/api/auth/)).
 - **Relational schema design** — recipes, ingredients, and measurement units are normalized into a many-to-many join table (`recipe_ingredient_measUnit`), plus per-user bookmarks and a vector-embedding table, modeled with Drizzle ORM ([lib/db/schema.ts](lib/db/schema.ts)).
 - **Search & filtering API** — composable SQL query building (keyword, category, ingredient, and combined filters) with optional per-user personalization ([app/api/recipes/search/route.ts](app/api/recipes/search/route.ts)).
