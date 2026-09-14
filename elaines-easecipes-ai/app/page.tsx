@@ -117,7 +117,7 @@ export default async function Home() {
               />
               <div className= "absolute top-4 left-4 -rotate-4 rounded-[30px] border border-[#711F3B] bg-[#da1d5f] px-3 pt-px pb-0.75">
                 <span className = "font-abeezee text-[14px] leading-normal font-black tracking-[0.25px] text-[#ffffff] uppercase">
-                  this week&apos;s obsession
+                  this month&apos;s obsession
                 </span>
               </div>
               <div className="absolute bottom-0 left-0 h-auto w-[85%] overflow-hidden rounded-tr-[10px] rounded-bl-2xl bg-white pb-2">
