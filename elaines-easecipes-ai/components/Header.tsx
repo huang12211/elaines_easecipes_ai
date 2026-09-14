@@ -206,7 +206,7 @@ export default function Header() {
       <nav className="order-1 hidden flex-row flex-nowrap items-end gap-6 md:flex lg:gap-8">
         <Link 
           href="/" 
-          className="relative -ml-6 h-13.75 w-7.5 sm:h-3.75 sm:w-8.75 md:h-4.25 md:w-10"
+          className="relative -ml-6 h-13.75 w-30 sm:h-15 sm:w-35 md:h-17 md:w-40"
           aria-label="Go to Home Page"
         >
           <Image
