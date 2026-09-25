@@ -60,6 +60,12 @@ export default function SearchPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [thinkingDots, setThinkingDots] = useState(0);
 
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [micError, setMicError] = useState<string | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+
   useEffect(() => {
     if (!chatSubmitting) return;
     const interval = setInterval(() => setThinkingDots((d) => (d + 1) % 4), 500);
@@ -95,6 +101,53 @@ export default function SearchPage() {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSearch();
+    }
+  };
+
+  const startRecording = async () => {
+    setMicError(null);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        stream.getTracks().forEach((track) => track.stop());
+
+        const audioBlob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType });
+        setIsTranscribing(true);
+        try {
+          const formData = new FormData();
+          formData.append("file", audioBlob, "recording.webm");
+          const response = await fetch("/api/transcribe", { method: "POST", body: formData });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || "Transcription failed");
+          setChatInput(data.text);
+        } catch {
+          setMicError("Couldn't transcribe that, please try again.");
+        } finally {
+          setIsTranscribing(false);
+        }
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch {
+      setMicError("Microphone access is required to use voice input.");
+    }
+  };
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      mediaRecorderRef.current?.stop();
+      setIsRecording(false);
+    } else {
+      startRecording();
     }
   };
 
@@ -347,6 +400,9 @@ export default function SearchPage() {
                 </div>
               )}
 
+              {micError && (
+                <p className="mb-1 font-abeezee text-[13px] text-pink-700">{micError}</p>
+              )}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -361,11 +417,24 @@ export default function SearchPage() {
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Ask about recipes, ingredients, cooking tips..."
+                    placeholder={isTranscribing ? "Transcribing..." : "Ask about recipes, ingredients, cooking tips..."}
                     className="w-full bg-transparent px-4 py-2.5 font-abeezee text-[15px] leading-5.5 tracking-[-0.408px] text-black outline-none placeholder:text-[rgba(60,60,67,0.6)] sm:text-[17px]"
                     aria-label="Chat with Pitaya Pal input"
                   />
                 </div>
+                <button
+                  type="button"
+                  onClick={toggleRecording}
+                  disabled={chatLoading || isTranscribing}
+                  className={`h-full shrink-0 place-self-end rounded-[20px] px-3 py-2 transition-colors disabled:opacity-50 ${
+                    isRecording ? "bg-pink-700 hover:bg-pink-800" : "bg-[#19604f] hover:bg-[#094234]"
+                  }`}
+                  aria-label={isRecording ? "Stop recording" : "Record voice input"}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" className="size-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                  </svg>
+                </button>
                 <button
                   type="submit"
                   disabled={chatLoading || !chatInput.trim()}

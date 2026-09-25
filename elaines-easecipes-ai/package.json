@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@ai-sdk/cohere": "^4.0.41",
+    "@ai-sdk/elevenlabs": "^3.0.48",
     "@ai-sdk/google": "^3.0.79",
     "@ai-sdk/google-vertex": "^4.0.137",
     "@ai-sdk/openai": "^4.0.60",
@@ -31,7 +32,7 @@
     "@langfuse/tracing": "^5.11.0",
     "@langfuse/vercel-ai-sdk": "^5.11.0",
     "@opentelemetry/sdk-node": "^0.222.0",
-    "ai": "^7.0.93",
+    "ai": "^7.0.114",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.6.2",
     "drizzle-orm": "^0.45.1",
