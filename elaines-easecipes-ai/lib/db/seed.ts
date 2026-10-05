@@ -736,7 +736,7 @@ async function seed() {
         // baseServings: recipe.baseServings,
         // minServings: recipe.minServings,
         // servingIncrement: recipe.servingIncrement,
-        directions: recipe.directions,
+        // directions: recipe.directions,
       },
     }).run(); 
   }
