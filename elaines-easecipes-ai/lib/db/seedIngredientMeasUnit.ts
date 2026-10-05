@@ -107,6 +107,17 @@ export const seedIngredientMeasUnit = [
   // {recipe_id: 'dijon-mustard-vinaigrette', amount: '1 1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Garlic Powder', min_amount: '1 1/2' },
   // {recipe_id: 'dijon-mustard-vinaigrette', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2' },
   // {recipe_id: 'dijon-mustard-vinaigrette', amount: '1 1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Black Pepper', min_amount: '1 1/2' },
+  // Easy Egg Bread
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '2 1/4', measUnit_id: 'tsp(s)', ingredient_id: 'Yeast', min_amount: '2 1/4'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '1/3', measUnit_id: 'cup(s)', ingredient_id: 'Water', min_amount: '1/3'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '3', measUnit_id: ' ', ingredient_id: 'Egg(s)', min_amount: '3'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '1', measUnit_id: ' ', ingredient_id: 'Egg Yolk(s)', min_amount: '1'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '1/4', measUnit_id: 'cup(s)', ingredient_id: 'Vegetable Oil', min_amount: '1/4'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Granulated Sugar', min_amount: '2'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2'},
+  {recipe_id: 'easy-egg-bread', component: 'Dough:', amount: '2 1/4', measUnit_id: 'cup(s)', ingredient_id: 'Flour', min_amount: '2 1/4'},
+  {recipe_id: 'easy-egg-bread', component: 'Egg Wash:', amount: '1', measUnit_id: ' ', ingredient_id: 'Egg(s)', min_amount: '1'},
+  {recipe_id: 'easy-egg-bread', component: 'Egg Wash:', amount: '1/2', measUnit_id: 'tsp(s)', ingredient_id: 'Salt', min_amount: '1/2'},
   // Fluffy Blueberry Muffins
   {recipe_id: 'fluffy-blueberry-muffins', amount: '1/3', measUnit_id: 'cup(s)', ingredient_id: 'Unsalted Butter', min_amount: '1/3'},
   {recipe_id: 'fluffy-blueberry-muffins', amount: '2', measUnit_id: 'tbsp(s)', ingredient_id: 'Vegetable Oil', min_amount: '2'},
